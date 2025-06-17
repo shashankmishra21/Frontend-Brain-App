@@ -2,6 +2,7 @@ import { CrossIcon } from "../icons/CrossIcon";
 import { Button } from "./Button";
 
 export function CreateComponentModal({ open, onClose }) {
+
     return (
         <div>
             {open && <div className="w-full h-full bg-gray-100 fixed top-0 left-0 opacity-60 flex justify-center">
@@ -9,7 +10,9 @@ export function CreateComponentModal({ open, onClose }) {
                 <div className="flex flex-col justify-center">
                     <span className="bg-white opacity-100 p-4 rounded">
                         <div className="flex justify-end">
-                            <CrossIcon />
+                            <div onClick={onClose} className="cursor-pointer" >
+                                <CrossIcon />
+                            </div>
                         </div>
                         <div>
                             <Input placeholder={"Title"} />
