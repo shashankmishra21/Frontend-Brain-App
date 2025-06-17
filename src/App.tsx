@@ -14,7 +14,7 @@ function App() {
     <div>
 <Sidebar/>
 
-    <div className='p-4 ml-72 min-h-screen bg-gray-200 border-4'>
+    <div className='p-4 ml-72 min-h-screen bg-orange-400 border-4'>
       <CreateComponentModal open={modalOpen} onClose={() => {
         setModalOpen(false);
       }} />
