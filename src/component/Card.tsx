@@ -7,16 +7,15 @@ interface Cardprops {
 }
 
 function extractYouTubeId(url: string): string | null {
-  const regExp = /^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|watch\?.+&v=)([^#&?]*).*/;
-  const match = url.match(regExp);
-  return match && match[1].length === 11 ? match[1] : null;
+    const regExp = /^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|watch\?.+&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return match && match[1].length === 11 ? match[1] : null;
 }
-
 
 export function Card({ title, link, type }: Cardprops) {
     return (
-        
-        <div className="bg-white shadow-sm rounded-lg p-4 m-4 border-slate-200 border max-w-72 min-h-48 min-w-72">
+
+        <div className="bg-white shadow-sm rounded-lg p-4 m-4 border-slate-200 border max-w-78 min-h-48 min-w-72">
             <div className="flex justify-between">
                 <div className="flex items-center text-md">
                     <div className="text-gray-500 pr-2">
@@ -52,8 +51,18 @@ export function Card({ title, link, type }: Cardprops) {
                 )}
 
 
-                {type === "twitter" &&
-                    <blockquote className="twitter-tweet"> <a href={link.replace("x.com", "twitter.com")}></a></blockquote>}
+                {type === "twitter" && (
+                    <div className="w-full max-h-96 overflow-y-auto overflow-x-hidden">
+                        <blockquote
+                            className="twitter-tweet"
+                            data-width="100%"
+                            style={{ width: '100%', maxWidth: '100%', margin: 0 }}
+                        >
+                            <a href={link.replace("x.com", "twitter.com")}></a>
+                        </blockquote>
+                    </div>
+                )}
+
 
             </div>
         </div>

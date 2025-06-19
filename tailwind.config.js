@@ -12,6 +12,7 @@ export default {
           300: "#fed7aa", //neutral
           400: "#F8FAFC", //bg
           500: "#FFFFFF", //card
+          600: "#d9d9d9", //sidebar
         },
         gray: {
           100: "#1E293B", //text primary
