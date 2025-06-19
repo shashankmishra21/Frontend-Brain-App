@@ -31,7 +31,7 @@ export function Signin() {
             navigate("/home");
         } catch (err) {
             console.error(err);
-            alert("Signup failed!");
+            alert("Signin failed!");
         }
     }
 

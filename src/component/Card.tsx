@@ -3,7 +3,7 @@ import { ShareIcon } from "../icons/ShareIcon";
 interface Cardprops {
     title: string;
     link: string;
-    type: "twitter" | "youtube";
+    type: string;
 }
 
 function extractYouTubeId(url: string): string | null {
@@ -11,6 +11,12 @@ function extractYouTubeId(url: string): string | null {
     const match = url.match(regExp);
     return match && match[1].length === 11 ? match[1] : null;
 }
+
+// function getLinkedInEmbedURL(normalUrl: string): string | null {
+//   const match = normalUrl.match(/activity-(\d+)/);
+//   return match ? `https://www.linkedin.com/embed/feed/update/urn:li:share:${match[1]}` : null;
+// }
+
 
 export function Card({ title, link, type }: Cardprops) {
     return (
@@ -62,6 +68,19 @@ export function Card({ title, link, type }: Cardprops) {
                         </blockquote>
                     </div>
                 )}
+{/* 
+                {type === "linkedin" && getLinkedInEmbedURL(link) && (
+  <iframe
+    src={getLinkedInEmbedURL(link)!}
+    height="902"
+    width="504"
+    frameBorder="0"
+    allowFullScreen
+    title="LinkedIn Post"
+    className="mx-auto"
+  ></iframe>
+)}
+ */}
 
 
             </div>
