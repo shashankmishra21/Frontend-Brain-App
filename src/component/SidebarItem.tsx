@@ -1,21 +1,17 @@
-import { ReactElement } from "react";
+interface SidebarItemProps {
+  text: string;
+  icon?: React.ReactNode;
+  onClick?: () => void;
+}
 
-type SidebarItemProps = {
-    text: string;
-    icon: ReactElement;
-};
-
-export function SidebarItem({ text, icon }: SidebarItemProps) {
-    return (
-  <div className="flex w-full py-2 px-6 ml-6 cursor-pointer ">
-    <div className="w-7 h-7 text-xl mr-4 flex items-center justify-center text-gray-100">
-      {icon}
-    </div>
-
-    <div className="text-gray-100 font-light text-lg leading-none transition-colors duration-200 rounded-md hover:text-orange-100">
+export function SidebarItem({ text, icon, onClick }: SidebarItemProps) {
+  return (
+    <div
+      onClick={onClick}
+      className="flex items-center px-6 py-2 text-black hover:bg-orange-100 cursor-pointer font-light"
+    >
+      {icon && <span className="mr-4 mt-2">{icon}</span>}
       {text}
     </div>
-  </div>
-);
-
+  );
 }

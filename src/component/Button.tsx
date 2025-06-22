@@ -10,8 +10,8 @@ interface ButtonProps {
 }
 
 const variantClasses = {
-    "primary": "bg-orange-100 text-gray-100",
-    "secondary": "bg-orange-600 text-gray-100",
+    "primary": "bg-orange-100 text-gray-900 hover:bg-orange-700 transition-colors duration-200",
+    "secondary": "bg-orange-200 text-black hover:bg-orange-300 transition-colors duration-200",
 }
 
 const defaultStyles = "px-2 py-2 rounded-md font-light flex items-center"

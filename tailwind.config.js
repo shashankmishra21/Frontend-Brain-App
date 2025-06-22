@@ -7,12 +7,13 @@ export default {
     extend: {
       colors: {
         orange: {
-          100: "#f97316",  //priary
-          200: "#fdac74", //secondary
-          300: "#fed7aa", //neutral
-          400: "#F8FAFC", //bg
+          100: "#FF7D29",  //primary
+          200: "#FFEEA9", //secondary
+          300: "#FFBF78", //hover secondary
+          700: "#e66f21", // hover primay
+          400: "#111827", //bg
           500: "#FFFFFF", //card
-          600: "#d9d9d9", //sidebar
+          600: "#FFEEA9", //sidebar
         },
         gray: {
           100: "#1E293B", //text primary

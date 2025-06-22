@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import axios from "axios";
 import { Input } from "../pages/Input";
 
-const typeOptions = ["linkedin", "twitter", "instagram", "hiring", "youtube"];
+const typeOptions = ["linkedin", "twitter", "instagram", "youtube"];
 
 export function CreateComponentModal({ open, onClose, onSuccess }) {
     const titleRef = useRef<HTMLInputElement>(null);
