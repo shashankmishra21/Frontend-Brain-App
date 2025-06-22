@@ -55,6 +55,8 @@ export function CreateComponentModal({ open, onClose, onSuccess }) {
                                 </div>
                             </div>
 
+                            <h2 className="text-2xl font-bold text-center text-gray-800 mb-1">Add your Links</h2>
+
                             <div className="mb-4">
                                 <Input ref={titleRef} placeholder={"Title"} />
                                 <Input ref={linkRef} placeholder={"Link"} />

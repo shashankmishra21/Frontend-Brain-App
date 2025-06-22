@@ -34,7 +34,8 @@ function Home() {
           onSuccess={handleContentCreated}
         />
 
-        <div className="flex justify-end gap-4">
+
+        {/* <div className="flex justify-end gap-4">
           <Button
             onClick={async () => {
               const response = await axios.post(`${BACKEND_URL}/api/v1/brain/share`, {
@@ -59,11 +60,55 @@ function Home() {
             text="Add Content"
             startIcon={<PlusIcon />}
           />
+        </div> */}
+
+
+
+        <div className="flex justify-end gap-4">
+          {localStorage.getItem("token") ? (
+            <>
+              <Button
+                onClick={async () => {
+                  const response = await axios.post(`${BACKEND_URL}/api/v1/brain/share`, {
+                    share: true
+                  }, {
+                    headers: {
+                      Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    }
+                  });
+
+                  const shareUrl = `${response.data.shareLink}`;
+                  alert(shareUrl);
+                }}
+                variant="secondary"
+                text="Share Library"
+                startIcon={<ShareIcon />}
+              />
+
+              <Button
+                onClick={() => setModalOpen(true)}
+                variant="primary"
+                text="Add Content"
+                startIcon={<PlusIcon />}
+              />
+            </>
+          ) : (
+            <Button
+              onClick={() => window.location.href = "/signin"}
+              variant="primary"
+              text="Sign In"
+            />
+          )}
         </div>
 
+
+
+
+
+
         {/* Loader & Error */}
-        {loading && <div>Loading...</div>}
-        {error && <div className="text-red-500">Error: {error}</div>}
+        {loading && <div className=''>Loading...</div>}
+        {error && <div className="text-white">Hey ! Please Sign In first</div>}
 
         {/* Content cards */}
         {!loading && !error && (

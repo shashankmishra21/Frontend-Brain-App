@@ -87,9 +87,7 @@ export function Card({ title, link, type, contentId, onDeleteSuccess }: CardProp
                     <button className="pr-2 text-gray-500" onClick={handleDelete}>
                         <TrashIcon />
                     </button>
-                    <div className="text-gray-500">
-                        <ShareIcon />
-                    </div>
+                    
                 </div>
             </div>
 

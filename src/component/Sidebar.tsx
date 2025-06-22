@@ -5,12 +5,19 @@ import { Logo } from "../icons/Logo";
 import { AllIcons } from "../icons/AllIcons";
 import { LinkedinIcon } from "../icons/LinkedinIcon";
 import { InstagramIcon } from "../icons/InstagramIcon";
+import { Button } from "./Button";
 
 interface SidebarProps {
   onSelectType: (type: string) => void;
 }
 
 export function Sidebar({ onSelectType }: SidebarProps) {
+
+  function logout() {
+    localStorage.removeItem("token");
+    window.location.href = "/home"; // or window.location.reload();
+  }
+
   return (
     <div className="h-screen w-72 bg-orange-600 border-r fixed top-0 left-0 flex flex-col justify-between">
 
@@ -26,7 +33,19 @@ export function Sidebar({ onSelectType }: SidebarProps) {
           <SidebarItem text="LinkedIn" icon={<LinkedinIcon />} onClick={() => onSelectType("linkedin")} />
           <SidebarItem text="Instagram" icon={<InstagramIcon />} onClick={() => onSelectType("instagram")} />
         </div>
+        {localStorage.getItem("token") && (
+          <div className="flex justify-center pt-3">
+            <Button
+              onClick={logout}
+              loading={false}
+              variant="primary"
+              text="Logout"
+            />
+          </div>
+        )}
       </div>
+
+
 
       {/* Bottom Section - Footer */}
       <div className="w-full text-center text-sm text-black pb-4 ">
