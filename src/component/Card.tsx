@@ -1,10 +1,13 @@
 import { ShareIcon } from "../icons/ShareIcon";
 import { useEffect } from "react";
+import { TrashIcon } from "../icons/TrashIcon";
 
-interface Cardprops {
+interface CardProps {
     title: string;
     link: string;
     type: string;
+    contentId: string;
+    onDeleteSuccess?: (deletedId: string) => void;
 }
 
 function extractYouTubeId(url: string): string | null {
@@ -22,8 +25,12 @@ function extractLinkedInEmbedURL(url: string): string | null {
     return null;
 }
 
-export function Card({ title, link, type }: Cardprops) {
+export function Card({ title, link, type, contentId, onDeleteSuccess }: CardProps) {
     const linkedinEmbedUrl = type === "linkedin" ? extractLinkedInEmbedURL(link) : null;
+
+    useEffect(() => {
+        console.log("🧾 contentId inside Card:", contentId);
+    }, []);
 
     useEffect(() => {
         if (type === "instagram") {
@@ -40,21 +47,46 @@ export function Card({ title, link, type }: Cardprops) {
         }
     }, [link, type]);
 
+    const handleDelete = async () => {
+        try {
+            const res = await fetch("http://localhost:3000/api/v1/content", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token") || ""}`, // Adjust if you're using cookies
+                },
+                body: JSON.stringify({ contentId }),
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                alert("✅ Content deleted!");
+                if (onDeleteSuccess) onDeleteSuccess(contentId);
+            } else {
+                alert(`❌ ${data.message}`);
+            }
+        } catch (err) {
+            console.error("Error deleting content:", err);
+            alert("Something went wrong!");
+        }
+    };
+
     return (
         <div className="bg-white shadow-sm rounded-lg p-4 m-4 border-slate-200 border max-w-78 min-h-48 min-w-72">
             <div className="flex justify-between">
                 <div className="flex items-center text-md">
                     <div className="text-gray-500 pr-2">
                         <a href={link} target="_blank" rel="noopener noreferrer">
-                            <ShareIcon />
+                            <img src="/logoone.png" alt="linkify" className="w-5 h-5" />
                         </a>
                     </div>
                     {title}
                 </div>
                 <div className="flex items-center">
-                    <div className="pr-2 text-gray-500">
-                        <ShareIcon />
-                    </div>
+                    <button className="pr-2 text-gray-500" onClick={handleDelete}>
+                        <TrashIcon />
+                    </button>
                     <div className="text-gray-500">
                         <ShareIcon />
                     </div>
@@ -62,7 +94,6 @@ export function Card({ title, link, type }: Cardprops) {
             </div>
 
             <div className="pt-4 flex">
-                {/* YouTube Embed */}
                 {type === "youtube" && (
                     <iframe
                         className="w-full aspect-video"
@@ -75,30 +106,24 @@ export function Card({ title, link, type }: Cardprops) {
                     ></iframe>
                 )}
 
-                {/* Twitter Embed */}
                 {type === "twitter" && (
                     <div className="w-full max-h-96 overflow-y-auto overflow-x-hidden">
-                        <blockquote
-                            className="twitter-tweet"
-                            data-width="100%"
-                            style={{ width: '100%', maxWidth: '100%', margin: 0 }}
-                        >
+                        <blockquote className="twitter-tweet" data-width="100%" style={{ margin: 0 }}>
                             <a href={link.replace("x.com", "twitter.com")}></a>
                         </blockquote>
                     </div>
                 )}
 
-                {/* LinkedIn Embed */}
                 {linkedinEmbedUrl && (
                     <div className="w-full max-h-96 overflow-y-auto overflow-x-hidden">
                         <iframe
                             src={linkedinEmbedUrl}
                             style={{
-                                width: '100%',
-                                height: '384px',
-                                maxWidth: '100%',
-                                border: 'none',
-                                margin: 0
+                                width: "100%",
+                                height: "384px",
+                                maxWidth: "100%",
+                                border: "none",
+                                margin: 0,
                             }}
                             title="Embedded LinkedIn Post"
                             allowFullScreen
@@ -106,18 +131,19 @@ export function Card({ title, link, type }: Cardprops) {
                     </div>
                 )}
 
-                {/* Instagram Embed */}
                 {type === "instagram" && (
-                    <div className="w-full max-h-96  overflow-y-auto overflow-x-hidden">
+                    <div className="w-full max-h-96 overflow-y-auto overflow-x-hidden">
                         <blockquote
                             className="instagram-media"
                             data-instgrm-permalink={link}
                             data-instgrm-version="14"
-                            style={{width: '100%',
-                                height: '384px',
-                                maxWidth: '100%',
-                                border: 'none',
-                                margin: 0 }}
+                            style={{
+                                width: "100%",
+                                height: "384px",
+                                maxWidth: "100%",
+                                border: "none",
+                                margin: 0,
+                            }}
                         ></blockquote>
                     </div>
                 )}

@@ -10,7 +10,7 @@ interface ButtonProps {
 }
 
 const variantClasses = {
-    "primary": "bg-orange-100 text-gray-900 hover:bg-orange-700 transition-colors duration-200",
+    "primary": "bg-orange-100 text-black hover:bg-orange-700 transition-colors duration-200",
     "secondary": "bg-orange-200 text-black hover:bg-orange-300 transition-colors duration-200",
 }
 

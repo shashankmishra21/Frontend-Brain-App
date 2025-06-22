@@ -69,7 +69,7 @@ function Home() {
         {!loading && !error && (
           <div className="grid grid-cols-3 gap-4 mt-4">
             {filteredContents.map(({ _id, title, link, type }) => (
-              <Card key={_id} title={title} link={link} type={type} onDelete={() => setRefetch(prev => !prev)} />
+              <Card key={_id} title={title} link={link} type={type} contentId={_id} onDelete={() => setRefetch(prev => !prev)} />
             ))}
           </div>
         )}

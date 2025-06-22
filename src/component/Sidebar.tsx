@@ -29,7 +29,7 @@ export function Sidebar({ onSelectType }: SidebarProps) {
       </div>
 
       {/* Bottom Section - Footer */}
-      <div className="w-full text-center text-sm text-gray-800 pb-4 ">
+      <div className="w-full text-center text-sm text-black pb-4 ">
         <div className="font-light">© {new Date().getFullYear()} Linkify. All rights reserved.
 
         </div>
