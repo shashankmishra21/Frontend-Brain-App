@@ -33,7 +33,7 @@ export function Signin() {
 
             const jwt = response.data.token
             localStorage.setItem("token", jwt)
-            navigate("/home");
+            navigate("/");
         } catch (err) {
             console.error(err);
             alert("Signin failed!");

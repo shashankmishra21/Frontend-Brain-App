@@ -11,7 +11,7 @@ import axios from 'axios';
 
 function Home() {
   const [refetch, setRefetch] = useState(false);
-  const [selectedType, setSelectedType] = useState("all"); // 👈 filter state
+  const [selectedType, setSelectedType] = useState("all");
   const { contents, loading, error } = useContent(refetch);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -19,7 +19,7 @@ function Home() {
     setRefetch(prev => !prev);
   }
 
-  // 🧠 Filter contents based on selected type
+  // Filter contents based on selected type
   const filteredContents = selectedType === "all"
     ? contents
     : contents.filter(content => content.type === selectedType);
@@ -61,8 +61,6 @@ function Home() {
             startIcon={<PlusIcon />}
           />
         </div> */}
-
-
 
         <div className="flex justify-end gap-4">
           {localStorage.getItem("token") ? (
@@ -107,17 +105,36 @@ function Home() {
 
 
         {/* Loader & Error */}
-        {loading && <div className=''>Loading...</div>}
-        {error && <div className="text-white">Hey ! Please Sign In first</div>}
+        {loading && <div className='text-white text-xl font-semibold mt-8 text-center'>Loading...</div>}
+        {error && <div className="text-white text-xl font-semibold mt-8 text-center">Hey ! Please Sign In first</div>}
 
         {/* Content cards */}
+
+
         {!loading && !error && (
+          filteredContents.length > 0 ? (
+            <div className="grid grid-cols-3 gap-4 mt-4">
+              {filteredContents.map(({ _id, title, link, type }) => (
+                <Card key={_id} title={title} link={link} type={type} contentId={_id} onDelete={() => setRefetch(prev => !prev)} />
+              ))}
+            </div>
+          ) : (
+            localStorage.getItem("token") && (
+              <div className="text-white text-xl font-semibold mt-8 text-center">
+                Your Library is empty 📁
+              </div>
+            )
+          )
+        )}
+
+
+        {/* {!loading && !error && (
           <div className="grid grid-cols-3 gap-4 mt-4">
             {filteredContents.map(({ _id, title, link, type }) => (
               <Card key={_id} title={title} link={link} type={type} contentId={_id} onDelete={() => setRefetch(prev => !prev)} />
             ))}
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

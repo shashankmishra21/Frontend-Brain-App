@@ -15,7 +15,7 @@ export function Sidebar({ onSelectType }: SidebarProps) {
 
   function logout() {
     localStorage.removeItem("token");
-    window.location.href = "/home"; // or window.location.reload();
+    window.location.href = "/"; // or window.location.reload();
   }
 
   return (

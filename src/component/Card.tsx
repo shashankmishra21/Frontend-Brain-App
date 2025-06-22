@@ -28,9 +28,9 @@ function extractLinkedInEmbedURL(url: string): string | null {
 export function Card({ title, link, type, contentId, onDeleteSuccess }: CardProps) {
     const linkedinEmbedUrl = type === "linkedin" ? extractLinkedInEmbedURL(link) : null;
 
-    useEffect(() => {
-        console.log("🧾 contentId inside Card:", contentId);
-    }, []);
+    // useEffect(() => {
+    //     console.log("🧾 contentId inside Card:", contentId);
+    // }, []);
 
     useEffect(() => {
         if (type === "instagram") {
