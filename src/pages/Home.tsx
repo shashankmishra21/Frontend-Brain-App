@@ -8,6 +8,8 @@ import { useState } from 'react';
 import { BACKEND_URL } from './config';
 import { Sidebar } from '../component/Sidebar'; // use updated Sidebar with toggle inside
 import axios from 'axios';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Home() {
   const [refetch, setRefetch] = useState(false);
@@ -50,8 +52,14 @@ function Home() {
                       Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                   });
-                  const shareUrl = `${response.data.shareLink}`;
-                  alert(shareUrl);
+                  // const shareUrl = `${response.data.shareLink}`;
+                  const fullBackendLink = response.data.shareLink; // e.g., http://localhost:3000/api/v1/brain/share/abc123
+                  const shareId = fullBackendLink.split("/").pop(); // gets 'abc123'
+
+                  const shareUrl = `${window.location.origin}/share/${shareId}`;
+                  await navigator.clipboard.writeText(shareUrl);
+                  toast.info("Link copied to clipboard!");
+
                 }}
                 variant="secondary"
                 text={
@@ -60,7 +68,7 @@ function Home() {
                     <span className="sm:hidden"><ShareIcon /></span>
                   </>
                 }
-                // startIcon={<ShareIcon />}
+              // startIcon={<ShareIcon />}
               />
 
               {/* Add Content Button */}
@@ -73,7 +81,7 @@ function Home() {
                     <span className="sm:hidden"><PlusIcon /></span>
                   </>
                 }
-                // startIcon={<PlusIcon />}
+              // startIcon={<PlusIcon />}
               />
             </>
           ) : (
