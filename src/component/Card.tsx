@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 import { TrashIcon } from "../icons/TrashIcon";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 interface CardProps {
     title: string;
@@ -58,14 +61,14 @@ export function Card({ title, link, type, contentId, onDeleteSuccess , readonly 
             const data = await res.json();
 
             if (res.ok) {
-                alert("Content deleted!");
+                toast.success("Content deleted!");
                 if (onDeleteSuccess) onDeleteSuccess(contentId);
             } else {
-                alert(`❌ ${data.message}`);
+                toast.info(`❌ ${data.message}`);
             }
         } catch (err) {
             console.error("Error deleting content:", err);
-            alert("Something went wrong!");
+            toast.error("Something went wrong!");
         }
     };
 

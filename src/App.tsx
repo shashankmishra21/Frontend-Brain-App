@@ -4,6 +4,8 @@ import { Signin } from './pages/Signin'
 import Home from "./pages/Home"
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import SharedPage from './pages/SharedPage'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
 
   return <BrowserRouter>
@@ -13,6 +15,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/share/:hash" element={<SharedPage />} />
     </Routes>
+    <ToastContainer position="top-center" autoClose={2000} />
 
   </BrowserRouter>
 

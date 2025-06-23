@@ -4,6 +4,8 @@ import { Input } from "./Input"
 import { BACKEND_URL } from "./config";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 export function Signin() {
@@ -21,7 +23,7 @@ export function Signin() {
         const password = passwordRef.current?.value;
 
         if (!username || !password) {
-            alert("Please enter both username and password.");
+            toast.warning("Please enter both username and password.");
             return;
         }
 
@@ -33,10 +35,11 @@ export function Signin() {
 
             const jwt = response.data.token
             localStorage.setItem("token", jwt)
+            toast.success("Signin successful");
             navigate("/");
         } catch (err) {
             console.error(err);
-            alert("Signin failed!");
+            toast.error("Signin failed!");
         }
     }
 

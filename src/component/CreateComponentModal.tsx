@@ -4,6 +4,8 @@ import { Button } from "./Button";
 import { useRef, useState } from "react";
 import axios from "axios";
 import { Input } from "../pages/Input";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const typeOptions = ["linkedin", "twitter", "instagram", "youtube"];
 
@@ -17,7 +19,7 @@ export function CreateComponentModal({ open, onClose, onSuccess }) {
         const link = linkRef.current?.value;
 
         if (!title || !link || !selectedType) {
-            alert("Please fill in Title, Link, and select a Type.");
+            toast.warning("Please fill in Title, Link, and select a Type.");
             return;
         }
 
@@ -32,13 +34,13 @@ export function CreateComponentModal({ open, onClose, onSuccess }) {
                 }
             });
 
-            alert("Content created successfully!");
+            toast.success("Content created successfully!");
             onSuccess();
             onClose();
 
         } catch (err: any) {
             console.error(err);
-            alert(err.response?.data?.message || "Something went wrong");
+            toast.error(err.response?.data?.message || "Something went wrong");
         }
     }
 

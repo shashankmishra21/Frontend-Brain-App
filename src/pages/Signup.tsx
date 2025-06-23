@@ -4,6 +4,8 @@ import { Input } from "./Input";
 import { BACKEND_URL } from "./config";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function Signup() {
     const usernameRef = useRef<HTMLInputElement>(null);
@@ -12,6 +14,7 @@ export function Signup() {
 
     function goToSignIn() {
         navigate("/signin")
+
     }
 
     async function signup() {
@@ -19,7 +22,7 @@ export function Signup() {
         const password = passwordRef.current?.value;
 
         if (!username || !password) {
-            alert("Please enter both username and password.");
+            toast.warning("Please enter both username and password.");
             return;
         }
         try {
@@ -28,11 +31,11 @@ export function Signup() {
                 password,
             });
 
-            alert("You have signed up!");
+            toast.success("You have signed up!");
             navigate("/signin");
         } catch (err) {
             console.error(err);
-            alert("Signup failed!");
+            toast.error("Signup failed!");
         }
     }
 

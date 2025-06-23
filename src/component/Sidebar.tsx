@@ -7,6 +7,8 @@ import { AllIcons } from "../icons/AllIcons";
 import { LinkedinIcon } from "../icons/LinkedinIcon";
 import { InstagramIcon } from "../icons/InstagramIcon";
 import { Button } from "./Button";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface SidebarProps {
   onSelectType: (type: string) => void;
@@ -17,7 +19,9 @@ export function Sidebar({ onSelectType }: SidebarProps) {
 
   function logout() {
     localStorage.removeItem("token");
+    toast.success("logged out")
     window.location.href = "/";
+    
   }
 
   const handleSelect = (type: string) => {
@@ -132,7 +136,7 @@ export function Sidebar({ onSelectType }: SidebarProps) {
           </div>
 
           {/* Footer */}
-          <div className="text-center text-sm text-black pb-4">
+          <div className="text-center text-sm text-black font-light pb-4">
             <div>© {new Date().getFullYear()} Linkify. All rights reserved.</div>
             <div>
               Developed by <span className="text-orange-800">Shashank</span>
