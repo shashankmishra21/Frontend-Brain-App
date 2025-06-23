@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Card } from "../component/Card";
-import { SidebarWrapper } from "../component/SidebarWrapper";
+import { Sidebar } from "../component/Sidebar";
 
 export default function SharedPage() {
   const { hash } = useParams();
@@ -10,6 +10,7 @@ export default function SharedPage() {
   const [content, setContent] = useState([]);
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
+  const [selectedType, setSelectedType] = useState("all");
 
   useEffect(() => {
     async function fetchContent() {
@@ -27,18 +28,23 @@ export default function SharedPage() {
     fetchContent();
   }, [hash]);
 
+  const filteredContent =
+    selectedType === "all"
+      ? content
+      : content.filter((item) => item.type === selectedType);
+
   return (
     <div className="flex min-h-screen bg-orange-400">
-      {/* Fixed Sidebar on large screens, overlay toggle on mobile */}
-      <div className="hidden lg:block fixed top-0 left-0 h-screen w-72 z-50">
-        <SidebarWrapper onSelectType={() => {}} />
-      </div>
+      {/* Sidebar */}
+      <Sidebar onSelectType={(type) => setSelectedType(type)} />
 
       {/* Main Content */}
-      <div className="w-full lg:ml-72 px-4 py-6">
-        <h1 className="text-2xl text-orange-100 font-bold ml-4 mb-4 text-center lg:text-left">
+      <div className="flex-1 lg:ml-0 px-4 py-6 overflow-y-auto max-h-screen">
+        <div className="flex justify-center">
+        <h1 className="text-2xl text-orange-100 font-bold text-center lg:text-left mb-4">
           Library of {username}
         </h1>
+        </div>
 
         {loading && (
           <p className="text-white text-center text-lg">Loading...</p>
@@ -49,8 +55,14 @@ export default function SharedPage() {
 
         {!loading && !error && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {content.map(({ _id, title, link, type }) => (
-              <Card key={_id} title={title} link={link} type={type} readonly={true} />
+            {filteredContent.map(({ _id, title, link, type }) => (
+              <Card
+                key={_id}
+                title={title}
+                link={link}
+                type={type}
+                readonly={true}
+              />
             ))}
           </div>
         )}
