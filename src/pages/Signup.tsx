@@ -22,7 +22,6 @@ export function Signup() {
             alert("Please enter both username and password.");
             return;
         }
-
         try {
             await axios.post(`${BACKEND_URL}/api/v1/signup`, {
                 username,

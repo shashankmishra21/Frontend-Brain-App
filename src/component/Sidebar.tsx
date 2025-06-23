@@ -12,47 +12,41 @@ interface SidebarProps {
 }
 
 export function Sidebar({ onSelectType }: SidebarProps) {
-
   function logout() {
     localStorage.removeItem("token");
-    window.location.href = "/"; // or window.location.reload();
+    window.location.href = "/";
   }
 
   return (
-    <div className="h-screen w-72 bg-orange-600 border-r fixed top-0 left-0 flex flex-col justify-between">
-
+    <div className="h-full w-full bg-orange-600 flex flex-col justify-between">
       {/* Top Section */}
       <div>
-        <div className="pt-4 pb-4 px-6 mb-0 w-full ml-4">
+        {/* Logo */}
+        <div className="pt-6 pb-4 px-6">
           <Logo />
         </div>
-        <div className="w-full flex flex-col">
+
+        {/* Menu Items */}
+        <div className="flex flex-col gap-y-2 px-4">
           <SidebarItem text="All" icon={<AllIcons />} onClick={() => onSelectType("all")} />
           <SidebarItem text="Twitter" icon={<XIcon />} onClick={() => onSelectType("twitter")} />
           <SidebarItem text="YouTube" icon={<YoutubeIcon />} onClick={() => onSelectType("youtube")} />
           <SidebarItem text="LinkedIn" icon={<LinkedinIcon />} onClick={() => onSelectType("linkedin")} />
           <SidebarItem text="Instagram" icon={<InstagramIcon />} onClick={() => onSelectType("instagram")} />
         </div>
+
+        {/* Logout Button */}
         {localStorage.getItem("token") && (
-          <div className="flex justify-center pt-3">
-            <Button
-              onClick={logout}
-              loading={false}
-              variant="primary"
-              text="Logout"
-            />
+          <div className="flex justify-center mt-6 px-4">
+            <Button onClick={logout} loading={false} variant="primary" text="Logout" fullWidth />
           </div>
         )}
       </div>
 
-
-
-      {/* Bottom Section - Footer */}
-      <div className="w-full text-center text-sm text-black pb-4 ">
-        <div className="font-light">© {new Date().getFullYear()} Linkify. All rights reserved.
-
-        </div>
-        <div className="font-light">Made by Shashank</div>
+      {/* Footer */}
+      <div className="text-center text-sm text-black pb-4">
+        <div>© {new Date().getFullYear()} Linkify. All rights reserved.</div>
+        <div>Developed by <span className="text-orange-800">Shashank</span></div>
       </div>
     </div>
   );

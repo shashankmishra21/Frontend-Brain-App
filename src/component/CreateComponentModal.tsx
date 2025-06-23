@@ -35,7 +35,7 @@ export function CreateComponentModal({ open, onClose, onSuccess }) {
             alert("Content created successfully!");
             onSuccess();
             onClose();
-            
+
         } catch (err: any) {
             console.error(err);
             alert(err.response?.data?.message || "Something went wrong");

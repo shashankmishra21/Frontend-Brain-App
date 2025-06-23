@@ -1,4 +1,3 @@
-import { ShareIcon } from "../icons/ShareIcon";
 import { useEffect } from "react";
 import { TrashIcon } from "../icons/TrashIcon";
 
@@ -8,6 +7,7 @@ interface CardProps {
     type: string;
     contentId: string;
     onDeleteSuccess?: (deletedId: string) => void;
+    readonly?: boolean;
 }
 
 function extractYouTubeId(url: string): string | null {
@@ -25,12 +25,9 @@ function extractLinkedInEmbedURL(url: string): string | null {
     return null;
 }
 
-export function Card({ title, link, type, contentId, onDeleteSuccess }: CardProps) {
+export function Card({ title, link, type, contentId, onDeleteSuccess , readonly = false }: CardProps) {
     const linkedinEmbedUrl = type === "linkedin" ? extractLinkedInEmbedURL(link) : null;
 
-    // useEffect(() => {
-    //     console.log("🧾 contentId inside Card:", contentId);
-    // }, []);
 
     useEffect(() => {
         if (type === "instagram") {
@@ -53,7 +50,7 @@ export function Card({ title, link, type, contentId, onDeleteSuccess }: CardProp
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem("token") || ""}`, // Adjust if you're using cookies
+                    Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
                 },
                 body: JSON.stringify({ contentId }),
             });
@@ -61,7 +58,7 @@ export function Card({ title, link, type, contentId, onDeleteSuccess }: CardProp
             const data = await res.json();
 
             if (res.ok) {
-                alert("✅ Content deleted!");
+                alert("Content deleted!");
                 if (onDeleteSuccess) onDeleteSuccess(contentId);
             } else {
                 alert(`❌ ${data.message}`);
@@ -83,12 +80,15 @@ export function Card({ title, link, type, contentId, onDeleteSuccess }: CardProp
                     </div>
                     {title}
                 </div>
-                <div className="flex items-center">
-                    <button className="pr-2 text-gray-500" onClick={handleDelete}>
-                        <TrashIcon />
-                    </button>
-                    
-                </div>
+                {!readonly && (
+                    <div className="flex items-center">
+                        <button className="pr-2 text-gray-500" onClick={handleDelete}>
+                            <TrashIcon />
+                        </button>
+
+                    </div>
+                )}
+
             </div>
 
             <div className="pt-4 flex">
