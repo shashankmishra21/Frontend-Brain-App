@@ -11,6 +11,7 @@ interface CardProps {
     contentId: string;
     onDeleteSuccess?: (deletedId: string) => void;
     readonly?: boolean;
+    onDelete?: () => void;
 }
 
 function extractYouTubeId(url: string): string | null {
@@ -28,7 +29,7 @@ function extractLinkedInEmbedURL(url: string): string | null {
     return null;
 }
 
-export function Card({ title, link, type, contentId, onDeleteSuccess , readonly = false }: CardProps) {
+export function Card({ title, link, type, contentId, onDeleteSuccess, readonly = false }: CardProps) {
     const linkedinEmbedUrl = type === "linkedin" ? extractLinkedInEmbedURL(link) : null;
 
 

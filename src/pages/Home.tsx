@@ -1,6 +1,6 @@
 import { Button } from '../component/Button';
 import { Card } from '../component/Card';
-import { CreateComponentModal } from '../component/CreateComponentModal';
+import CreateComponentModal from '../component/CreateComponentModal';
 import { useContent } from '../Hooks/useContent';
 import { PlusIcon } from '../icons/PlusIcon';
 import { ShareIcon } from '../icons/ShareIcon';
@@ -104,14 +104,15 @@ function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-0 m-0">
               {filteredContents.map(({ _id, title, link, type }) => (
                 <Card
-                  key={_id}
-                  title={title}
-                  link={link}
-                  type={type}
-                  contentId={_id}
+                  key={_id ?? "default-id"}
+                  title={title ?? ""}
+                  link={link ?? ""}
+                  type={type ?? ""}
+                  contentId={_id ?? ""}
                   onDelete={() => setRefetch(prev => !prev)}
                 />
               ))}
+
             </div>
           ) : (
             localStorage.getItem("token") && (

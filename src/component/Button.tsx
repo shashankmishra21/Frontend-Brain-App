@@ -1,8 +1,9 @@
-import { ReactElement } from "react";
+import type { ReactElement } from 'react';
+import type { ReactNode } from 'react';
 
 interface ButtonProps {
     variant: "primary" | "secondary";
-    text: String;
+    text: ReactNode;
     startIcon?: ReactElement;
     onClick?: () => void;
     fullWidth?: boolean;

@@ -5,13 +5,21 @@ import { Card } from "../component/Card";
 import { Sidebar } from "../component/Sidebar";
 import { BACKEND_URL } from "./config";
 
+interface ContentItem {
+  _id: string;
+  title: string;
+  link: string;
+  type: string;
+}
+
 export default function SharedPage() {
   const { hash } = useParams();
   const [loading, setLoading] = useState(true);
-  const [content, setContent] = useState([]);
+  const [content, setContent] = useState<ContentItem[]>([]);
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
   const [selectedType, setSelectedType] = useState("all");
+
 
   useEffect(() => {
     async function fetchContent() {
@@ -42,9 +50,9 @@ export default function SharedPage() {
       {/* Main Content */}
       <div className="flex-1 lg:ml-0 px-4 py-6 overflow-y-auto max-h-screen">
         <div className="flex justify-center">
-        <h1 className="text-2xl text-orange-100 font-bold text-center lg:text-left mb-4">
-          Library of {username}
-        </h1>
+          <h1 className="text-2xl text-orange-100 font-bold text-center lg:text-left mb-4">
+            Library of {username}
+          </h1>
         </div>
 
         {loading && (
@@ -58,12 +66,13 @@ export default function SharedPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredContent.map(({ _id, title, link, type }) => (
               <Card
-                key={_id}
-                title={title}
-                link={link}
-                type={type}
-                readonly={true}
+                key={_id ?? "default-id"}
+                title={title ?? ""}
+                link={link ?? ""}
+                type={type ?? ""}
+                contentId={_id ?? ""}
               />
+
             ))}
           </div>
         )}

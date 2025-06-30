@@ -9,7 +9,13 @@ import "react-toastify/dist/ReactToastify.css";
 
 const typeOptions = ["linkedin", "twitter", "instagram", "youtube"];
 
-export function CreateComponentModal({ open, onClose, onSuccess }) {
+interface CreateComponentModalProps {
+  open: boolean;
+  onClose: () => void;
+  onSuccess: () => void;
+}
+
+const CreateComponentModal = ({ open, onClose, onSuccess }: CreateComponentModalProps) => {
     const titleRef = useRef<HTMLInputElement>(null);
     const linkRef = useRef<HTMLInputElement>(null);
     const [selectedType, setSelectedType] = useState<string>("");
@@ -93,3 +99,4 @@ export function CreateComponentModal({ open, onClose, onSuccess }) {
         </div>
     );
 }
+export default CreateComponentModal;
