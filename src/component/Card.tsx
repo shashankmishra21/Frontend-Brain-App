@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { TrashIcon } from "../icons/TrashIcon";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { BACKEND_URL } from "../pages/config";
 
 interface CardProps {
     title: string;
@@ -49,7 +49,7 @@ export function Card({ title, link, type, contentId, onDeleteSuccess , readonly 
 
     const handleDelete = async () => {
         try {
-            const res = await fetch("http://localhost:3000/api/v1/content", {
+            const res = await fetch(`${BACKEND_URL}/api/v1/content`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",

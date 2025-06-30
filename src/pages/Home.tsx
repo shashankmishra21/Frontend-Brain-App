@@ -6,7 +6,7 @@ import { PlusIcon } from '../icons/PlusIcon';
 import { ShareIcon } from '../icons/ShareIcon';
 import { useState } from 'react';
 import { BACKEND_URL } from './config';
-import { Sidebar } from '../component/Sidebar'; // use updated Sidebar with toggle inside
+import { Sidebar } from '../component/Sidebar';
 import axios from 'axios';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

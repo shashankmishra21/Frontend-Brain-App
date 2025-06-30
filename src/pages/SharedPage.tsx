@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Card } from "../component/Card";
 import { Sidebar } from "../component/Sidebar";
+import { BACKEND_URL } from "./config";
 
 export default function SharedPage() {
   const { hash } = useParams();
@@ -15,7 +16,7 @@ export default function SharedPage() {
   useEffect(() => {
     async function fetchContent() {
       try {
-        const res = await axios.get(`http://localhost:3000/api/v1/brain/${hash}`);
+        const res = await axios.get(`${BACKEND_URL}/api/v1/brain/${hash}`);
         setContent(res.data.content);
         setUsername(res.data.username);
         setLoading(false);
