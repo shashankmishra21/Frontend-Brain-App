@@ -21,6 +21,10 @@ export default {
         }
       }
     },
+    fontFamily:{ 
+      'roboto':['Roboto','sans-serif'],
+      'dmsans': ['DM Sans', 'sans-serif'],
+    }
   },
   plugins: [],
 }
