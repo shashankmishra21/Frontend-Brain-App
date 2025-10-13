@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import SharedPage from './pages/SharedPage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import LandingPage from './pages/landingPage';
+import LandingPage from './pages/LandingPage';
 function App() {
 
   return <BrowserRouter>

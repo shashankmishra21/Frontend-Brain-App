@@ -107,13 +107,13 @@ function Home() {
                     key={content._id ?? "default-id"}
                     title={content.title ?? ""}
                     link={content.link ?? ""}
-                    description={content.description} // ✅ Add this line!
+                    description={content.description} 
                     type={content.type ?? ""}
                     contentId={content._id ?? ""}
-                    fileName={content.fileName}      // ✅ Add this
-                    fileSize={content.fileSize}      // ✅ Add this
-                    hasFile={!!content.fileName}     // ✅ Add this
-                    downloadUrl={content.downloadUrl} // ✅ Add this
+                    fileName={content.fileName}  
+                    fileSize={content.fileSize} 
+                    hasFile={!!content.fileName}    
+                    downloadUrl={content.downloadUrl} 
                     onDeleteSuccess={() => setRefetch(prev => !prev)}
                 />
               ))}
