@@ -40,7 +40,7 @@ export function Signup() {
     }
 
     return (
-        <div className="h-screen w-screen bg-orange-400 flex justify-center items-center">
+        <div className="h-screen w-screen bg-gradient-to-br from-slate-900 via-blue-800 to-indigo-800 flex justify-center items-center">
             <div className="bg-white rounded-xl border min-w-48 p-6">
 
                 <h2 className="text-2xl font-bold text-center text-gray-800 mb-1">Welcome to

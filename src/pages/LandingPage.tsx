@@ -41,7 +41,7 @@ const LandingPage: React.FC = () => {
     const handleGetStarted = (): void => {
         if (isAuthenticated) {
             // Redirect to dashboard if authenticated
-            navigate('/dashboard');
+            navigate('/main');
         } else {
             // Redirect to signup if not authenticated
             navigate('/signin');

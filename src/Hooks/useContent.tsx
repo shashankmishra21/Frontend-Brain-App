@@ -2,14 +2,20 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { BACKEND_URL } from "../pages/config";
 
-
 interface Content {
     title: string;
-    link: string;
+    link?: string;
+    description?: string; // ✅ Add this
     type: string;
     _id?: string;
+    fileName?: string;    // ✅ Add this
+    fileSize?: number;    // ✅ Add this
+    filePath?: string;    // ✅ Add this
+    hasFile?: boolean;    // ✅ Add this
+    downloadUrl?: string; // ✅ Add this
+    createdAt?: string;   // ✅ Add this
+    updatedAt?: string;   // ✅ Add this
 }
-
 
 export function useContent(refetchTrigger?: boolean) {
     const [contents, setContents] = useState<Content[]>([]);
@@ -24,6 +30,10 @@ export function useContent(refetchTrigger?: boolean) {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 });
+
+                // 🔍 DEBUG - Check what backend is sending
+                console.log('🔍 Backend Response:', response.data.contents);
+                console.log('🔍 First item:', response.data.contents[0]);
 
                 setContents(response.data.contents || []);
                 setError(null);

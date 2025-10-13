@@ -26,7 +26,7 @@ function Home() {
     : contents.filter(content => content.type === selectedType);
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-orange-400">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-950">
       {/* Sidebar (responsive with toggle) */}
       <Sidebar onSelectType={setSelectedType} />
 
@@ -102,14 +102,19 @@ function Home() {
         {!loading && !error && (
           filteredContents.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-0 m-0">
-              {filteredContents.map(({ _id, title, link, type }) => (
+              {filteredContents.map((content) => (
                 <Card
-                  key={_id ?? "default-id"}
-                  title={title ?? ""}
-                  link={link ?? ""}
-                  type={type ?? ""}
-                  contentId={_id ?? ""}
-                  onDelete={() => setRefetch(prev => !prev)}
+                    key={content._id ?? "default-id"}
+                    title={content.title ?? ""}
+                    link={content.link ?? ""}
+                    description={content.description} // ✅ Add this line!
+                    type={content.type ?? ""}
+                    contentId={content._id ?? ""}
+                    fileName={content.fileName}      // ✅ Add this
+                    fileSize={content.fileSize}      // ✅ Add this
+                    hasFile={!!content.fileName}     // ✅ Add this
+                    downloadUrl={content.downloadUrl} // ✅ Add this
+                    onDeleteSuccess={() => setRefetch(prev => !prev)}
                 />
               ))}
 
