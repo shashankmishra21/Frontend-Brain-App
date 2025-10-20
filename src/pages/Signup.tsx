@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 export function Signup() {
     const usernameRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -52,7 +53,8 @@ export function Signup() {
 
 
                 <Input ref={usernameRef} placeholder="Username" />
-                <Input ref={passwordRef} placeholder="Password" />
+                <Input ref={passwordRef} placeholder="Password" type="password" />
+
                 <div className="flex justify-center pt-2">
                     <Button
                         onClick={signup}

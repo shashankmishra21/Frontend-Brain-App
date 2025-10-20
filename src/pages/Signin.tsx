@@ -53,7 +53,8 @@ export function Signin() {
             <p className="text-sm text-gray-500 text-center mb-2">Sign in to your account to continue</p>
 
             <Input ref={usernameRef} placeholder="Username" />
-            <Input ref={passwordRef} placeholder="Password" />
+            <Input ref={passwordRef} placeholder="Password" type="password" />
+
             <div className=" flex justify-center pt-2">
                 <Button onClick={signin} loading={false} variant="primary" text="Sign In" fullWidth={true} />
             </div>

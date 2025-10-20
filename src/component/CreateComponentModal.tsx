@@ -1,4 +1,10 @@
 import { CrossIcon } from "../icons/CrossIcon";
+import { DocumentIcon } from "../icons/DocumentIcon";
+import { InstagramIcon } from "../icons/InstagramIcon";
+import { LinkedinIcon } from "../icons/LinkedinIcon";
+import { OtherIcon } from "../icons/OtherIcon";
+import { XIcon } from "../icons/XIcon";
+import { YoutubeIcon } from "../icons/YoutubeIcon";
 import { BACKEND_URL } from "../pages/config";
 import { Button } from "./Button";
 import { useRef, useState } from "react";
@@ -6,13 +12,13 @@ import { toast } from "react-toastify";
 
 // Move constants outside component
 const TYPES = [
-    { value: "linkedin", label: "LinkedIn", icon: "💼" },
-    { value: "twitter", label: "Twitter", icon: "🐦" },
-    { value: "instagram", label: "Instagram", icon: "📷" },
-    { value: "youtube", label: "YouTube", icon: "🔴" },
+    { value: "linkedin", label: "LinkedIn", icon: <LinkedinIcon/> },
+    { value: "twitter", label: "Twitter", icon: <XIcon/> },
+    { value: "instagram", label: "Instagram", icon: <InstagramIcon/> },
+    { value: "youtube", label: "YouTube", icon: <YoutubeIcon/> },
     { value: "pinterest", label: "Pinterest", icon: "📌" },
-    { value: "documents", label: "Documents", icon: "📄" },
-    { value: "other", label: "Other", icon: "🔗" }
+    { value: "documents", label: "Documents", icon: <DocumentIcon/> },
+    { value: "other", label: "Other", icon: <OtherIcon/> }
 ];
 
 const ALLOWED_TYPES = [
