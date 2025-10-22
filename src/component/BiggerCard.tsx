@@ -21,7 +21,6 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
   title,
   description,
   thumbnail,
-  type,
   link,
   fileName,
   fileSize,

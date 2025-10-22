@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, type JSX } from "react";
+import { useEffect, useState, useMemo, type JSX } from "react";
 import { TrashIcon } from "../icons/TrashIcon";
 import { toast } from "react-toastify";
 import { BACKEND_URL } from "../pages/config";
@@ -98,9 +98,9 @@ export function Card({
     onDeleteSuccess,
     readonly = false
 }: CardProps) {
-    const [showFullDescription, setShowFullDescription] = useState(false);
-    const [embedError, setEmbedError] = useState(false);
-    const [isExpanded, setIsExpanded] = useState(false);
+
+    const [embedError] = useState(false);
+    const [isExpanded] = useState(false);
     const [biggerCardOpen, setBiggerCardOpen] = useState(false);
 
     useEffect(() => {
@@ -156,44 +156,6 @@ export function Card({
         } catch (err) {
             console.error("Error deleting content:", err);
             toast.error("Something went wrong!");
-        }
-    };
-
-    const handleFileDownload = async () => {
-        if (!downloadUrl && !hasFile) {
-            toast.error("File not available for download");
-            return;
-        }
-
-        try {
-            if (downloadUrl) {
-                const response = await fetch(downloadUrl, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem("token")}`
-                    }
-                });
-
-                if (response.ok) {
-                    const blob = await response.blob();
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = fileName || 'download';
-                    document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
-                    document.body.removeChild(a);
-                    toast.success("Download started!");
-                } else {
-                    throw new Error('Download failed');
-                }
-            } else {
-                window.open(`${BACKEND_URL}/api/v1/content/${contentId}/download`, '_blank');
-            }
-        } catch (error) {
-            console.error('Download error:', error);
-            toast.error("Download failed. Please try again.");
         }
     };
 

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { SidebarItem } from "./SidebarItem";
 import { XIcon } from "../icons/XIcon";
 import { YoutubeIcon } from "../icons/YoutubeIcon";
@@ -18,7 +17,6 @@ interface SidebarProps {
 
 export function Sidebar({ onSelectType }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
 
   function logout() {
     localStorage.removeItem("token");
