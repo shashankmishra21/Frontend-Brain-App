@@ -10,6 +10,8 @@ import { InstagramIcon } from "../icons/InstagramIcon";
 import { Button } from "./Button";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { DocumentIcon } from "../icons/DocumentIcon";
+import { OtherIcon } from "../icons/OtherIcon";
 
 interface SidebarProps {
   onSelectType: (type: string) => void;
@@ -120,6 +122,16 @@ export function Sidebar({ onSelectType }: SidebarProps) {
                 text="Instagram"
                 icon={<InstagramIcon />}
                 onClick={() => handleSelect("instagram")}
+              />
+              <SidebarItem
+                text="Documents"
+                icon={<DocumentIcon />}
+                onClick={() => handleSelect("documents")}
+              />
+              <SidebarItem
+                text="Others"
+                icon={<OtherIcon />}
+                onClick={() => handleSelect("other")}
               />
             </div>
 

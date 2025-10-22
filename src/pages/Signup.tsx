@@ -46,7 +46,7 @@ export function Signup() {
 
                 <h2 className="text-2xl font-bold text-center text-gray-800 mb-1">Welcome to
                     <div className="flex justify-center items-center">
-                        <img src="logosignup.png" alt="linkify" style={{ width: "140px", height: "70px" }} />
+                        <img src="BrainCacheSign.png" alt="linkify" style={{ width: "140px", height: "130px" }} />
                     </div>
                 </h2>
                 <p className="text-sm text-gray-500 text-center mb-2">Create your free account</p>
