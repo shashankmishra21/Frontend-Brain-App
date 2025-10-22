@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { SidebarItem } from "./SidebarItem";
 import { XIcon } from "../icons/XIcon";
 import { YoutubeIcon } from "../icons/YoutubeIcon";
-import { Logo } from "../icons/Logo";
 import { AllIcons } from "../icons/AllIcons";
 import { LinkedinIcon } from "../icons/LinkedinIcon";
 import { InstagramIcon } from "../icons/InstagramIcon";
@@ -65,22 +64,32 @@ export function Sidebar({ onSelectType }: SidebarProps) {
       )}
 
       {/* Sidebar Container */}
-      <div className={`fixed top-0 left-0 h-full w-72 z-50 bg-gray-300 transform transition-transform duration-300 ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      } lg:translate-x-0 lg:static lg:block`}>
+      <div className={`fixed top-0 left-0 h-full w-72 z-50 bg-gray-300 transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0 lg:static lg:block`}>
         <div className="h-screen w-full flex flex-col justify-between">
           {/* Top */}
           <div>
             {/* Logo & Close Button */}
             <div className="flex justify-between items-center p-6">
-              <Logo />
+              <div className="flex items-center gap-3">
+                <img
+                  src="BrainCachelogo.png"
+                  alt="BrainCache Logo"
+                  className="w-12 h-12 object-contain"
+                />
+                <span className="text-2xl font-black tracking-tight">
+                  <span className="text-gray-900">Brain</span>
+                  <span className="bg-orange-100 bg-clip-text text-transparent">Cache</span>
+                </span>
+              </div>
+
               {isOpen && (
                 <button
                   className="lg:hidden"
                   onClick={() => setIsOpen(false)}
                 >
                   <svg
-                    className="w-6 h-6 text-orange-100"
+                    className="w-6 h-6 text-gray-900"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
@@ -95,6 +104,7 @@ export function Sidebar({ onSelectType }: SidebarProps) {
                 </button>
               )}
             </div>
+
 
             {/* Menu Items */}
             <div className="flex flex-col gap-y-2 px-4">
@@ -146,7 +156,7 @@ export function Sidebar({ onSelectType }: SidebarProps) {
                   text="Home"
                   fullWidth
                 /> */}
-                
+
                 {/* Logout Button */}
                 <Button
                   onClick={logout}
