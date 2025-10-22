@@ -84,7 +84,6 @@ function getFileIcon(fileName?: string): string {
   };
   return icons[ext as keyof typeof icons] || '📄';
 }
-
 export const BiggerCard: React.FC<BiggerCardProps> = ({
   open,
   onClose,
@@ -99,7 +98,6 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
   contentId,
 }) => {
   const [embedError] = useState(false);
-  const [isExpanded] = useState(false);
 
   useEffect(() => {
     if (!open) return;
@@ -199,8 +197,6 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
   const renderContent = () => {
     const linkedinEmbedUrl = type === "linkedin" && link ? extractLinkedInEmbedURL(link) : null;
     const pinterestId = type === "pinterest" && link ? extractPinterestId(link) : null;
-
-    const contentHeight = isExpanded ? 'auto' : '400px'; // Bigger for modal
 
     switch (type) {
       case "youtube":
