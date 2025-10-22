@@ -9,7 +9,7 @@ interface ContentItem {
   _id: string;
   title: string;
   link: string;
-  type: string;
+  type: "linkedin" | "twitter" | "instagram" | "youtube" | "pinterest" | "documents" | "other";
 }
 
 export default function SharedPage() {
