@@ -2,3 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
+.twitter-tweet {
+  margin: 0 !important;
+}

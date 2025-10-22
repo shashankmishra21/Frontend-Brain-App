@@ -62,7 +62,7 @@ export function Sidebar({ onSelectType }: SidebarProps) {
       )}
 
       {/* Sidebar Container */}
-      <div className={`fixed top-0 left-0 h-full w-72 z-50 bg-orange-600 transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"
+      <div className={`fixed top-0 left-0 h-full w-72 z-50 bg-gray-300 transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 lg:static lg:block`}>
         <div className="h-screen w-full flex flex-col justify-between">
           {/* Top */}

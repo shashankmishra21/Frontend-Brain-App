@@ -235,9 +235,13 @@ export function Card({
                 if (link && !embedError) {
                     const canonicalLink = getCanonicalTwitterURL(link);
                     return (
-                        <div className="w-full overflow-hidden rounded-lg bg-white border border-gray-200"
-                            style={{ minHeight: '200px' }}>
-                            <blockquote className="twitter-tweet" data-theme="light">
+                        <div className="w-full rounded-lg overflow-hidden bg-white border border-gray-200"
+                            style={{ minHeight: '200px', padding: 0 }}>
+                            <blockquote
+                                className="twitter-tweet"
+                                data-theme="light"
+                                style={{ margin: 0 }}
+                            >
                                 <a href={canonicalLink}></a>
                             </blockquote>
                         </div>
@@ -272,7 +276,7 @@ export function Card({
                 if (linkedinEmbedUrl && !embedError) {
                     return (
                         <div className="w-full overflow-hidden rounded-lg bg-white border border-gray-200"
-                            style={{ height: isExpanded ? 'auto' : '280px', minHeight: '200px' }}>
+                            style={{ height: isExpanded ? 'auto' : '300px', minHeight: '330px' }}>
                             <iframe
                                 src={linkedinEmbedUrl}
                                 className="w-full h-full border-none"
@@ -313,7 +317,7 @@ export function Card({
             case "documents":
                 return (
                     <div className="w-full bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-dashed border-blue-200 rounded-lg overflow-hidden"
-                        style={{ height: isExpanded ? '300px' : '200px' }}>
+                        style={{ height: isExpanded ? '300px' : '340px' }}>
                         <div className="h-full flex flex-col items-center justify-center p-4">
                             <div className="text-6xl mb-3">{getFileIcon(fileName)}</div>
                             <div className="text-center w-full">
@@ -333,7 +337,7 @@ export function Card({
             case "other":
                 return (
                     <div className="w-full bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-dashed border-gray-200 rounded-lg overflow-hidden cursor-pointer hover:border-gray-300 transition-colors"
-                        style={{ height: isExpanded ? '220px' : '180px' }}
+                        style={{ height: isExpanded ? '220px' : '340px' }}
                         onClick={() => link && window.open(link, '_blank')}>
                         <div className="h-full flex flex-col items-center justify-center p-4">
                             <div className="text-5xl mb-3">🔗</div>
@@ -381,7 +385,7 @@ export function Card({
                 <div className={`${commonClass} from-blue-50 to-blue-100`}
                     style={{ height: contentHeight }}
                     onClick={() => link && window.open(link, '_blank')}>
-                    <div className="text-7xl mb-3"><LinkedinIcon /></div>
+                    <div className="text-7xl mb-2"><LinkedinIcon /></div>
                     <p className="text-sm font-medium text-blue-700">LinkedIn Post</p>
                 </div>
             ),
@@ -423,7 +427,7 @@ export function Card({
         <>
             <div
                 className={`bg-white shadow-lg rounded-xl border border-gray-200 w-80 h-[435px] flex flex-col overflow-hidden hover:shadow-xl transition-all duration-300 relative`}>
-                <div className="flex justify-between items-start px-4 py-3 flex-shrink-0 bg-gradient-to-r from-gray-50 to-gray-100 border-b">
+                <div className="flex justify-between items-start px-4 py-3 flex-shrink-0 bg-grey-100 border-b">
                     <div className="flex items-center gap-1 flex-1 min-w-0">
                         <span className="text-lg flex-shrink-0">{getTypeIcon(type)}</span>
                         <h3 className="font-semibold text-gray-800 truncate text-sm" title={title}>

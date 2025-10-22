@@ -18,6 +18,7 @@ export default {
         gray: {
           100: "#1E293B", //text primary
           200: "#64748B",// text secondry
+          300: "#FAFAFA"
         }
       }
     },

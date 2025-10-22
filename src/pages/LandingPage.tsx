@@ -1,13 +1,14 @@
 // pages/LandingPage.tsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Brain, Globe,Share2, Upload, Search } from 'lucide-react';
+import { ArrowRight, Share2, Upload, Search } from 'lucide-react';
+import { CategoryIcon } from '../icons/CategorizationIcon';
+import { motion } from 'framer-motion';
 
 const LandingPage: React.FC = () => {
     const navigate = useNavigate();
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-    // Add authentication state
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState<{ name?: string } | null>(null);
 
@@ -17,15 +18,12 @@ const LandingPage: React.FC = () => {
         };
         window.addEventListener('mousemove', handleMouseMove);
 
-        // Check authentication status on component mount
         checkAuthStatus();
 
         return () => window.removeEventListener('mousemove', handleMouseMove);
     }, []);
 
-    // Function to check if user is authenticated
     const checkAuthStatus = () => {
-        // Check localStorage, sessionStorage, or your auth context
         const token = localStorage.getItem('authToken');
         const userData = localStorage.getItem('user');
 
@@ -40,10 +38,8 @@ const LandingPage: React.FC = () => {
 
     const handleGetStarted = (): void => {
         if (isAuthenticated) {
-            // Redirect to dashboard if authenticated
             navigate('/main');
         } else {
-            // Redirect to signup if not authenticated
             navigate('/signin');
         }
     };
@@ -53,12 +49,10 @@ const LandingPage: React.FC = () => {
     };
 
     const handleLogout = (): void => {
-        // Clear authentication data
         localStorage.removeItem('authToken');
         localStorage.removeItem('user');
         setIsAuthenticated(false);
         setUser(null);
-        // Optionally redirect to home or show success message
         navigate('/');
     };
 
@@ -68,20 +62,14 @@ const LandingPage: React.FC = () => {
             <div className="bg-gradient-to-br from-slate-900 via-blue-800 to-indigo-800 relative overflow-hidden">
                 {/* Background Elements */}
                 <div className="absolute inset-0">
-                    <div
-                        className="absolute w-96 h-96 bg-blue-400/6 rounded-full blur-3xl animate-pulse"
-                        style={{
-                            left: mousePosition.x / 20,
-                            top: mousePosition.y / 20,
-                        }}
-                    />
+                    <div className="absolute w-96 h-96 bg-blue-400/6 rounded-full blur-3xl animate-pulse"
+                        style={{ left: mousePosition.x / 20, top: mousePosition.y / 20 }} />
                     <div className="absolute -top-40 -right-40 w-80 h-80 bg-indigo-400/8 rounded-full blur-3xl animate-pulse delay-1000" />
                     <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-400/6 rounded-full blur-3xl animate-pulse delay-2000" />
                 </div>
 
                 {/* Conditional Navigation */}
                 <nav className="relative z-20">
-
                     <div className="relative container mx-auto px-6 py-5">
                         <div className="flex items-center justify-between">
 
@@ -89,52 +77,24 @@ const LandingPage: React.FC = () => {
                             <div className="flex items-center">
                                 <span className="text-2xl font-black tracking-tight">
                                     <span className="text-white drop-shadow-lg">Brain</span>
-                                    <span className="bg-gradient-to-r from-blue-100 to-cyan-100 bg-clip-text text-transparent drop-shadow-sm">Cache</span>
+                                    <span className="bg-orange-100 bg-clip-text text-transparent drop-shadow-sm">Cache</span>
                                 </span>
                             </div>
 
                             {/* Navigation Links - Desktop */}
                             <div className="hidden md:flex items-center space-x-8">
-                                <a
-                                    href="#features"
-                                    className="text-white/85 hover:text-white font-medium text-sm transition-all duration-300 relative group py-2 px-1"
-                                >
-                                    Features
-                                    <span className="absolute -bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-100 to-cyan-100 group-hover:w-full transition-all duration-300 rounded-full"></span>
-                                </a>
-                                <a
-                                    href="#how-it-works"
-                                    className="text-white/85 hover:text-white font-medium text-sm transition-all duration-300 relative group py-2 px-1"
-                                >
-                                    How It Works
-                                    <span className="absolute -bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-100 to-cyan-100 group-hover:w-full transition-all duration-300 rounded-full"></span>
-                                </a>
-                                <a
-                                    href="#about"
-                                    className="text-white/85 hover:text-white font-medium text-sm transition-all duration-300 relative group py-2 px-1"
-                                >
-                                    About
-                                    <span className="absolute -bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-100 to-cyan-100 group-hover:w-full transition-all duration-300 rounded-full"></span>
-                                </a>
-
                                 {/* Conditional Authentication Buttons */}
                                 {isAuthenticated ? (
-                                    // Show when user is signed in
                                     <>
-                                        {/* User greeting - optional */}
-                                        {user?.name && (
-                                            <span className="text-white/70 text-sm font-medium">
-                                                Hi, {user.name}
-                                            </span>
-                                        )}
+                                        {user?.name && <span className="text-white/70 text-sm font-medium">Hi, {user.name}</span>}
 
-                                        {/* Get Started Button (leads to dashboard) */}
+                                        {/* Get Started Button */}
                                         <button
                                             onClick={handleGetStarted}
-                                            className="group flex items-center space-x-2 px-6 py-2.5 bg-white/12 hover:bg-white/18 backdrop-blur-sm text-white font-semibold text-sm rounded-lg transition-all duration-300 hover:scale-105 border border-white/25 hover:border-white/35 shadow-sm"
+                                            className="group flex items-center space-x-2 px-6 py-2.5 bg-white/12 hover:bg-white/18 backdrop-blur-sm text-white font-semibold text-sm rounded-lg transition-all duration-300 hover:scale-105 border border-white/25 hover:border-white/35 shadow-sm hover:shadow-orange-300/80"
                                         >
                                             <span>Dashboard</span>
-                                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-orange-500" />
                                         </button>
 
                                         {/* Logout Button */}
@@ -147,7 +107,6 @@ const LandingPage: React.FC = () => {
                                         </button>
                                     </>
                                 ) : (
-                                    // Show when user is NOT signed in
                                     <>
                                         {/* Sign In Button */}
                                         <button
@@ -158,13 +117,13 @@ const LandingPage: React.FC = () => {
                                             <span className="absolute -bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-100 to-cyan-100 group-hover:w-full transition-all duration-300 rounded-full"></span>
                                         </button>
 
-                                        {/* Get Started Button (leads to signup) */}
+                                        {/* Get Started Button */}
                                         <button
                                             onClick={handleGetStarted}
-                                            className="group flex items-center space-x-2 px-6 py-2.5 bg-white/12 hover:bg-white/18 backdrop-blur-sm text-white font-semibold text-sm rounded-lg transition-all duration-300 hover:scale-105 border border-white/25 hover:border-white/35 shadow-sm"
+                                            className="group flex items-center space-x-2 px-6 py-2.5 bg-orange-100 hover:bg-white/18 backdrop-blur-sm text-white font-semibold text-sm rounded-lg transition-all duration-300 hover:scale-105 border border-white/25 hover:border-white/35 shadow-sm hover:shadow-orange-300/80"
                                         >
                                             <span>Your BrainCache</span>
-                                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-orange-500" />
                                         </button>
                                     </>
                                 )}
@@ -184,9 +143,9 @@ const LandingPage: React.FC = () => {
                 <div className="relative z-10 container mx-auto px-6 py-20">
                     <div className="text-center max-w-6xl mx-auto">
                         <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-8 leading-tight whitespace-nowrap overflow-hidden">
-                            <span className="text-white">Never Lose </span>
-                            <span className="bg-gradient-to-r from-blue-300 via-indigo-300 to-pink-300 bg-clip-text text-transparent">
-                                What Matters
+                            <span className="text-white">Never Lose What </span>
+                            <span className="bg-orange-100 bg-clip-text text-transparent">
+                                Matters
                             </span>
                         </h1>
 
@@ -197,19 +156,18 @@ const LandingPage: React.FC = () => {
                         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
                             <button
                                 onClick={handleGetStarted}
-                                className="group px-10 py-5 bg-white text-blue text-lg font-semibold rounded-lg hover:shadow-2xl hover:shadow-blue-500/25 hover:scale-105 transition-all duration-500 flex items-center space-x-3"
+                                className="group px-10 py-5 bg-white text-blue text-lg font-semibold rounded-lg hover:shadow-2xl hover:shadow-orange-300/40 hover:scale-105 transition-all duration-500 flex items-center space-x-3"
                             >
-
                                 <span>{isAuthenticated ? 'Go to Dashboard' : 'Get Started'}</span>
-                                <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                                <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform text-orange-500" />
                             </button>
 
                             {/* Watch Demo Button */}
                             <button
-                                onClick={() => {/* Add your demo handler here */ }}
-                                className="group px-10 py-5 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white text-lg font-semibold rounded-lg hover:bg-white/20 hover:border-white/50 hover:scale-105 transition-all duration-500 flex items-center space-x-3"
+                                onClick={() => { /* Add your demo handler here */ }}
+                                className="group px-10 py-5 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white text-lg font-semibold rounded-lg hover:bg-orange-100 hover:border-orange-300 hover:text-white hover:scale-105 transition-all duration-500 flex items-center space-x-3"
                             >
-                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M8 5v14l11-7z" />
                                 </svg>
                                 <span>Watch Demo</span>
@@ -233,18 +191,18 @@ const LandingPage: React.FC = () => {
 
                     <div className="grid md:grid-cols-4 gap-8 max-w-7xl mx-auto">
                         <FeatureCard
-                            icon={<Upload className="w-8 h-8" />}
+                            icon={<Upload className="w-8 h-8 text-orange-500" />}
                             title="Universal Capture"
                             description="Save content from any platform - LinkedIn posts, YouTube videos, documents, and links"
-                            gradient="from-blue-500 to-indigo-600"
+                            gradient="from-indigo-500 to-blue-600"
                             delay="0"
                             isDark={false}
                         />
                         <FeatureCard
-                            icon={<Brain className="w-8 h-8" />}
-                            title="AI Organization"
+                            icon={<CategoryIcon />}
+                            title="Categorization"
                             description="Smart categorization and tagging. Never lose important content again"
-                            gradient="from-pink-500 to-rose-600"
+                            gradient="from-indigo-500 to-blue-600"
                             delay="100"
                             isDark={false}
                         />
@@ -252,7 +210,7 @@ const LandingPage: React.FC = () => {
                             icon={<Search className="w-8 h-8" />}
                             title="Instant Search"
                             description="Find anything in seconds with intelligent semantic search capabilities"
-                            gradient="from-slate-600 to-slate-700"
+                            gradient="from-indigo-500 to-blue-600"
                             delay="200"
                             isDark={false}
                         />
@@ -273,51 +231,55 @@ const LandingPage: React.FC = () => {
                 <div className="container mx-auto px-6">
                     <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-16">
                         <span className="text-gray-900">How Your </span>
-                        <span className="bg-gradient-to-r from-blue-600 to-pink-600 bg-clip-text text-transparent">Brain Cache</span>
+                        {/* BrainCache Brand */}
+
+                        <span className="text-Black drop-shadow-lg">Brain</span>
+                        <span className="bg-orange-100 bg-clip-text text-transparent drop-shadow-sm">Cache</span>
+
                         <span className="text-gray-900"> Works</span>
                     </h2>
 
-                    <div className="grid md:grid-cols-5 gap-8 max-w-7xl mx-auto">
+                    <div className="grid md:grid-cols-5 gap-8 max-w-7xl mx-auto text-black">
                         {[
                             {
                                 step: "01",
                                 title: "Discover",
                                 desc: "Find valuable content across the web",
-                                icon: <Globe className="w-6 h-6" />,
+                                // icon: <Globe className="w-6 h-6" />,
                                 stepColor: "from-blue-600 to-indigo-600",
-                                iconColor: "from-indigo-500 to-blue-500"
+                                //iconColor: "bg-orange-100"
                             },
                             {
                                 step: "02",
                                 title: "Save",
                                 desc: "One-click capture to your personal Brain Cache",
-                                icon: <Upload className="w-6 h-6" />,
-                                stepColor: "from-pink-600 to-rose-600",
-                                iconColor: "from-rose-500 to-pink-500"
+                                // icon: <Upload className="w-6 h-6" />,
+                                stepColor: "from-blue-600 to-indigo-600",
+                                //iconColor: "bg-orange-100"
                             },
                             {
                                 step: "03",
                                 title: "Organize",
-                                desc: "AI-powered categorization of your saved content",
-                                icon: <Brain className="w-6 h-6" />,
-                                stepColor: "from-slate-600 to-slate-700",
-                                iconColor: "from-slate-500 to-slate-600"
+                                desc: "Categorization of your saved content",
+                                //icon: <Brain className="w-6 h-6" />,
+                                stepColor: "from-blue-600 to-indigo-600",
+                                // iconColor: "bg-orange-100"
                             },
                             {
                                 step: "04",
                                 title: "Find",
                                 desc: "Powerful search to locate exactly what you need",
-                                icon: <Search className="w-6 h-6" />,
-                                stepColor: "from-indigo-600 to-blue-600",
-                                iconColor: "from-blue-500 to-indigo-500"
+                                // icon: <Search className="w-6 h-6" />,
+                                stepColor: "from-blue-600 to-indigo-600",
+                                // iconColor: "bg-orange-100"
                             },
                             {
                                 step: "05",
                                 title: "Remember",
                                 desc: "Access your knowledge anytime, anywhere",
-                                icon: <Brain className="w-6 h-6" />,
-                                stepColor: "from-blue-600 to-pink-600",
-                                iconColor: "from-pink-500 to-blue-500"
+                                // icon: <Brain className="w-6 h-6" />,
+                                stepColor: "from-blue-600 to-indigo-600",
+                                //iconColor: "bg-orange-100"
                             }
                         ].map((item, index) => (
                             <div key={index} className="text-center group hover:scale-105 transition-all duration-300">
@@ -325,9 +287,7 @@ const LandingPage: React.FC = () => {
                                     <div className={`w-16 h-16 bg-gradient-to-r ${item.stepColor} rounded-xl flex items-center justify-center text-white font-bold text-lg mx-auto shadow-lg group-hover:shadow-xl transition-shadow`}>
                                         {item.step}
                                     </div>
-                                    <div className={`absolute -top-1 -right-1 w-8 h-8 bg-gradient-to-r ${item.iconColor} rounded-lg flex items-center justify-center text-white`}>
-                                        {item.icon}
-                                    </div>
+
                                 </div>
                                 <h3 className="text-lg font-semibold text-gray-900 mb-3">{item.title}</h3>
                                 <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
@@ -339,50 +299,59 @@ const LandingPage: React.FC = () => {
 
             {/* CTA Section - Dark Blue Background */}
             <div className="bg-gradient-to-r from-slate-900 via-blue-800 to-indigo-800 py-20">
-                <div className="container mx-auto px-6">
-                    <div className="bg-gradient-to-r from-slate-800/40 via-blue-800/20 to-slate-800/40 backdrop-blur-xl border border-white/10 rounded-2xl p-12 text-center max-w-5xl mx-auto relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/3 to-pink-500/3" />
-                        <div className="relative z-10">
-                            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-                                Ready to Extend Your
-                                <span className="block bg-gradient-to-r from-blue-300 to-pink-300 bg-clip-text text-transparent">
-                                    Digital Brain?
-                                </span>
-                            </h2>
-                            <p className="text-lg text-slate-200 mb-10 max-w-3xl mx-auto">
-                                Join thousands of professionals who've transformed their knowledge management with Linkify
-                            </p>
-                            <button
-                                onClick={handleGetStarted}
-                                className="group px-12 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xl font-semibold rounded-lg hover:shadow-2xl hover:shadow-blue-500/25 hover:scale-105 transition-all duration-500 relative overflow-hidden"
-                            >
-                                <div className="absolute inset-0 bg-white/10 transform -skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
-                                <span className="relative z-10">Start Your Brain Cache Journey</span>
-                            </button>
-                        </div>
-                    </div>
+                <div className="container mx-auto px-6 flex flex-col items-center text-center max-w-5xl">
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 max-w-xl">
+                        Ready to Extend Your
+                        <span className="block bg-orange-100 bg-clip-text text-transparent">
+                            Digital Brain?
+                        </span>
+                    </h2>
+                    <p className="text-lg text-slate-200 mb-10 max-w-3xl">
+                        Join thousands of professionals who've transformed their knowledge management with Linkify
+                    </p>
+                    {/* Button */}
+                    <button
+                        onClick={handleGetStarted}
+                        className="group px-12 py-6 bg-white text-black text-xl font-semibold rounded-lg hover:shadow-2xl hover:shadow-orange-400/40 hover:scale-105 transition-all duration-500 relative overflow-hidden"
+                    >
+                        <div className="absolute inset-0 bg-white/10 transform -skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
+                        <span className="relative z-10">Start Organizing Your Digital Knowledge Today</span>
+                    </button>
                 </div>
             </div>
 
             {/* Footer - White Background */}
-            <footer className="bg-white py-12 border-t border-gray-200">
-                <div className="container mx-auto px-6">
-                    <div className="text-center">
-                        <div className="flex items-center justify-center space-x-3 mb-4">
-                            <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
-                                <Brain className="w-5 h-5 text-white" />
-                            </div>
-                            <span className="text-xl font-semibold text-gray-900">BrainCache</span>
-                        </div>
-                        <p className="text-gray-600 mb-4">
-                            Optimized for Productivity . Secure Design . High-Performance Architecture
+            <footer className="bg-white py-12 border-t border-gray-300">
+                <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between max-w-5xl gap-6">
+
+                    {/* Left side with brand */}
+                    <div className="flex items-center">
+                        <span className="text-2xl font-extrabold tracking-tight text-gray-900">
+                            Brain</span>
+                        <span className="text-2xl font-extrabold tracking-tight bg-orange-100 bg-clip-text text-transparent">Cache
+                        </span>
+                    </div>
+
+                    {/* Center info */}
+                    <div className="text-center md:text-left flex-1 md:flex-none max-w-md">
+                        <p className="text-gray-900 text-base font-medium mb-1">
+                            Optimized for Productivity · Secure Design · High-Performance Architecture
                         </p>
+                        <p className="text-gray-500 text-sm mb-1">
+                            © 2025 BrainCache. Never Lose What Matters
+                        </p>
+                    </div>
+
+                    {/* Right side developer info */}
+                    <div className="text-center md:text-right">
                         <p className="text-gray-500 text-sm">
-                            © 2025 BrainCache. Never Loose What Matters
+                            <span className="font-semibold text-gray-900 drop-shadow-md">Developed by </span>
+                            <span className="bg-orange-100 font-bold bg-clip-text text-transparent drop-shadow-sm">Shashank</span>
                         </p>
                     </div>
                 </div>
             </footer>
+
         </div>
     );
 };
