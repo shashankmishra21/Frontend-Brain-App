@@ -26,7 +26,7 @@ function Home() {
     : contents.filter(content => content.type === selectedType);
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-950">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-800">
       {/* Sidebar (responsive with toggle) */}
       <Sidebar onSelectType={setSelectedType} />
 
@@ -101,7 +101,7 @@ function Home() {
         {/* Content Cards */}
         {!loading && !error && (
           filteredContents.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-0 m-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-0 px-6 ml-1">
               {filteredContents.map((content) => (
                 <Card
                     key={content._id ?? "default-id"}

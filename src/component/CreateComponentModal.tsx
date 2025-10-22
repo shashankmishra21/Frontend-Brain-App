@@ -16,7 +16,6 @@ const TYPES = [
     { value: "twitter", label: "Twitter", icon: <XIcon/> },
     { value: "instagram", label: "Instagram", icon: <InstagramIcon/> },
     { value: "youtube", label: "YouTube", icon: <YoutubeIcon/> },
-    { value: "pinterest", label: "Pinterest", icon: "📌" },
     { value: "documents", label: "Documents", icon: <DocumentIcon/> },
     { value: "other", label: "Other", icon: <OtherIcon/> }
 ];

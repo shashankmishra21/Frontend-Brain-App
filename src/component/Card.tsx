@@ -1,7 +1,14 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, type JSX } from "react";
 import { TrashIcon } from "../icons/TrashIcon";
 import { toast } from "react-toastify";
 import { BACKEND_URL } from "../pages/config";
+import { YoutubeIcon } from "../icons/YoutubeIcon";
+import { LinkedinIcon } from "../icons/LinkedinIcon";
+import { InstagramIcon } from "../icons/InstagramIcon";
+import { XIcon } from "../icons/XIcon";
+import { DocumentIcon } from "../icons/DocumentIcon";
+import { OtherIcon } from "../icons/OtherIcon";
+import { BiggerCard } from "./BiggerCard";
 
 interface CardProps {
     title: string;
@@ -17,11 +24,20 @@ interface CardProps {
     readonly?: boolean;
 }
 
-// Utility functions - same as before
 function extractYouTubeId(url: string): string | null {
     const regExp = /^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|watch\?.+&v=)([^#&?]*).*/;
     const match = url.match(regExp);
     return match && match[1].length === 11 ? match[1] : null;
+}
+
+function getCanonicalTwitterURL(url: string): string {
+    try {
+        const parsed = new URL(url);
+        if (parsed.hostname.includes("x.com")) parsed.hostname = "twitter.com";
+        return parsed.toString();
+    } catch {
+        return url;
+    }
 }
 
 function extractLinkedInEmbedURL(url: string): string | null {
@@ -56,32 +72,37 @@ function getFileIcon(fileName?: string): string {
     return icons[ext as keyof typeof icons] || '📄';
 }
 
-function getTypeIcon(type: string): string {
-    const icons = {
-        'youtube': '🔴', 'twitter': '🐦', 'linkedin': '💼',
-        'instagram': '📷', 'pinterest': '📌', 'documents': '📄', 'other': '🔗'
+export function getTypeIcon(type: string): JSX.Element {
+    const icons: Record<string, JSX.Element> = {
+        youtube: <YoutubeIcon />,
+        twitter: <XIcon />,
+        linkedin: <LinkedinIcon />,
+        instagram: <InstagramIcon />,
+        documents: <DocumentIcon />,
+        other: <OtherIcon />
     };
-    return icons[type as keyof typeof icons] || '📄';
+
+    return icons[type] || <DocumentIcon />;
 }
 
-export function Card({ 
-    title, 
-    link, 
-    description, 
-    type, 
-    contentId, 
+export function Card({
+    title,
+    link,
+    description,
+    type,
+    contentId,
     fileName,
     fileSize,
     hasFile,
     downloadUrl,
-    onDeleteSuccess, 
-    readonly = false 
+    onDeleteSuccess,
+    readonly = false
 }: CardProps) {
     const [showFullDescription, setShowFullDescription] = useState(false);
     const [embedError, setEmbedError] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
+    const [biggerCardOpen, setBiggerCardOpen] = useState(false);
 
-    // Same useEffect as before...
     useEffect(() => {
         if (type === "instagram" && !document.getElementById("instagram-embed-script")) {
             const script = document.createElement("script");
@@ -188,9 +209,9 @@ export function Card({
                     const videoId = extractYouTubeId(link);
                     if (videoId) {
                         return (
-                            <div className="w-full overflow-hidden rounded-lg shadow-sm relative" 
-                                 style={{ height: isExpanded ? '400px' : '240px' }}>
-                                <img 
+                            <div className="w-full overflow-hidden rounded-lg shadow-sm relative"
+                                style={{ height: isExpanded ? '400px' : '240px' }}>
+                                <img
                                     src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
                                     alt="YouTube thumbnail"
                                     className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-200"
@@ -212,24 +233,12 @@ export function Card({
 
             case "twitter":
                 if (link && !embedError) {
+                    const canonicalLink = getCanonicalTwitterURL(link);
                     return (
-                        <div className="w-full overflow-hidden rounded-lg bg-white border border-gray-200" 
-                             style={{ height: isExpanded ? 'auto' : '300px', minHeight: '200px' }}>
-                            <blockquote 
-                                className="twitter-tweet" 
-                                data-width="100%" 
-                                data-theme="light"
-                                data-cards="hidden"
-                                data-conversation="none"
-                                style={{ 
-                                    margin: 0, 
-                                    transform: isExpanded ? 'scale(1)' : 'scale(0.95)',
-                                    transformOrigin: 'top center',
-                                    width: isExpanded ? '100%' : '105%',
-                                    height: '100%'
-                                }}
-                            >
-                                <a href={link.replace("x.com", "twitter.com")}></a>
+                        <div className="w-full overflow-hidden rounded-lg bg-white border border-gray-200"
+                            style={{ minHeight: '200px' }}>
+                            <blockquote className="twitter-tweet" data-theme="light">
+                                <a href={canonicalLink}></a>
                             </blockquote>
                         </div>
                     );
@@ -239,8 +248,8 @@ export function Card({
             case "instagram":
                 if (link && !embedError) {
                     return (
-                        <div className="w-full overflow-hidden rounded-lg bg-white border border-gray-200 flex justify-center" 
-                             style={{ height: isExpanded ? 'auto' : '350px', minHeight: '300px' }}>
+                        <div className="w-full overflow-hidden rounded-lg bg-white border border-gray-200 flex justify-center"
+                            style={{ height: isExpanded ? 'auto' : '350px', minHeight: '300px' }}>
                             <blockquote
                                 className="instagram-media"
                                 data-instgrm-permalink={link}
@@ -262,13 +271,13 @@ export function Card({
             case "linkedin":
                 if (linkedinEmbedUrl && !embedError) {
                     return (
-                        <div className="w-full overflow-hidden rounded-lg bg-white border border-gray-200" 
-                             style={{ height: isExpanded ? 'auto' : '280px', minHeight: '200px' }}>
+                        <div className="w-full overflow-hidden rounded-lg bg-white border border-gray-200"
+                            style={{ height: isExpanded ? 'auto' : '280px', minHeight: '200px' }}>
                             <iframe
                                 src={linkedinEmbedUrl}
                                 className="w-full h-full border-none"
                                 title="LinkedIn Post"
-                                style={{ 
+                                style={{
                                     transform: isExpanded ? 'scale(1)' : 'scale(0.95)',
                                     transformOrigin: 'top center',
                                     width: isExpanded ? '100%' : '105%',
@@ -283,8 +292,8 @@ export function Card({
             case "pinterest":
                 if (pinterestId && !embedError) {
                     return (
-                        <div className="w-full overflow-hidden rounded-lg bg-white border border-gray-200 flex justify-center" 
-                             style={{ height: isExpanded ? 'auto' : '320px' }}>
+                        <div className="w-full overflow-hidden rounded-lg bg-white border border-gray-200 flex justify-center"
+                            style={{ height: isExpanded ? 'auto' : '320px' }}>
                             <iframe
                                 src={`https://assets.pinterest.com/ext/embed.html?id=${pinterestId}`}
                                 className="border-none"
@@ -304,7 +313,7 @@ export function Card({
             case "documents":
                 return (
                     <div className="w-full bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-dashed border-blue-200 rounded-lg overflow-hidden"
-                         style={{ height: isExpanded ? '300px' : '200px' }}>
+                        style={{ height: isExpanded ? '300px' : '200px' }}>
                         <div className="h-full flex flex-col items-center justify-center p-4">
                             <div className="text-6xl mb-3">{getFileIcon(fileName)}</div>
                             <div className="text-center w-full">
@@ -324,8 +333,8 @@ export function Card({
             case "other":
                 return (
                     <div className="w-full bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-dashed border-gray-200 rounded-lg overflow-hidden cursor-pointer hover:border-gray-300 transition-colors"
-                         style={{ height: isExpanded ? '220px' : '180px' }}
-                         onClick={() => link && window.open(link, '_blank')}>
+                        style={{ height: isExpanded ? '220px' : '180px' }}
+                        onClick={() => link && window.open(link, '_blank')}>
                         <div className="h-full flex flex-col items-center justify-center p-4">
                             <div className="text-5xl mb-3">🔗</div>
                             <div className="text-center w-full">
@@ -341,53 +350,44 @@ export function Card({
                 );
         }
 
-        // Fallback thumbnails
         const commonClass = "w-full rounded-lg overflow-hidden bg-gradient-to-br shadow-sm flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition-shadow";
-        
+
         const fallbackThumbnails = {
             youtube: (
-                <div className={`${commonClass} from-red-50 to-red-100`} 
-                     style={{ height: contentHeight }}
-                     onClick={() => link && window.open(link, '_blank')}>
-                    <div className="text-7xl mb-3">🔴</div>
+                <div className={`${commonClass} from-red-50 to-red-100`}
+                    style={{ height: contentHeight }}
+                    onClick={() => link && window.open(link, '_blank')}>
+                    <div className="text-7xl mb-3"><YoutubeIcon /></div>
                     <p className="text-sm font-medium text-red-700">YouTube Video</p>
                 </div>
             ),
             twitter: (
-                <div className={`${commonClass} from-blue-50 to-blue-100`} 
-                     style={{ height: contentHeight }}
-                     onClick={() => link && window.open(link, '_blank')}>
-                    <div className="text-7xl mb-3">🐦</div>
+                <div className={`${commonClass} from-blue-50 to-blue-100`}
+                    style={{ height: contentHeight }}
+                    onClick={() => link && window.open(link, '_blank')}>
+                    <div className="text-7xl mb-3"><XIcon /></div>
                     <p className="text-sm font-medium text-blue-700">Twitter Post</p>
                 </div>
             ),
             instagram: (
-                <div className={`${commonClass} from-pink-50 to-pink-100`} 
-                     style={{ height: contentHeight }}
-                     onClick={() => link && window.open(link, '_blank')}>
-                    <div className="text-7xl mb-3">📷</div>
+                <div className={`${commonClass} from-pink-50 to-pink-100`}
+                    style={{ height: contentHeight }}
+                    onClick={() => link && window.open(link, '_blank')}>
+                    <div className="text-7xl mb-3"><InstagramIcon /></div>
                     <p className="text-sm font-medium text-pink-700">Instagram Post</p>
                 </div>
             ),
             linkedin: (
-                <div className={`${commonClass} from-blue-50 to-blue-100`} 
-                     style={{ height: contentHeight }}
-                     onClick={() => link && window.open(link, '_blank')}>
-                    <div className="text-7xl mb-3">💼</div>
+                <div className={`${commonClass} from-blue-50 to-blue-100`}
+                    style={{ height: contentHeight }}
+                    onClick={() => link && window.open(link, '_blank')}>
+                    <div className="text-7xl mb-3"><LinkedinIcon /></div>
                     <p className="text-sm font-medium text-blue-700">LinkedIn Post</p>
-                </div>
-            ),
-            pinterest: (
-                <div className={`${commonClass} from-red-50 to-red-100`} 
-                     style={{ height: contentHeight }}
-                     onClick={() => link && window.open(link, '_blank')}>
-                    <div className="text-7xl mb-3">📌</div>
-                    <p className="text-sm font-medium text-red-700">Pinterest Pin</p>
                 </div>
             ),
             documents: (
                 <div className={`${commonClass} from-blue-50 to-blue-100 border-2 border-dashed border-blue-200`}
-                     style={{ height: contentHeight }}>
+                    style={{ height: contentHeight }}>
                     <div className="text-7xl mb-3">{getFileIcon(fileName)}</div>
                     <div className="text-center px-4">
                         <p className="text-sm font-medium text-blue-700 truncate w-full">
@@ -398,9 +398,9 @@ export function Card({
                 </div>
             ),
             other: (
-                <div className={`${commonClass} from-gray-50 to-gray-100 border-2 border-dashed border-gray-200`} 
-                     style={{ height: contentHeight }}
-                     onClick={() => link && window.open(link, '_blank')}>
+                <div className={`${commonClass} from-gray-50 to-gray-100 border-2 border-dashed border-gray-200`}
+                    style={{ height: contentHeight }}
+                    onClick={() => link && window.open(link, '_blank')}>
                     <div className="text-7xl mb-3">🔗</div>
                     <div className="text-center px-4">
                         <p className="text-sm font-medium text-gray-700">Other Content</p>
@@ -413,126 +413,68 @@ export function Card({
         return fallbackThumbnails[type as keyof typeof fallbackThumbnails];
     };
 
-    const cardHeight = isExpanded ? 'min-h-[700px]' : 'h-[560px]'; // ✅ Slightly taller for better proportions
+    // Memoize the thumbnail for modal for optimized rendering
+    const thumbnailMemo = useMemo(() => renderContent(), [link, type, description, fileName, fileSize, hasFile]);
+
+    const openBiggerCard = () => setBiggerCardOpen(true);
+    const closeBiggerCard = () => setBiggerCardOpen(false);
 
     return (
-        <div className={`bg-white shadow-lg rounded-xl border border-gray-200 w-80 ${cardHeight} flex flex-col overflow-hidden hover:shadow-xl transition-all duration-300 relative`}>
-            {/* Header */}
-            <div className="flex justify-between items-start px-4 py-3 flex-shrink-0 bg-gradient-to-r from-gray-50 to-gray-100 border-b">
-                <div className="flex items-center gap-2 flex-1 min-w-0">
-                    <span className="text-lg flex-shrink-0">{getTypeIcon(type)}</span>
-                    <h3 className="font-semibold text-gray-800 truncate text-sm" title={title}>
-                        {title}
-                    </h3>
-                </div>
-                <div className="flex gap-1">
-                    <button 
-                        onClick={() => setIsExpanded(!isExpanded)}
-                        className="text-gray-500 hover:text-blue-600 p-1.5 rounded-full hover:bg-blue-50 transition-all duration-200"
-                        title={isExpanded ? "Collapse" : "Expand"}
-                    >
-                        {isExpanded ? '📐' : '🔍'}
-                    </button>
-                    {!readonly && (
-                        <button 
-                            onClick={handleDelete}
-                            className="text-gray-500 hover:text-red-600 p-1.5 rounded-full hover:bg-red-50 transition-all duration-200"
-                        >
-                            <TrashIcon />
-                        </button>
-                    )}
-                </div>
-            </div>
+        <>
+            <div
+                className={`bg-white shadow-lg rounded-xl border border-gray-200 w-80 h-[435px] flex flex-col overflow-hidden hover:shadow-xl transition-all duration-300 relative`}>
+                <div className="flex justify-between items-start px-4 py-3 flex-shrink-0 bg-gradient-to-r from-gray-50 to-gray-100 border-b">
+                    <div className="flex items-center gap-1 flex-1 min-w-0">
+                        <span className="text-lg flex-shrink-0">{getTypeIcon(type)}</span>
+                        <h3 className="font-semibold text-gray-800 truncate text-sm" title={title}>
+                            {title}
+                        </h3>
+                    </div>
 
-            {/* Content */}
-            <div className="p-3 flex-shrink-0 relative">
-                {renderContent()}
-            </div>
-
-            {/* ✅ BEAUTIFUL Description Section */}
-            {description && (
-                <div className="px-4 py-3 flex-shrink-0 bg-gradient-to-r from-blue-50 via-white to-blue-50 border-t border-blue-100">
-                    <div className="flex flex-col">
-                        {/* Description Header */}
-                        <div className="flex items-center gap-2 mb-2">
-                            <span className="text-blue-500 text-sm">💭</span>
-                            <span className="text-xs font-medium text-blue-700 uppercase tracking-wide">Description</span>
-                        </div>
-                        
-                        {/* Description Text */}
-                        <div 
-                            className={`text-sm text-gray-700 leading-relaxed ${
-                                isExpanded
-                                    ? 'overflow-y-auto max-h-40 pr-2' 
-                                    : showFullDescription
-                                    ? 'overflow-y-auto max-h-24 pr-2'
-                                    : 'line-clamp-2 overflow-hidden'
-                            }`}
-                            style={{
-                                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                    <div className="flex gap-1">
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                openBiggerCard();
                             }}
+                            className="text-blue-600 hover:text-blue-800 px-3 py-1 rounded bg-blue-100 hover:bg-blue-200 text-sm font-semibold"
+                            aria-label="View bigger content"
                         >
-                            {description}
-                        </div>
-                        
-                        {/* Show More/Less Button */}
-                        {description.length > 100 && !isExpanded && (
-                            <button 
-                                onClick={() => setShowFullDescription(!showFullDescription)}
-                                className="flex items-center gap-1 text-blue-600 hover:text-blue-800 text-xs font-medium mt-2 self-start hover:underline transition-colors duration-200"
+                            View
+                        </button>
+                        {!readonly && (
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDelete();
+                                }}
+                                className="text-gray-500 text-red-600 p-1.5 rounded-full bg-red-50 transition-all duration-200"
+                                aria-label="Delete content"
                             >
-                                {showFullDescription ? (
-                                    <>
-                                        <span>👆</span>
-                                        <span>Show Less</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        <span>👇</span>
-                                        <span>Read More</span>
-                                    </>
-                                )}
+                                <TrashIcon />
                             </button>
                         )}
                     </div>
                 </div>
-            )}
 
-            {/* Empty state for no description */}
-            {!description && (
-                <div className="px-4 py-2 flex-shrink-0 bg-gray-50 border-t">
-                    <div className="flex items-center justify-center">
-                        <p className="text-gray-400 text-xs italic flex items-center gap-1">
-                            <span>📝</span>
-                            <span>No description available</span>
-                        </p>
-                    </div>
-                </div>
-            )}
-
-            {/* Actions */}
-            <div className="px-4 py-3 border-t bg-gradient-to-r from-gray-50 to-gray-100 rounded-b-xl flex-shrink-0 mt-auto">
-                <div className="flex gap-2">
-                    {link && (
-                        <a 
-                            href={link} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-3 py-2.5 rounded-lg text-xs transition-all duration-200 text-center font-medium shadow-sm hover:shadow-md"
-                        >
-                            🌐 Open Link
-                        </a>
-                    )}
-                    {type === 'documents' && hasFile && (
-                        <button 
-                            onClick={handleFileDownload}
-                            className="flex-1 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-3 py-2.5 rounded-lg text-xs transition-all duration-200 font-medium shadow-sm hover:shadow-md"
-                        >
-                            📥 Download
-                        </button>
-                    )}
+                <div className="p-3 flex-shrink-0 relative">
+                    {renderContent()}
                 </div>
             </div>
-        </div>
+
+            <BiggerCard
+                open={biggerCardOpen}
+                onClose={closeBiggerCard}
+                title={title}
+                description={description}
+                thumbnail={thumbnailMemo}
+                type={type}
+                link={link}
+                fileName={fileName}
+                fileSize={fileSize}
+                hasFile={hasFile}
+                downloadUrl={downloadUrl}
+            />
+        </>
     );
 }
