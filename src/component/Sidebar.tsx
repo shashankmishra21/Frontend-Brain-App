@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { SidebarItem } from "./SidebarItem";
 import { XIcon } from "../icons/XIcon";
 import { YoutubeIcon } from "../icons/YoutubeIcon";
@@ -16,17 +17,17 @@ interface SidebarProps {
 
 export function Sidebar({ onSelectType }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   function logout() {
     localStorage.removeItem("token");
-    toast.success("logged out")
+    toast.success("logged out");
     window.location.href = "/";
-    
   }
 
   const handleSelect = (type: string) => {
     onSelectType(type);
-    setIsOpen(false); // close sidebar on mobile
+    setIsOpen(false);
   };
 
   return (
@@ -62,8 +63,9 @@ export function Sidebar({ onSelectType }: SidebarProps) {
       )}
 
       {/* Sidebar Container */}
-      <div className={`fixed top-0 left-0 h-full w-72 z-50 bg-gray-300 transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0 lg:static lg:block`}>
+      <div className={`fixed top-0 left-0 h-full w-72 z-50 bg-gray-300 transform transition-transform duration-300 ${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      } lg:translate-x-0 lg:static lg:block`}>
         <div className="h-screen w-full flex flex-col justify-between">
           {/* Top */}
           <div>
@@ -121,9 +123,19 @@ export function Sidebar({ onSelectType }: SidebarProps) {
               />
             </div>
 
-            {/* Logout */}
+            {/* Home & Logout Buttons */}
             {localStorage.getItem("token") && (
-              <div className="flex justify-center mt-6 px-4">
+              <div className="flex flex-col gap-3 justify-center mt-6 px-4">
+                {/* Home Button */}
+                {/* <Button
+                  onClick={() => navigate('/')}
+                  loading={false}
+                  variant="primary"
+                  text="Home"
+                  fullWidth
+                /> */}
+                
+                {/* Logout Button */}
                 <Button
                   onClick={logout}
                   loading={false}
