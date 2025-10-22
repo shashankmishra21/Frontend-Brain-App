@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, type JSX } from "react";
+import { useEffect, useState, type JSX } from "react";
 import { TrashIcon } from "../icons/TrashIcon";
 import { toast } from "react-toastify";
 import { BACKEND_URL } from "../pages/config";
@@ -379,9 +379,6 @@ export function Card({
         return fallbackThumbnails[type as keyof typeof fallbackThumbnails];
     };
 
-    // Memoize the thumbnail for modal for optimized rendering
-    const thumbnailMemo = useMemo(() => renderContent(), [link, type, description, fileName, fileSize, hasFile]);
-
     const openBiggerCard = () => setBiggerCardOpen(true);
     const closeBiggerCard = () => setBiggerCardOpen(false);
 
@@ -433,14 +430,15 @@ export function Card({
                 onClose={closeBiggerCard}
                 title={title}
                 description={description}
-                thumbnail={thumbnailMemo}
                 type={type}
                 link={link}
                 fileName={fileName}
                 fileSize={fileSize}
                 hasFile={hasFile}
                 downloadUrl={downloadUrl}
+                contentId={contentId}  
             />
+
         </>
     );
 }
