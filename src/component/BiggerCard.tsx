@@ -1,6 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState , type JSX} from "react";
 import { toast } from "react-toastify";
 import { BACKEND_URL } from "../pages/config";
+import { YoutubeIcon } from "../icons/YoutubeIcon";
+import { LinkedinIcon } from "../icons/LinkedinIcon";
+import { InstagramIcon } from "../icons/InstagramIcon";
+import { XIcon } from "../icons/XIcon";
+import { DocumentIcon } from "../icons/DocumentIcon";
+import { OtherIcon } from "../icons/OtherIcon";
+import { CrossIcon } from "../icons/CrossIcon";
 
 interface BiggerCardProps {
   open: boolean;
@@ -16,7 +23,20 @@ interface BiggerCardProps {
   contentId?: string;
 }
 
-// Helper functions (Card.tsx se copy)
+function getTypeIcon(type: string): JSX.Element {
+  const icons: Record<string, JSX.Element> = {
+    youtube: <YoutubeIcon />,
+    twitter: <XIcon />,
+    instagram: <InstagramIcon />,
+    linkedin: <LinkedinIcon />,
+    documents: <DocumentIcon />,
+    other: <OtherIcon />
+  };
+
+  return icons[type] || <DocumentIcon />;
+}
+
+// Helper functions (EXACT COPY from Card.tsx)
 function extractYouTubeId(url: string): string | null {
   const regExp = /^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|watch\?.+&v=)([^#&?]*).*/;
   const match = url.match(regExp);
@@ -78,45 +98,43 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
   downloadUrl,
   contentId,
 }) => {
+  const [embedError] = useState(false);
+  const [isExpanded] = useState(false);
+
   useEffect(() => {
     if (!open) return;
 
-    // Twitter script load
-    if (type === "twitter") {
-      if (!document.getElementById("twitter-embed-script")) {
-        const script = document.createElement("script");
-        script.id = "twitter-embed-script";
-        script.src = "https://platform.twitter.com/widgets.js";
-        script.async = true;
-        script.onload = () => {
-          // @ts-ignore
-          window.twttr?.widgets.load();
-        };
-        document.body.appendChild(script);
-      } else {
-        // Script already exists, just reload widgets
-        // @ts-ignore
-        window.twttr?.widgets.load();
-      }
+    // Instagram script
+    if (type === "instagram" && !document.getElementById("instagram-embed-script")) {
+      const script = document.createElement("script");
+      script.id = "instagram-embed-script";
+      script.src = "https://www.instagram.com/embed.js";
+      script.async = true;
+      document.body.appendChild(script);
+    } else if (type === "instagram") {
+      // @ts-ignore
+      window.instgrm?.Embeds.process();
     }
 
-    // Instagram script load
-    if (type === "instagram") {
-      if (!document.getElementById("instagram-embed-script")) {
-        const script = document.createElement("script");
-        script.id = "instagram-embed-script";
-        script.src = "https://www.instagram.com/embed.js";
-        script.async = true;
-        script.onload = () => {
-          // @ts-ignore
-          window.instgrm?.Embeds.process();
-        };
-        document.body.appendChild(script);
-      } else {
-        // Script already exists, just process embeds
-        // @ts-ignore
-        window.instgrm?.Embeds.process();
-      }
+    // Twitter script
+    if (type === "twitter" && !document.getElementById("twitter-embed-script")) {
+      const script = document.createElement("script");
+      script.id = "twitter-embed-script";
+      script.src = "https://platform.twitter.com/widgets.js";
+      script.async = true;
+      document.body.appendChild(script);
+    } else if (type === "twitter") {
+      // @ts-ignore
+      window.twttr?.widgets.load();
+    }
+
+    // Pinterest script
+    if (type === "pinterest" && !document.getElementById("pinterest-embed-script")) {
+      const script = document.createElement("script");
+      script.id = "pinterest-embed-script";
+      script.src = "https://assets.pinterest.com/js/pinit.js";
+      script.async = true;
+      document.body.appendChild(script);
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -126,116 +144,137 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [open, onClose, type]);
 
-  const handleFileDownload = async () => {
-    if (!downloadUrl && !hasFile) {
+  const handleFileDownload = () => {
+    console.log("Download:", { downloadUrl, contentId, fileName });
+    
+    if (!downloadUrl && !contentId) {
       toast.error("File not available for download");
       return;
     }
 
     try {
-      if (downloadUrl) {
-        const response = await fetch(downloadUrl, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem("token")}`
-          }
-        });
-
-        if (response.ok) {
-          const blob = await response.blob();
+      const finalUrl = downloadUrl || `${BACKEND_URL}/api/v1/content/${contentId}/download`;
+      
+      // Simple approach - let browser handle it
+      const a = document.createElement('a');
+      a.href = finalUrl;
+      a.download = fileName || 'download';
+      a.target = '_blank';
+      
+      // Add token to headers via fetch (for authenticated downloads)
+      const token = localStorage.getItem("token");
+      if (token) {
+        fetch(finalUrl, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        })
+        .then(res => res.blob())
+        .then(blob => {
           const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
           a.href = url;
-          a.download = fileName || 'download';
           document.body.appendChild(a);
           a.click();
-          window.URL.revokeObjectURL(url);
           document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
           toast.success("Download started!");
-        } else {
-          throw new Error('Download failed');
-        }
+        })
+        .catch(err => {
+          console.error("Download error:", err);
+          // Fallback: try direct window.open
+          window.open(finalUrl, '_blank');
+        });
       } else {
-        window.open(`${BACKEND_URL}/api/v1/content/${contentId}/download`, '_blank');
+        // No token - direct download
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
       }
     } catch (error) {
       console.error('Download error:', error);
       toast.error("Download failed. Please try again.");
     }
-  };
+};
 
-  const renderEmbeddedContent = () => {
-    console.log("Rendering type:", type, "Link:", link);
 
-    if (!link) {
-      return (
-        <div className="w-full h-full flex items-center justify-center text-6xl text-gray-400">
-          📦
-        </div>
-      );
-    }
+  // EXACT COPY of renderContent from Card.tsx
+  const renderContent = () => {
+    const linkedinEmbedUrl = type === "linkedin" && link ? extractLinkedInEmbedURL(link) : null;
+    const pinterestId = type === "pinterest" && link ? extractPinterestId(link) : null;
 
-    const linkedinEmbedUrl = type === "linkedin" ? extractLinkedInEmbedURL(link) : null;
-    const pinterestId = type === "pinterest" ? extractPinterestId(link) : null;
+    const contentHeight = isExpanded ? 'auto' : '400px'; // Bigger for modal
 
     switch (type) {
-      case "youtube": {
-        const videoId = extractYouTubeId(link);
-        if (videoId) {
-          return (
-            <div className="w-full h-full relative">
-              <img
-                src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
-                alt="YouTube thumbnail"
-                className="w-full h-full object-cover cursor-pointer"
-                onClick={() => window.open(link, '_blank')}
-                onError={(e) => {
-                  e.currentTarget.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-                }}
-              />
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="bg-red-600 text-white rounded-full p-4 shadow-lg">
-                  <span className="text-3xl">▶️</span>
+      case "youtube":
+        if (link) {
+          const videoId = extractYouTubeId(link);
+          if (videoId) {
+            return (
+              <div className="w-full h-full overflow-hidden rounded-lg shadow-sm relative">
+                <img
+                  src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+                  alt="YouTube thumbnail"
+                  className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-200"
+                  onClick={() => window.open(link, '_blank')}
+                  onError={(e) => {
+                    e.currentTarget.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                  }}
+                />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="bg-red-600 text-white rounded-full p-4 shadow-lg opacity-90">
+                    <span className="text-3xl">▶️</span>
+                  </div>
                 </div>
+              </div>
+            );
+          }
+        }
+        break;
+
+      case "twitter":
+        if (link && !embedError) {
+          const canonicalLink = getCanonicalTwitterURL(link);
+          return (
+            <div className="w-full h-full flex flex-col bg-white rounded-lg border border-gray-200">
+              {/* Scrollable area */}
+              <div className="flex-1 overflow-y-auto overflow-x-hidden p-2">
+                <blockquote
+                  className="twitter-tweet"
+                  data-theme="light"
+                  data-conversation="none"
+                >
+                  <a href={canonicalLink}></a>
+                </blockquote>
               </div>
             </div>
           );
         }
         break;
-      }
 
-      case "twitter": {
-        // ALWAYS return something for twitter
-        return (
-          <div className="w-full h-full bg-gradient-to-br from-blue-50 to-blue-100 cursor-pointer flex items-center justify-center"
-            onClick={() => window.open(link, '_blank')}>
-            <div className="text-center p-4">
-              <div className="text-8xl mb-4">🐦</div>
-              <p className="text-lg font-medium text-blue-700">Twitter/X Post</p>
-              <p className="text-sm text-blue-600 mt-2">Click to view</p>
-            </div>
-          </div>
-        );
-      }
 
-      case "instagram": {
-        // ALWAYS return something for instagram
-        return (
-          <div className="w-full h-full bg-gradient-to-br from-pink-50 to-pink-100 cursor-pointer flex items-center justify-center"
-            onClick={() => window.open(link, '_blank')}>
-            <div className="text-center p-4">
-              <div className="text-8xl mb-4">📷</div>
-              <p className="text-lg font-medium text-pink-700">Instagram Post</p>
-              <p className="text-sm text-pink-600 mt-2">Click to view</p>
-            </div>
-          </div>
-        );
-      }
-
-      case "linkedin": {
-        if (linkedinEmbedUrl) {
+      case "instagram":
+        if (link && !embedError) {
           return (
-            <div className="w-full h-full">
+            <div className="w-full h-full flex flex-col bg-white rounded-lg border border-gray-200">
+              {/* Scrollable area */}
+              <div className="flex-1 overflow-y-auto overflow-x-hidden flex justify-center p-2">
+                <blockquote
+                  className="instagram-media"
+                  data-instgrm-permalink={link}
+                  data-instgrm-version="14"
+                  style={{
+                    margin: '0 auto',
+                    maxWidth: '100%'
+                  }}
+                ></blockquote>
+              </div>
+            </div>
+          );
+        }
+        break;
+
+      case "linkedin":
+        if (linkedinEmbedUrl && !embedError) {
+          return (
+            <div className="w-full h-full overflow-hidden rounded-lg bg-white border border-gray-200">
               <iframe
                 src={linkedinEmbedUrl}
                 className="w-full h-full border-none"
@@ -244,23 +283,12 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
             </div>
           );
         }
-        // Fallback for LinkedIn
-        return (
-          <div className="w-full h-full bg-gradient-to-br from-blue-50 to-blue-100 cursor-pointer flex items-center justify-center"
-            onClick={() => window.open(link, '_blank')}>
-            <div className="text-center p-4">
-              <div className="text-8xl mb-4">💼</div>
-              <p className="text-lg font-medium text-blue-700">LinkedIn Post</p>
-              <p className="text-sm text-blue-600 mt-2">Click to view</p>
-            </div>
-          </div>
-        );
-      }
+        break;
 
-      case "pinterest": {
-        if (pinterestId) {
+      case "pinterest":
+        if (pinterestId && !embedError) {
           return (
-            <div className="w-full h-full flex justify-center bg-white p-2">
+            <div className="w-full h-full overflow-hidden rounded-lg bg-white border border-gray-200 flex justify-center">
               <iframe
                 src={`https://assets.pinterest.com/ext/embed.html?id=${pinterestId}`}
                 className="border-none w-full h-full"
@@ -270,53 +298,106 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
           );
         }
         break;
-      }
 
-      case "documents": {
+      case "documents":
         return (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100">
-            <div className="text-center p-4">
+          <div className="w-full h-full bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-dashed border-blue-200 rounded-lg overflow-hidden">
+            <div className="h-full flex flex-col items-center justify-center p-4">
               <div className="text-8xl mb-4">{getFileIcon(fileName)}</div>
-              <p className="text-lg font-semibold text-blue-800 break-words">{fileName || "Document"}</p>
-              {fileSize && <p className="text-sm text-blue-600 mt-2">{formatFileSize(fileSize)}</p>}
+              <div className="text-center w-full">
+                <p className="text-lg font-semibold text-blue-800 break-words mb-1">
+                  {fileName || "Document"}
+                </p>
+                {fileSize && (
+                  <p className="text-sm text-blue-600 mb-2">
+                    {formatFileSize(fileSize)}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         );
-      }
 
-      case "other": {
+      case "other":
         return (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 cursor-pointer"
+          <div className="w-full h-full bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-dashed border-gray-200 rounded-lg overflow-hidden cursor-pointer hover:border-gray-300 transition-colors"
             onClick={() => link && window.open(link, '_blank')}>
-            <div className="text-center p-4">
-              <div className="text-8xl mb-4">🔗</div>
-              <p className="text-lg font-medium text-gray-700">Custom Content</p>
-              <p className="text-sm text-gray-600 break-words">{new URL(link).hostname}</p>
+            <div className="h-full flex flex-col items-center justify-center p-4">
+              <div className="text-7xl mb-3">🔗</div>
+              <div className="text-center w-full">
+                <p className="text-lg font-medium text-gray-700 mb-1">Custom Content</p>
+                {link && (
+                  <p className="text-sm text-gray-600 break-words">
+                    {new URL(link).hostname}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         );
-      }
-
-      default: {
-        return (
-          <div className="w-full h-full flex items-center justify-center bg-gray-100">
-            <div className="text-center p-4">
-              <div className="text-6xl mb-4">📄</div>
-              <p className="text-lg text-gray-700">Content Type: {type}</p>
-            </div>
-          </div>
-        );
-      }
     }
 
-    // Final fallback
-    return (
+    // Fallback thumbnails (same as Card.tsx)
+    const commonClass = "w-full h-full rounded-lg overflow-hidden bg-gradient-to-br shadow-sm flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition-shadow";
+
+    const fallbackThumbnails: Record<string, JSX.Element> = {
+      youtube: (
+        <div className={`${commonClass} from-red-50 to-red-100`}
+          onClick={() => link && window.open(link, '_blank')}>
+          <div className="text-7xl mb-3"><YoutubeIcon /></div>
+          <p className="text-sm font-medium text-red-700">YouTube Video</p>
+        </div>
+      ),
+      twitter: (
+        <div className={`${commonClass} from-blue-50 to-blue-100`}
+          onClick={() => link && window.open(link, '_blank')}>
+          <div className="text-7xl mb-3"><XIcon /></div>
+          <p className="text-sm font-medium text-blue-700">Twitter Post</p>
+        </div>
+      ),
+      instagram: (
+        <div className={`${commonClass} from-pink-50 to-pink-100`}
+          onClick={() => link && window.open(link, '_blank')}>
+          <div className="text-7xl mb-3"><InstagramIcon /></div>
+          <p className="text-sm font-medium text-pink-700">Instagram Post</p>
+        </div>
+      ),
+      linkedin: (
+        <div className={`${commonClass} from-blue-50 to-blue-100`}
+          onClick={() => link && window.open(link, '_blank')}>
+          <div className="text-7xl mb-2"><LinkedinIcon /></div>
+          <p className="text-sm font-medium text-blue-700">LinkedIn Post</p>
+        </div>
+      ),
+      documents: (
+        <div className={`${commonClass} from-blue-50 to-blue-100 border-2 border-dashed border-blue-200`}>
+          <div className="text-7xl mb-3">{getFileIcon(fileName)}</div>
+          <div className="text-center px-4">
+            <p className="text-sm font-medium text-blue-700 truncate w-full">
+              {fileName || "Document"}
+            </p>
+            {fileSize && <p className="text-xs text-blue-600">{formatFileSize(fileSize)}</p>}
+          </div>
+        </div>
+      ),
+      other: (
+        <div className={`${commonClass} from-gray-50 to-gray-100 border-2 border-dashed border-gray-200`}
+          onClick={() => link && window.open(link, '_blank')}>
+          <div className="text-7xl mb-3">🔗</div>
+          <div className="text-center px-4">
+            <p className="text-sm font-medium text-gray-700">Other Content</p>
+            {link && <p className="text-xs text-gray-600 truncate w-full">{new URL(link).hostname}</p>}
+          </div>
+        </div>
+      )
+    };
+
+    return fallbackThumbnails[type] || (
       <div className="w-full h-full flex items-center justify-center text-6xl text-gray-400">
         📦
       </div>
     );
   };
-
 
   if (!open) return null;
 
@@ -327,26 +408,28 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
         onClick={onClose}
       />
 
-      {/* MAIN FIX: Remove max-height, use fixed height */}
       <div className="relative w-full max-w-[900px] h-[600px] mx-4 rounded-3xl bg-white shadow-2xl border border-gray-300 flex flex-col sm:flex-row overflow-hidden z-10">
 
+        {/* Close Button with CrossIcon */}
         <button
-          className="absolute top-4 right-4 text-gray-400 hover:text-black rounded-full p-2 bg-white/70 text-2xl font-bold z-20"
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-900 rounded-full p-2 bg-white/80 backdrop-blur-sm hover:bg-white transition-all duration-200 shadow-md z-20"
           onClick={onClose}
+          aria-label="Close"
         >
-          &times;
+          <CrossIcon/>
         </button>
 
-        {/* Left: FIXED HEIGHT */}
-        <div className="w-full sm:w-2/5 h-full bg-gray-100 overflow-auto">
-          <div className="w-full h-full flex items-center justify-center">
-            {renderEmbeddedContent()}
-          </div>
+        {/* Left: Embedded Content */}
+        <div className="w-full sm:w-2/5 h-full bg-gray-50 overflow-auto p-4">
+          {renderContent()}
         </div>
 
-        {/* Right: Content */}
+        {/* Right: Details */}
         <div className="w-full sm:w-3/5 h-full p-8 overflow-y-auto">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">{title}</h2>
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-3xl flex-shrink-0">{getTypeIcon(type)}</span>
+            <h2 className="text-3xl font-bold text-gray-900">{title}</h2>
+          </div>
           {description && (
             <p className="text-gray-700 whitespace-pre-line text-base leading-relaxed">
               {description}
@@ -360,7 +443,7 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
                   href={link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-5 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+                  className="px-5 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
                 >
                   Open Link
                 </a>
@@ -368,7 +451,7 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
               {hasFile && (
                 <button
                   onClick={handleFileDownload}
-                  className="px-5 py-3 rounded-lg bg-green-600 text-white hover:bg-green-700"
+                  className="px-5 py-3 rounded-lg bg-green-600 text-white hover:bg-green-700 transition"
                 >
                   Download File
                 </button>
@@ -378,6 +461,5 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
         </div>
       </div>
     </div>
-  );
-
+);
 };
