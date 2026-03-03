@@ -1,3 +1,5 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -5,26 +7,28 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        orange: {
-          100: "#FF7D29",  //primary
-          200: "#FFEEA9", //secondary
-          300: "#FFBF78", //hover secondary
-          700: "#e66f21", // hover primay
-          400: "#111827", //bg
-          500: "#FFFFFF", //card
-          600: "#FFEEA9", //sidebar
-        },
-        gray: {
-          100: "#1E293B", //text primary
-          200: "#64748B",// text secondry
-          300: "#FAFAFA"
-        }
-      }
+      // colors: {
+      //   orange: {
+      //     100: "#FF7D29",  //primary
+      //     200: "#FFEEA9", //secondary
+      //     300: "#FFBF78", //hover secondary
+      //     700: "#e66f21", // hover primay
+      //    // 400: "#111827", //bg
+      //     500: "#FFFFFF", //card
+      //     600: "#FFEEA9", //sidebar
+      //   },
+      //   gray: {
+      //     100: "#1E293B", //text primary
+      //     200: "#64748B",// text secondry
+      //     300: "#FAFAFA"
+      //   }
+      // }
     },
-    fontFamily:{ 
-      'roboto':['Roboto','sans-serif'],
+    fontFamily: {
+      'roboto': ['Roboto', 'sans-serif'],
       'dmsans': ['DM Sans', 'sans-serif'],
+      display: ['Bricolage Grotesque', ...defaultTheme.fontFamily.sans],
+      body: ['DM Sans', ...defaultTheme.fontFamily.sans],
     }
   },
   plugins: [],
