@@ -135,7 +135,7 @@ const LandingPage: React.FC = () => {
               </>
             ) : (
               <>
-                {/* Hide "Sign in" on very small screens */}
+                {/* Hide "Sign in" on small screens */}
                 <NavButton onClick={handleSignIn} variant="ghost">
                   <span className="hidden xs:inline">Sign in</span>
                   <span className="xs:hidden">Login</span>
@@ -153,7 +153,7 @@ const LandingPage: React.FC = () => {
       </motion.header>
 
       {/* ── Hero ───────────────────────────────────────────────────────────── */}
-      <section className="relative pt-40 pb-16 px-6 overflow-hidden">
+      <section className="rrelative pt-24 sm:pt-32 md:pt-40 pb-20 px-6 overflow-hidden">
         {/* Glow */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[420px] bg-blue-600/8 rounded-full blur-3xl" />
