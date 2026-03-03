@@ -1,4 +1,3 @@
-// pages/Signin.tsx
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -60,7 +59,7 @@ export function Signin() {
               alt="BrainCache"
               className="w-12 h-12 object-contain mb-0"
             />
-            <span className="text-xl font-bold tracking-tight font-display">
+            <span className="text-xl font-bold tracking-tight font-display text-white">
               Brain<span className="text-blue-400">Cache</span>
             </span>
           </div>
