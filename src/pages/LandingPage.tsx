@@ -120,7 +120,7 @@ const LandingPage: React.FC = () => {
             </span>
           </motion.div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             {isAuthenticated ? (
               <>
                 {user?.name && (
@@ -135,13 +135,20 @@ const LandingPage: React.FC = () => {
               </>
             ) : (
               <>
-                <NavButton onClick={handleSignIn} variant="ghost">Sign in</NavButton>
+                {/* Hide "Sign in" on very small screens */}
+                <NavButton onClick={handleSignIn} variant="ghost">
+                  <span className="hidden xs:inline">Sign in</span>
+                  <span className="xs:hidden">Login</span>
+                </NavButton>
                 <NavButton onClick={handleGetStarted} variant="primary">
-                  Get started <ArrowRight className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Get started</span>
+                  <span className="sm:hidden">Start</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </NavButton>
               </>
             )}
           </div>
+
         </div>
       </motion.header>
 
@@ -438,7 +445,7 @@ interface NavButtonProps {
 const NavButton: React.FC<NavButtonProps> = ({ onClick, variant, children }) => (
   <motion.button
     onClick={onClick}
-    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors font-body ${variant === 'primary'
+    className={`flex items-center gap-1.5 px-3 py-2 sm:px-4 rounded-lg text-sm font-medium transition-colors font-body ${variant === 'primary'
       ? 'bg-white text-zinc-900 hover:bg-zinc-100'
       : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/60'
       }`}
