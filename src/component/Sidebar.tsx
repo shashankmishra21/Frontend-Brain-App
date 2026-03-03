@@ -74,7 +74,7 @@ export function Sidebar({ onSelectType }: SidebarProps) {
       {/* ── Sidebar ── */}
       <div
         className={`fixed top-0 left-0 h-full w-64 z-50 bg-zinc-900 border-r border-zinc-800/60 transform transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
-          ${isOpen ? "translate-x-0" : "-translate-x-full "}
+          ${isOpen ? "translate-x-0" : "-translate-x-full"}
           lg:translate-x-0 lg:static lg:block font-body overflow-hidden`}
       >
         <div className="h-screen flex flex-col overflow-hidden">

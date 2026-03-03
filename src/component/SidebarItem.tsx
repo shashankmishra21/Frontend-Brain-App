@@ -13,7 +13,7 @@ export function SidebarItem({ text, icon, onClick, active }: SidebarItemProps) {
         ${active
           ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
           : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/60 border border-transparent'
-        }`}>
+        }`}  >
       {icon && (
         <span className={`w-4 h-4 flex-shrink-0 ${active ? 'text-blue-400' : 'text-zinc-600'}`}>
           {icon}
