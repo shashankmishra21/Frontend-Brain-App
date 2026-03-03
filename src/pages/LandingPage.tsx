@@ -1,7 +1,6 @@
-// pages/LandingPage.tsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Share2, Upload, Search, Github, Zap, Brain, Tag } from 'lucide-react';
+import { ArrowRight, Share2, Upload, Search, Github, Tag } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 // ── Variants ──────────────────────────────────────────────────────────────────
@@ -28,16 +27,6 @@ const itemFade = {
   },
 };
 
-// ── Data ──────────────────────────────────────────────────────────────────────
-const STACK = [
-  { label: 'React', note: 'UI layer' },
-  { label: 'TypeScript', note: 'Type-safe' },
-  { label: 'Node.js', note: 'API layer' },
-  { label: 'MongoDB', note: 'Storage' },
-  { label: 'Redis', note: 'Sub-ms cache' },
-  { label: 'OpenAI', note: 'AI search' },
-];
-
 const FEATURES = [
   {
     icon: <Upload className="w-5 h-5" />,
@@ -46,10 +35,10 @@ const FEATURES = [
     accent: 'bg-blue-500/10 text-blue-500 ring-1 ring-blue-500/20',
   },
   {
-    icon: <Tag className="w-5 h-5" />,         // import Tag from lucide-react
+    icon: <Tag className="w-5 h-5" />,
     title: 'Smart Categorization',
     desc: 'Organize content with tags and categories. Find it exactly where you left it.',
-    accent: 'bg-violet-500/10 text-blue-500 ring-1 ring-violet-500/20',
+    accent: 'bg-violet-500/10 text-blue-500 ring-1 ring-violet-500/20'
   },
   {
     icon: <Search className="w-5 h-5" />,
@@ -223,17 +212,6 @@ const LandingPage: React.FC = () => {
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </motion.button>
 
-            {/* <motion.a
-              href="https://github.com/shashank-mishra"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-6 py-3 bg-zinc-800/60 text-zinc-300 text-sm font-medium rounded-lg border border-zinc-700/60 hover:bg-zinc-800 hover:text-white transition-colors"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <Github className="w-4 h-4" />
-              View on GitHub
-            </motion.a> */}
           </motion.div>
 
           {/* Social proof micro-line */}
@@ -249,12 +227,8 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-
-
-      {/* ── Separator ──────────────────────────────────────────────────────── */}
-
+      {/* Separator */}
       <div className="w-full border-t border-zinc-800/60" />
-
 
       {/* ── How It Works ───────────────────────────────────────────────────── */}
       <section className="py-12 px-6">
