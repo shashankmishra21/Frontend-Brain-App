@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  ArrowRight, Share2, Upload, Github,
-  Brain, Tag, Code2, GraduationCap, PenLine, Rocket,
-  CheckCircle2, Zap, Shield, Search
+import { ArrowRight, Share2, Upload, Github, Brain, Tag, Code2, GraduationCap, PenLine, Rocket, Zap, Shield, Search
 } from 'lucide-react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 
