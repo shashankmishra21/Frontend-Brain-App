@@ -427,7 +427,7 @@ const LandingPage: React.FC = () => {
                 </motion.a>
               </motion.div>
 
-              <motion.p variants={itemFade} className="text-xs text-gray-400 mb-16" style={geist}>
+              <motion.p variants={itemFade} className="text-xs text-gray-400 pt-5 mb-16" style={geist}>
                 Free to use · AI-powered · No credit card required
               </motion.p>
 
@@ -470,19 +470,19 @@ const LandingPage: React.FC = () => {
           <div className="max-w-5xl mx-auto">
 
             <motion.div
-              className="mb-16 sm:mb-20"
+              className="mb-2 sm:mb-10"
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
             >
-              <p className="text-[10px] font-medium text-green-500 uppercase tracking-[0.22em] mb-4" style={geist}>
+              <p className="text-[10px] font-medium text-green-500 uppercase tracking-[0.22em] mb-0" style={geist}>
                 Who It's For
               </p>
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
                 <h2 className="text-2xl sm:text-3xl font-normal leading-[1.2] tracking-[-0.02em] text-gray-900" style={geist}>
                   Built for{' '}
-                  <span className="text-gray-400 italic">curious minds.</span>
+                  <span className="text-green-500 italic">curious minds.</span>
                 </h2>
                 <p className="text-sm text-gray-400 font-normal sm:max-w-[180px] shrink-0" style={geist}>
                   Whoever you are, BrainCache fits your workflow.
