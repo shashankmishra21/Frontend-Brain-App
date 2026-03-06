@@ -19,6 +19,8 @@ function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [username, setUsername] = useState("User");
   const [searchQuery, setSearchQuery] = useState("");
+  const [aiResults, setAiResults] = useState<any[] | null>(null);
+  const [searching, setSearching] = useState(false);
 
   // Decode username from JWT token
   useEffect(() => {
@@ -40,23 +42,44 @@ function Home() {
     setRefetch(prev => !prev);
   }
 
-  // Filter by type
-  const typeFilteredContents = selectedType === "all"
-    ? contents
-    : contents.filter(content => content.type === selectedType);
+  const handleSearch = async (query: string) => {
+    setSearchQuery(query);
 
-  // Filter by search query (title and description)
-  const filteredContents = typeFilteredContents.filter(content => {
-    if (!searchQuery.trim()) return true;
+    if (!query.trim()) {
+      setAiResults(null);
+      return;
+    }
 
-    const query = searchQuery.toLowerCase();
-    const title = (content.title || "").toLowerCase();
-    const description = (content.description || "").toLowerCase();
+    setSearching(true);
+    try {
+      const res = await fetch(
+        `${BACKEND_URL}/api/v1/content/search?q=${encodeURIComponent(query)}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        }
+      );
+      const data = await res.json();
+      setAiResults(data.results || []);
+    } catch (err) {
+      console.error(err);
+      setAiResults([]);
+    } finally {
+      setSearching(false);
+    }
+  };
 
-    return title.includes(query) || description.includes(query);
-  });
+  const filteredContents = aiResults !== null
+    ? aiResults
+    : (selectedType === "all"
+      ? contents
+      : contents.filter(c => c.type === selectedType));
 
-  const clearSearch = () => setSearchQuery("");
+  const clearSearch = () => {
+    setSearchQuery("");
+    setAiResults(null);
+  }
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-800">
@@ -99,8 +122,7 @@ function Home() {
                       <span className="hidden sm:inline">Share Library</span>
                       <span className="sm:hidden"><ShareIcon /></span>
                     </>
-                  }
-                />
+                  } />
 
                 <Button
                   onClick={() => setModalOpen(true)}
@@ -132,7 +154,7 @@ function Home() {
                 type="text"
                 placeholder="Search by title or description..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => handleSearch(e.target.value)}
                 className="w-full pl-12 pr-12 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white/25 transition-all"
               />
               {searchQuery && (
@@ -147,7 +169,10 @@ function Home() {
 
             {searchQuery && (
               <p className="text-center text-white/70 text-sm mt-2">
-                Found {filteredContents.length} result{filteredContents.length !== 1 ? 's' : ''}
+                {searching
+                  ? "🔍 Searching your knowledge base..."
+                  : `Found ${filteredContents.length} result${filteredContents.length !== 1 ? 's' : ''}`
+                }
               </p>
             )}
           </div>
@@ -174,6 +199,8 @@ function Home() {
                   hasFile={!!content.fileName}
                   downloadUrl={content.downloadUrl}
                   onDeleteSuccess={() => setRefetch(prev => !prev)}
+                  aiSummary={content.aiSummary}
+                  aiTags={content.aiTags}
                 />
               ))}
             </div>

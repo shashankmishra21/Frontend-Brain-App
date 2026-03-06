@@ -5,16 +5,19 @@ import { BACKEND_URL } from "../pages/config";
 interface Content {
     title: string;
     link?: string;
-    description?: string; // ✅ Add this
+    description?: string;
     type: string;
     _id?: string;
-    fileName?: string;    // ✅ Add this
-    fileSize?: number;    // ✅ Add this
-    filePath?: string;    // ✅ Add this
-    hasFile?: boolean;    // ✅ Add this
-    downloadUrl?: string; // ✅ Add this
-    createdAt?: string;   // ✅ Add this
-    updatedAt?: string;   // ✅ Add this
+    fileName?: string;
+    fileSize?: number;
+    hasFile?: boolean;
+    downloadUrl?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    aiSummary?: string;
+    aiTags?: string[];
+    processedAt?: string;
+    tags?: string[]; 
 }
 
 export function useContent(refetchTrigger?: boolean) {
@@ -31,9 +34,9 @@ export function useContent(refetchTrigger?: boolean) {
                     },
                 });
 
-                // 🔍 DEBUG - Check what backend is sending
-                console.log('🔍 Backend Response:', response.data.contents);
-                console.log('🔍 First item:', response.data.contents[0]);
+                // DEBUG - Check what backend is sending
+                console.log('Backend Response:', response.data.contents);
+                console.log('First item:', response.data.contents[0]);
 
                 setContents(response.data.contents || []);
                 setError(null);

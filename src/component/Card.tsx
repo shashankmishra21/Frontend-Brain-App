@@ -22,6 +22,8 @@ interface CardProps {
     downloadUrl?: string;
     onDeleteSuccess?: (deletedId: string) => void;
     readonly?: boolean;
+    aiSummary?: string;
+    aiTags?: string[];
 }
 
 function extractYouTubeId(url: string): string | null {
@@ -96,7 +98,9 @@ export function Card({
     hasFile,
     downloadUrl,
     onDeleteSuccess,
-    readonly = false
+    readonly = false,
+    aiSummary,
+    aiTags
 }: CardProps) {
 
     const [embedError] = useState(false);
@@ -436,8 +440,9 @@ export function Card({
                 fileSize={fileSize}
                 hasFile={hasFile}
                 downloadUrl={downloadUrl}
-                contentId={contentId}  
-            />
+                contentId={contentId}
+                aiSummary={aiSummary}
+                aiTags={aiTags} />
 
         </>
     );

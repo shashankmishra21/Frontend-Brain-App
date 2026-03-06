@@ -77,7 +77,7 @@ const LandingPage: React.FC = () => {
   }, []);
 
   const checkAuthStatus = () => {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
     if (token && userData) {
       setIsAuthenticated(true);

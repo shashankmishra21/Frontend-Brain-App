@@ -1,4 +1,4 @@
-import React, { useEffect, useState , type JSX} from "react";
+import React, { useEffect, useState, type JSX } from "react";
 import { toast } from "react-toastify";
 import { BACKEND_URL } from "../pages/config";
 import { YoutubeIcon } from "../icons/YoutubeIcon";
@@ -8,6 +8,7 @@ import { XIcon } from "../icons/XIcon";
 import { DocumentIcon } from "../icons/DocumentIcon";
 import { OtherIcon } from "../icons/OtherIcon";
 import { CrossIcon } from "../icons/CrossIcon";
+import ReactMarkdown from 'react-markdown';
 
 interface BiggerCardProps {
   open: boolean;
@@ -21,6 +22,8 @@ interface BiggerCardProps {
   hasFile?: boolean;
   downloadUrl?: string;
   contentId?: string;
+  aiSummary?: string;
+  aiTags?: string[];
 }
 
 function getTypeIcon(type: string): JSX.Element {
@@ -96,6 +99,8 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
   hasFile,
   downloadUrl,
   contentId,
+  aiSummary,
+  aiTags
 }) => {
   const [embedError] = useState(false);
 
@@ -144,7 +149,7 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
 
   const handleFileDownload = () => {
     console.log("Download:", { downloadUrl, contentId, fileName });
-    
+
     if (!downloadUrl && !contentId) {
       toast.error("File not available for download");
       return;
@@ -152,34 +157,34 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
 
     try {
       const finalUrl = downloadUrl || `${BACKEND_URL}/api/v1/content/${contentId}/download`;
-      
+
       // Simple approach - let browser handle it
       const a = document.createElement('a');
       a.href = finalUrl;
       a.download = fileName || 'download';
       a.target = '_blank';
-      
+
       // Add token to headers via fetch (for authenticated downloads)
       const token = localStorage.getItem("token");
       if (token) {
         fetch(finalUrl, {
           headers: { 'Authorization': `Bearer ${token}` }
         })
-        .then(res => res.blob())
-        .then(blob => {
-          const url = window.URL.createObjectURL(blob);
-          a.href = url;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);
-          toast.success("Download started!");
-        })
-        .catch(err => {
-          console.error("Download error:", err);
-          // Fallback: try direct window.open
-          window.open(finalUrl, '_blank');
-        });
+          .then(res => res.blob())
+          .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            a.href = url;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            toast.success("Download started!");
+          })
+          .catch(err => {
+            console.error("Download error:", err);
+            // Fallback: try direct window.open
+            window.open(finalUrl, '_blank');
+          });
       } else {
         // No token - direct download
         document.body.appendChild(a);
@@ -190,7 +195,7 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
       console.error('Download error:', error);
       toast.error("Download failed. Please try again.");
     }
-};
+  };
 
 
   // EXACT COPY of renderContent from Card.tsx
@@ -412,7 +417,7 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
           onClick={onClose}
           aria-label="Close"
         >
-          <CrossIcon/>
+          <CrossIcon />
         </button>
 
         {/* Left: Embedded Content */}
@@ -427,9 +432,28 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
             <h2 className="text-3xl font-bold text-gray-900">{title}</h2>
           </div>
           {description && (
-            <p className="text-gray-700 whitespace-pre-line text-base leading-relaxed">
-              {description}
-            </p>
+            <div className="text-gray-700 text-base leading-relaxed prose prose-sm max-w-none">
+              <ReactMarkdown>{description || ""}</ReactMarkdown>
+            </div>
+          )}
+
+          {/* AI Summary */}
+          {aiSummary && (
+            <div className="mt-4 p-3 bg-blue-50 border border-blue-100 rounded-lg">
+              <p className="text-xs text-blue-500 font-medium uppercase tracking-wide mb-1"> AI Summary </p>
+              <p className="text-sm text-blue-900 leading-relaxed">{aiSummary}</p>
+            </div>
+          )}
+
+          {/*AI Tags*/}
+          {aiTags && aiTags.length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {aiTags.map(tag => (
+                <span key={tag} className="px-2 py-0.5 bg-zinc-100 text-zinc-600 text-xs rounded-full">
+                  #{tag}
+                </span>
+              ))}
+            </div>
           )}
 
           {(link || hasFile) && (
@@ -457,5 +481,5 @@ export const BiggerCard: React.FC<BiggerCardProps> = ({
         </div>
       </div>
     </div>
-);
+  );
 };
