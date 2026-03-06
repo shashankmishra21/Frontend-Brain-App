@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Share2, Upload, Search, Github, Tag } from 'lucide-react';
+import { ArrowRight, Share2, Upload, Github, Brain, Tag, Code2, GraduationCap, PenLine, Rocket } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-// ── Variants ──────────────────────────────────────────────────────────────────
+// Variants 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: {
@@ -29,40 +29,74 @@ const itemFade = {
 
 const FEATURES = [
   {
+    icon: <Brain className="w-5 h-5" />,
+    title: 'AI-Powered Search',
+    desc: 'Ask anything in plain English — "how do I prevent DDoS?" — AI answers from your own saved notes.',
+    accent: 'bg-violet-500/10 text-violet-400 ring-1 ring-violet-500/20',
+  },
+  {
     icon: <Upload className="w-5 h-5" />,
     title: 'Universal Capture',
-    desc: 'Save from any platform — LinkedIn, YouTube, articles, or raw links — in one click.',
+    desc: 'Save from LinkedIn, YouTube, Twitter, Instagram, articles, or upload documents — all in one place.',
     accent: 'bg-blue-500/10 text-blue-500 ring-1 ring-blue-500/20',
   },
   {
     icon: <Tag className="w-5 h-5" />,
-    title: 'Smart Categorization',
-    desc: 'Organize content with tags and categories. Find it exactly where you left it.',
-    accent: 'bg-violet-500/10 text-blue-500 ring-1 ring-violet-500/20'
-  },
-  {
-    icon: <Search className="w-5 h-5" />,
-    title: 'Instant Search',
-    desc: 'Full-text search across all your saved content — titles, notes, and tags.',
+    title: 'Auto Smart Tags',
+    desc: 'AI reads your content and auto-generates relevant tags and a concise summary — zero manual effort.',
     accent: 'bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/20',
   },
   {
     icon: <Share2 className="w-5 h-5" />,
-    title: 'Share Collections',
-    desc: 'Curate and share knowledge collections with teammates or your audience.',
-    accent: 'bg-blue-500/10 text-blue-500 ring-1 ring-blue-600/20',
+    title: 'Share Your Brain',
+    desc: 'Generate a public link to share your curated knowledge library with anyone, anytime.',
+    accent: 'bg-orange-500/10 text-orange-400 ring-1 ring-orange-500/20',
   },
 ];
 
 const HOW_IT_WORKS = [
-  { step: '01', title: 'Discover', desc: 'Find valuable content anywhere on the web' },
-  { step: '02', title: 'Capture', desc: 'One-click save to your personal BrainCache' },
-  { step: '03', title: 'Organize', desc: 'Tag and categorize your saved content your way' },
-  { step: '04', title: 'Search', desc: 'Full-text search finds exactly what you need' },
-  { step: '05', title: 'Remember', desc: 'Your knowledge — accessible forever' },
+  { step: '01', title: 'Save', desc: 'Capture any content — links, docs, social posts' },
+  { step: '02', title: 'AI Reads', desc: 'AI auto-summarizes and tags your content' },
+  { step: '03', title: 'Organizes', desc: 'Everything sorted by type, tags, and topic' },
+  { step: '04', title: 'You Ask', desc: 'Query your notes in plain English' },
+  { step: '05', title: 'AI Answers', desc: 'Get instant answers from your own knowledge' },
 ];
 
-// ── Component ─────────────────────────────────────────────────────────────────
+const USE_CASES = [
+  {
+    icon: <Code2 className="w-5 h-5" />,
+    accent: 'bg-blue-500/10 text-blue-400 ring-1 ring-blue-500/20',
+    title: 'Developers',
+    desc: 'Save Stack Overflow answers, docs, and articles. Ask "how to implement JWT" — get answers from your own saved resources.'
+  },
+  {
+    icon: <GraduationCap className="w-5 h-5" />,
+    accent: 'bg-violet-500/10 text-violet-400 ring-1 ring-violet-500/20',
+    title: 'Students',
+    desc: 'Save lecture notes, YouTube explanations, articles. Query your study material before exams.'
+  },
+  {
+    icon: <PenLine className="w-5 h-5" />,
+    accent: 'bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/20',
+    title: 'Content Creators',
+    desc: 'Capture inspiration from LinkedIn, Twitter, YouTube. Never lose a good idea again.'
+  },
+  {
+    icon: <Rocket className="w-5 h-5" />,
+    accent: 'bg-orange-500/10 text-orange-400 ring-1 ring-orange-500/20',
+    title: 'Founders',
+    desc: 'Save market research, competitor links, strategy docs. Your entire research — queryable in seconds.'
+  },
+];
+
+const STATS = [
+  { value: '5+', label: 'Content Types' },
+  { value: 'AI', label: 'Powered Search' },
+  { value: '∞', label: 'Notes Saved' },
+  { value: '100%', label: 'Your Data' },
+];
+
+//  Component 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -98,7 +132,7 @@ const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 antialiased font-body">
 
-      {/* ── Navbar ─────────────────────────────────────────────────────────── */}
+      {/* Navbar */}
       <motion.header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
           ? 'bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800/60'
@@ -135,7 +169,7 @@ const LandingPage: React.FC = () => {
               </>
             ) : (
               <>
-                {/* Hide "Sign in" on small screens */}
+                {/* Hide Sign in on small screens */}
                 <NavButton onClick={handleSignIn} variant="ghost">
                   <span className="hidden xs:inline">Sign in</span>
                   <span className="xs:hidden">Login</span>
@@ -152,8 +186,8 @@ const LandingPage: React.FC = () => {
         </div>
       </motion.header>
 
-      {/* ── Hero ───────────────────────────────────────────────────────────── */}
-      <section className="rrelative pt-24 sm:pt-32 md:pt-40 pb-20 px-6 overflow-hidden">
+      {/* Hero */}
+      <section className="relative pt-16 sm:pt-20 md:pt-24 pb-16 px-6 overflow-hidden">
         {/* Glow */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[420px] bg-blue-600/8 rounded-full blur-3xl" />
@@ -171,7 +205,7 @@ const LandingPage: React.FC = () => {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-800/70 border border-zinc-700/50 text-xs text-zinc-400 font-medium mb-10 tracking-widest uppercase"
           >
 
-            Your Personal Knowledge Base
+            AI-Powered Second Brain
           </motion.div>
 
           {/* Headline */}
@@ -182,10 +216,10 @@ const LandingPage: React.FC = () => {
             transition={{ delay: 0.1 }}
             className="font-display text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-[-0.03em] leading-[1.05] mb-6"
           >
-            Everything you save.
+            Capture everything.
             <br />
             <span className="text-blue-500 italic font-light">
-              Finally findable.
+              Forget nothing.
             </span>
           </motion.h1>
 
@@ -195,10 +229,11 @@ const LandingPage: React.FC = () => {
             initial="hidden"
             animate="visible"
             transition={{ delay: 0.2 }}
-            className="text-lg text-zinc-400 max-w-lg mx-auto mb-10 leading-relaxed font-light"
-          >
-            BrainCache is your external memory — capture content from anywhere,
-            organize it with tags, and find exactly what you need in seconds.
+            className="text-lg text-zinc-400 max-w-lg mx-auto mb-10 leading-relaxed font-light" >
+            You save content. You forget content.
+            BrainCache fixes that — AI reads everything you save
+            and answers your questions from it, instantly.
+
           </motion.p>
 
           {/* CTAs */}
@@ -221,7 +256,7 @@ const LandingPage: React.FC = () => {
 
           </motion.div>
 
-          {/* Social proof micro-line */}
+          {/* micro-line */}
           <motion.p
             variants={fadeUp}
             initial="hidden"
@@ -229,15 +264,35 @@ const LandingPage: React.FC = () => {
             transition={{ delay: 0.4 }}
             className="mt-8 text-xs text-zinc-600 tracking-wide"
           >
-            Free to use · No credit card required · Open source
+            Free to use · AI-powered · No credit card required
           </motion.p>
         </div>
       </section>
 
-      {/* Separator */}
-      <div className="w-full border-t border-zinc-800/60" />
+      {/* ── Stats ─── */}
+      <section className="py-10 px-6 border-y border-zinc-800/40">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {STATS.map((s, i) => (
+              <motion.div key={i} variants={itemFade}>
+                <p className="font-display text-3xl font-bold text-white mb-1">{s.value}</p>
+                <p className="text-xs text-zinc-500 uppercase tracking-widest">{s.label}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
 
-      {/* ── How It Works ───────────────────────────────────────────────────── */}
+      {/* Separator
+      <div className="w-full border-t border-zinc-800/60" /> */}
+
+      {/* How It Works */}
       <section className="py-12 px-6">
         <div className="max-w-5xl mx-auto">
           <motion.div
@@ -252,9 +307,9 @@ const LandingPage: React.FC = () => {
             </p>
 
             <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
-              Simple by design.{' '}
+              Save it. Ask it.{' '}
               <span className="italic font-light text-zinc-500">
-                Powerful in practice.
+                Never forget it.
               </span>
             </h2>
           </motion.div>
@@ -289,7 +344,36 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ── Features ───────────────────────────────────────────────────────── */}
+      {/* Product Preview */}
+      <section className="py-16 px-6">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="relative rounded-2xl overflow-hidden border border-zinc-800/60 shadow-2xl shadow-black/40"
+          >
+            {/* Browser chrome bar */}
+            <div className="flex items-center gap-1.5 px-4 py-3 bg-zinc-900 border-b border-zinc-800">
+              <div className="w-3 h-3 rounded-full bg-red-500/70" />
+              <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
+              <div className="w-3 h-3 rounded-full bg-emerald-500/70" />
+              <div className="flex-1 mx-4 px-3 py-1 bg-zinc-800 rounded text-xs text-zinc-500 text-center">
+                braincache.app/main
+              </div>
+            </div>
+            {/* Screenshot */}
+            <img
+              src="/preview.png"
+              alt="BrainCache Dashboard"
+              className="w-full object-cover"
+            />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Features  */}
       <section className="py-32 px-6 bg-zinc-900/20 border-y border-zinc-800/50">
         <div className="max-w-5xl mx-auto">
           <motion.div
@@ -303,13 +387,13 @@ const LandingPage: React.FC = () => {
               Features
             </p>
             <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
-              Everything you need.{' '}
+              Your notes.{' '}
               <span className="italic font-light text-zinc-500">
-                Nothing you don't.
+                Now intelligent.
               </span>
             </h2>
             <p className="text-zinc-500 mt-4 text-sm max-w-sm mx-auto font-light leading-relaxed">
-              Purpose-built for knowledge workers who move fast.
+              AI reads, tags, and answers from everything you save.
             </p>
           </motion.div>
 
@@ -344,7 +428,51 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ── CTA ────────────────────────────────────────────────────────────── */}
+      {/* Use Cases */}
+      <section className="py-20 px-6">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            className="text-center mb-12"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <p className="text-[10px] text-zinc-600 font-medium uppercase tracking-[0.2em] mb-4">
+              Who it's for
+            </p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
+              Built for{' '}
+              <span className="italic font-light text-zinc-500">curious minds.</span>
+            </h2>
+          </motion.div>
+
+          <motion.div
+            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4"
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {USE_CASES.map((u, i) => (
+              <motion.div
+                key={i}
+                variants={itemFade}
+                whileHover={{ y: -4 }}
+                className="p-5 bg-zinc-900/50 border border-zinc-800/60 rounded-xl hover:border-zinc-700/60 transition-all duration-200"
+              >
+                <div className={`w-9 h-9 rounded-lg flex items-center justify-center mb-3 ${u.accent}`}>
+                  {u.icon}
+                </div>
+                <h3 className="font-display text-sm font-semibold text-zinc-100 mb-2">{u.title}</h3>
+                <p className="text-xs text-zinc-500 leading-relaxed">{u.desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA */}
       <section className="py-36 px-6 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-blue-500/5 rounded-full blur-3xl" />
@@ -367,15 +495,16 @@ const LandingPage: React.FC = () => {
               variants={itemFade}
               className="font-display text-4xl md:text-5xl font-bold tracking-[-0.02em] mb-5 leading-[1.1]"
             >
-              Your second brain
+              Your knowledge base.
               <br />
-              <span className="text-blue-500 italic font-light">awaits.</span>
+              <span className="text-blue-500 italic font-light"> Now answers back.</span>
             </motion.h2>
             <motion.p
               variants={itemFade}
               className="text-zinc-500 mb-10 text-base font-light leading-relaxed"
             >
-              Stop losing ideas. Start building your knowledge base today.
+              Stop losing ideas to browser tabs and forgotten links.
+              BrainCache remembers everything — and tells you what you need, when you need it.
             </motion.p>
             <motion.div
               variants={itemFade}
@@ -391,7 +520,7 @@ const LandingPage: React.FC = () => {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </motion.button>
               <motion.a
-                href="https://github.com/shashank-mishra"
+                href="https://github.com/shashankmishra21"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-8 py-3.5 bg-zinc-800/60 text-zinc-300 text-sm font-medium rounded-lg border border-zinc-700/60 hover:bg-zinc-800 hover:text-white transition-colors"
@@ -406,7 +535,7 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ── Footer ─────────────────────────────────────────────────────────── */}
+      {/*Footer*/}
       <footer className="border-t border-zinc-800/50 py-10 px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5">
 
@@ -418,7 +547,7 @@ const LandingPage: React.FC = () => {
           </div>
 
           <p className="text-xs text-zinc-600 text-center">
-            © 2025 BrainCache · Built by{' '}
+            © 2026 BrainCache · Built by{' '}
             <span className="text-zinc-400 font-medium italic font-display">
               Shashank Mishra
             </span>
@@ -435,7 +564,7 @@ const LandingPage: React.FC = () => {
   );
 };
 
-// ── NavButton ─────────────────────────────────────────────────────────────────
+// NavButton
 interface NavButtonProps {
   onClick: () => void;
   variant: 'ghost' | 'primary';
