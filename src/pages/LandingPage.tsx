@@ -344,7 +344,7 @@ const LandingPage: React.FC = () => {
 
 
       {/* ── Product Preview ── */}
-      <section className="py-8 px-6">
+      <section className="py-4 px-6">
         <div className="max-w-5xl mx-auto">
           <motion.div
             variants={fadeUp}
@@ -358,7 +358,7 @@ const LandingPage: React.FC = () => {
               <div className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
               <div className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
               <div className="flex-1 mx-6">
-                <div className="max-w-[200px] mx-auto px-3 py-1 bg-zinc-800/80 rounded-md text-[11px] text-zinc-500 text-center">
+                <div className="max-w-[160px] mx-auto px-3 py-1 bg-zinc-800/80 rounded-md text-[11px] text-zinc-500 text-center">
                   braincache.app
                 </div>
               </div>
@@ -374,7 +374,7 @@ const LandingPage: React.FC = () => {
 
 
       {/* ── Features ── */}
-      <section className="py-24 px-6">
+      <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <motion.div
             className="mb-16"
@@ -426,7 +426,7 @@ const LandingPage: React.FC = () => {
 
 
       {/* ── Use Cases ── */}
-      <section className="py-24 px-6 border-t border-zinc-800/40">
+      <section className="py-16 px-6 border-t border-zinc-800/40">
         <div className="max-w-4xl mx-auto">
           <motion.div
             className="mb-16"
