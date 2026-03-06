@@ -187,7 +187,7 @@ const LandingPage: React.FC = () => {
       </motion.header>
 
       {/* Hero */}
-      <section className="relative pt-16 sm:pt-20 md:pt-24 pb-16 px-6 overflow-hidden">
+      <section className="relative pt-28 sm:pt-32 md:pt-36 pb-16 px-6 overflow-hidden">
         {/* Glow */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[420px] bg-blue-600/8 rounded-full blur-3xl" />
@@ -273,7 +273,7 @@ const LandingPage: React.FC = () => {
       <section className="py-10 px-6 border-y border-zinc-800/40">
         <div className="max-w-4xl mx-auto">
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
+            className="grid grid-cols-4 sm:grid-cols-4 gap-6 text-center"
             variants={stagger}
             initial="hidden"
             whileInView="visible"
@@ -281,7 +281,7 @@ const LandingPage: React.FC = () => {
           >
             {STATS.map((s, i) => (
               <motion.div key={i} variants={itemFade}>
-                <p className="font-display text-3xl font-bold text-white mb-1">{s.value}</p>
+                <p className="font-display text-2xl font-bold text-white mb-1">{s.value}</p>
                 <p className="text-xs text-zinc-500 uppercase tracking-widest">{s.label}</p>
               </motion.div>
             ))}
@@ -292,78 +292,77 @@ const LandingPage: React.FC = () => {
       {/* Separator
       <div className="w-full border-t border-zinc-800/60" /> */}
 
-      {/* How It Works */}
-      <section className="py-12 px-6">
-        <div className="max-w-5xl mx-auto">
+      {/* ── How It Works ── */}
+      <section className="py-24 px-6">
+        <div className="max-w-4xl mx-auto">
           <motion.div
-            className="text-center mb-16"
+            className="mb-16"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true }}
           >
-            <p className="text-[10px] text-zinc-600 font-medium uppercase tracking-[0.2em] mb-4">
+            <p className="text-[10px] text-zinc-600 font-medium uppercase tracking-[0.2em] mb-3">
               Workflow
             </p>
-
             <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
               Save it. Ask it.{' '}
-              <span className="italic font-light text-zinc-500">
-                Never forget it.
-              </span>
+              <span className="italic font-light text-zinc-500">Never forget it.</span>
             </h2>
           </motion.div>
 
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-5 gap-4"
+            className="space-y-px"
             variants={stagger}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true }}
           >
             {HOW_IT_WORKS.map((item, i) => (
               <motion.div
                 key={i}
                 variants={itemFade}
-                whileHover={{ y: -4, borderColor: 'rgb(63 63 70)' }}
-                className="relative flex flex-col gap-3 p-5 bg-zinc-900/50 border border-zinc-800/60 rounded-xl transition-colors duration-200"
+                className="group flex items-start gap-6 py-5 border-b border-zinc-800/50 hover:border-zinc-700/50 transition-colors duration-200"
               >
-                {i < HOW_IT_WORKS.length - 1 && (
-                  <div className="hidden md:block absolute top-[2.2rem] -right-2.5 w-5 h-px bg-zinc-700/60" />
-                )}
-                <span className="font-mono text-[11px] font-bold text-blue-500/60">
+                <span className="font-mono text-[11px] font-bold text-zinc-700 group-hover:text-blue-500 transition-colors pt-0.5 w-6 flex-shrink-0">
                   {item.step}
                 </span>
-                <h3 className="font-display text-sm font-semibold text-zinc-100">
-                  {item.title}
-                </h3>
-                <p className="text-xs text-zinc-500 leading-relaxed">{item.desc}</p>
+                <div className="flex-1 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                  <h3 className="font-display text-base font-semibold text-zinc-100">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-zinc-500 sm:max-w-xs leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+                <ArrowRight className="w-4 h-4 text-zinc-700 group-hover:text-zinc-400 group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 mt-0.5" />
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Product Preview */}
-      <section className="py-16 px-6">
+
+      {/* ── Product Preview ── */}
+      <section className="py-8 px-6">
         <div className="max-w-5xl mx-auto">
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="relative rounded-2xl overflow-hidden border border-zinc-800/60 shadow-2xl shadow-black/40"
+            className="relative rounded-xl overflow-hidden border border-zinc-800/60 shadow-2xl shadow-black/60"
           >
-            {/* Browser chrome bar */}
-            <div className="flex items-center gap-1.5 px-4 py-3 bg-zinc-900 border-b border-zinc-800">
-              <div className="w-3 h-3 rounded-full bg-red-500/70" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
-              <div className="w-3 h-3 rounded-full bg-emerald-500/70" />
-              <div className="flex-1 mx-4 px-3 py-1 bg-zinc-800 rounded text-xs text-zinc-500 text-center">
-                braincache.app/main
+            <div className="flex items-center gap-1.5 px-4 py-3 bg-zinc-900/90 border-b border-zinc-800/60">
+              <div className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <div className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <div className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+              <div className="flex-1 mx-6">
+                <div className="max-w-[200px] mx-auto px-3 py-1 bg-zinc-800/80 rounded-md text-[11px] text-zinc-500 text-center">
+                  braincache.app
+                </div>
               </div>
             </div>
-            {/* Screenshot */}
             <img
               src="/preview.png"
               alt="BrainCache Dashboard"
@@ -373,53 +372,50 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Features  */}
-      <section className="py-32 px-6 bg-zinc-900/20 border-y border-zinc-800/50">
-        <div className="max-w-5xl mx-auto">
+
+      {/* ── Features ── */}
+      <section className="py-24 px-6">
+        <div className="max-w-4xl mx-auto">
           <motion.div
-            className="text-center mb-16"
+            className="mb-16"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true }}
           >
-            <p className="text-[10px] text-zinc-600 font-medium uppercase tracking-[0.2em] mb-4">
+            <p className="text-[10px] text-zinc-600 font-medium uppercase tracking-[0.2em] mb-3">
               Features
             </p>
-            <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
-              Your notes.{' '}
-              <span className="italic font-light text-zinc-500">
-                Now intelligent.
-              </span>
-            </h2>
-            <p className="text-zinc-500 mt-4 text-sm max-w-sm mx-auto font-light leading-relaxed">
-              AI reads, tags, and answers from everything you save.
-            </p>
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+              <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
+                Your notes.{' '}
+                <span className="italic font-light text-zinc-500">Now intelligent.</span>
+              </h2>
+              <p className="text-sm text-zinc-500 sm:max-w-[200px] leading-relaxed font-light">
+                AI reads, tags, and answers from everything you save.
+              </p>
+            </div>
           </motion.div>
 
           <motion.div
-            className="grid sm:grid-cols-2 gap-3"
+            className="grid sm:grid-cols-2 gap-px bg-zinc-800/30 rounded-xl overflow-hidden border border-zinc-800/40"
             variants={stagger}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true }}
           >
             {FEATURES.map((f, i) => (
               <motion.div
                 key={i}
                 variants={itemFade}
-                whileHover={{ y: -3 }}
-                className="flex gap-4 p-6 bg-zinc-900/60 border border-zinc-800/70 rounded-xl hover:border-zinc-700/80 transition-all duration-200"
+                whileHover={{ backgroundColor: 'rgba(24,24,27,0.8)' }}
+                className="flex gap-4 p-6 bg-zinc-950 transition-colors duration-200"
               >
-                <div
-                  className={`flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center ${f.accent}`}
-                >
+                <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center ${f.accent}`}>
                   {f.icon}
                 </div>
                 <div>
-                  <h3 className="font-display text-sm font-semibold text-zinc-100 mb-1.5">
-                    {f.title}
-                  </h3>
+                  <h3 className="text-sm font-semibold text-zinc-100 mb-1.5">{f.title}</h3>
                   <p className="text-sm text-zinc-500 leading-relaxed font-light">{f.desc}</p>
                 </div>
               </motion.div>
@@ -428,17 +424,18 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Use Cases */}
-      <section className="py-20 px-6">
-        <div className="max-w-5xl mx-auto">
+
+      {/* ── Use Cases ── */}
+      <section className="py-24 px-6 border-t border-zinc-800/40">
+        <div className="max-w-4xl mx-auto">
           <motion.div
-            className="text-center mb-12"
+            className="mb-16"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <p className="text-[10px] text-zinc-600 font-medium uppercase tracking-[0.2em] mb-4">
+            <p className="text-[10px] text-zinc-600 font-medium uppercase tracking-[0.2em] mb-3">
               Who it's for
             </p>
             <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
@@ -448,7 +445,7 @@ const LandingPage: React.FC = () => {
           </motion.div>
 
           <motion.div
-            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4"
+            className="grid sm:grid-cols-2 gap-px bg-zinc-800/30 rounded-xl overflow-hidden border border-zinc-800/40"
             variants={stagger}
             initial="hidden"
             whileInView="visible"
@@ -458,14 +455,16 @@ const LandingPage: React.FC = () => {
               <motion.div
                 key={i}
                 variants={itemFade}
-                whileHover={{ y: -4 }}
-                className="p-5 bg-zinc-900/50 border border-zinc-800/60 rounded-xl hover:border-zinc-700/60 transition-all duration-200"
+                whileHover={{ backgroundColor: 'rgba(24,24,27,0.8)' }}
+                className="flex gap-4 p-6 bg-zinc-950 transition-colors duration-200"
               >
-                <div className={`w-9 h-9 rounded-lg flex items-center justify-center mb-3 ${u.accent}`}>
+                <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center ${u.accent}`}>
                   {u.icon}
                 </div>
-                <h3 className="font-display text-sm font-semibold text-zinc-100 mb-2">{u.title}</h3>
-                <p className="text-xs text-zinc-500 leading-relaxed">{u.desc}</p>
+                <div>
+                  <h3 className="text-sm font-semibold text-zinc-100 mb-1.5">{u.title}</h3>
+                  <p className="text-sm text-zinc-500 leading-relaxed font-light">{u.desc}</p>
+                </div>
               </motion.div>
             ))}
           </motion.div>
