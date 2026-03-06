@@ -1,4 +1,3 @@
-import { Button } from '../component/Button';
 import { Card } from '../component/Card';
 import CreateComponentModal from '../component/CreateComponentModal';
 import { useContent } from '../Hooks/useContent';
