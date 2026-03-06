@@ -21,6 +21,7 @@ function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [aiResults, setAiResults] = useState<any[] | null>(null);
   const [searching, setSearching] = useState(false);
+  const [aiAnswer, setAiAnswer] = useState<string | null>(null);
 
   // Decode username from JWT token
   useEffect(() => {
@@ -44,6 +45,7 @@ function Home() {
 
   const handleSearch = async (query: string) => {
     setSearchQuery(query);
+    setAiAnswer(null);
 
     if (!query.trim()) {
       setAiResults(null);
@@ -62,6 +64,7 @@ function Home() {
       );
       const data = await res.json();
       setAiResults(data.results || []);
+      setAiAnswer(data.aiAnswer || null); // answer getting from BE
     } catch (err) {
       console.error(err);
       setAiResults([]);
@@ -177,6 +180,19 @@ function Home() {
             )}
           </div>
         )}
+
+        {/* AI Answer Box — search bar ke neeche */}
+        {aiAnswer && !searching && (
+          <div className="px-6 mb-4">
+            <div className="max-w-2xl mx-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
+              <p className="text-xs text-blue-300 font-medium uppercase tracking-wide mb-2">
+                🧠 BrainCache AI
+              </p>
+              <p className="text-white text-sm leading-relaxed">{aiAnswer}</p>
+            </div>
+          </div>
+        )}
+
 
         {/* Loader & Error */}
         {loading && <div className='text-white text-xl font-semibold mt-8 text-center'>Loading...</div>}
