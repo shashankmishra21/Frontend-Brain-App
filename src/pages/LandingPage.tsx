@@ -158,9 +158,9 @@ const ManifestoSection: React.FC = () => {
           style={geist}
         >
           The future is{' '}
-          <span className="text-green-400 italic font-light">knowledge</span>
+          <span className="text-green-400 italic font-light " style={{ fontFamily: "'Orbitron', sans-serif" }}>knowledge</span>
           <br />
-          <span className="text-green-400 italic font-light">plus</span>{' '}AI.
+          <span className="text-green-400 italic font-light" style={{ fontFamily: "'Orbitron', sans-serif" }}>plus</span>{' '}AI.
         </motion.h2>
 
         <motion.p
@@ -191,7 +191,7 @@ const ManifestoSection: React.FC = () => {
 
 // Ticker 
 const Ticker = React.memo(() => (
-  <div className="relative overflow-hidden py-4 border-y border-gray-100 bg-gray-50/60">
+  <div className="relative overflow-hidden py-7 border-y border-gray-100 bg-gray-50/60">
     <div className="flex">
       {[0, 1].map((clone) => (
         <motion.div
@@ -318,7 +318,7 @@ const LandingPage: React.FC = () => {
 
           {/* Logo */}
           <motion.button
-            className="group flex items-center gap-2.5 select-none rounded-lg p-1 -ml-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500/50"
+            className="group flex items-center gap-1 select-none rounded-lg p-1 -ml-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500/50"
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/')}
             aria-label="BrainCache — go home"
@@ -327,44 +327,66 @@ const LandingPage: React.FC = () => {
               src="BrainCachelogo.png"
               alt=""
               aria-hidden
-              className="w-7 h-7 object-contain transition-transform duration-200 group-hover:scale-105"
+              className="w-7 h-7 sm:w-10 sm:h-10 object-contain transition-transform duration-200 group-hover:scale-105"
             />
-            <span className="text-[15px] font-semibold tracking-[-0.02em] text-gray-900" style={geist}>
-              Brain<span className="text-green-500">Cache</span>
+            <span
+              className="text-[14px] sm:text-[26px] font-semibold tracking-[-0.01em] text-gray-900"
+              style={{ fontFamily: "'Orbitron', sans-serif" }}
+            >
+              Brain<span className="text-green-600">Cache<span className='text-black'>.ai</span></span>
             </span>
+
           </motion.button>
+
 
           {/* Nav */}
           <nav className="flex items-center gap-1" aria-label="Main navigation">
             {isAuthenticated ? (
               <>
+                {/* Online indicator — hidden on mobile */}
                 {user?.name && (
-                  <span className="hidden md:flex items-center gap-1.5 text-[13px] text-gray-400 mr-2 select-none" style={geist}>
+                  <span
+                    className="hidden md:flex items-center gap-1.5 text-[13px] text-gray-400 mr-2 select-none"
+                    style={geist}
+                  >
                     <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse flex-shrink-0" />
                     Hi, {user.name}
                   </span>
                 )}
+
+                {/* Dashboard — icon-only on sm, text+icon on md+ */}
                 <NavButton onClick={handleGetStarted} variant="ghost">
-                  Dashboard
+                  <span className="hidden sm:inline">Dashboard</span>
                   <ArrowRight className="w-3.5 h-3.5" aria-hidden />
                 </NavButton>
+
+                {/* Logout — short label on sm */}
                 <NavButton onClick={handleLogout} variant="outline">
-                  Log out
+                  <span className="sm:hidden">Out</span>
+                  <span className="hidden sm:inline">Log out</span>
                 </NavButton>
               </>
             ) : (
               <>
+                {/* Login — hidden on very small, visible from sm */}
                 <NavButton onClick={handleSignIn} variant="ghost">
-                  Log in
+                  <span className="hidden xs:inline">Log in</span>
+                  <span className="xs:hidden text-[12px]">Login</span>
                 </NavButton>
+
+                {/* Divider */}
                 <div className="h-4 w-px bg-gray-200 mx-0.5" aria-hidden />
+
+                {/* Get started — compact on sm */}
                 <NavButton onClick={handleGetStarted} variant="primary">
-                  Get started
-                  <ArrowRight className="w-3.5 h-3.5" aria-hidden />
+                  <span className="hidden sm:inline">Get started</span>
+                  <span className="sm:hidden text-[12px]">Start</span>
+                  <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" aria-hidden />
                 </NavButton>
               </>
             )}
           </nav>
+
         </div>
       </motion.header>
 
@@ -379,10 +401,16 @@ const LandingPage: React.FC = () => {
                 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-normal leading-[1.06] tracking-[-0.035em] text-gray-900 mb-6"
                 style={geist}
               >
-                <span className="text-green-500 font-normal">Capture</span> the knowledge
+                <span className="text-green-600" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                  Capture
+                </span>{' '}the knowledge
                 <br />
-                you keep forgetting.
+                you keep{' '}
+                <span className="text-green-600 italic" style={geist}>
+                  forgetting.
+                </span>
               </motion.h1>
+
 
               <motion.p
                 variants={itemFade}
@@ -399,7 +427,8 @@ const LandingPage: React.FC = () => {
               >
                 <motion.button
                   onClick={handleGetStarted}
-                  className="group flex items-center gap-2 px-7 py-3.5 bg-gray-950 text-white text-sm font-medium rounded-xl hover:bg-gray-800 active:bg-gray-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 w-full sm:w-auto justify-center"
+                  className="group flex items-center gap-2 px-4 py-2 sm:px-7 sm:py-3.5 bg-gray-950 text-white text-xs sm:text-sm font-medium rounded-lg sm:rounded-xl hover:bg-gray-800 active:bg-gray-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 w-auto justify-center"
+
                   style={geist}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
@@ -408,25 +437,11 @@ const LandingPage: React.FC = () => {
                   {isAuthenticated ? 'Go to Dashboard' : 'Start a free trial'}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" aria-hidden />
                 </motion.button>
-
-                <motion.a
-                  href="https://github.com/shashankmishra21"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="View BrainCache on GitHub (opens in new tab)"
-                  className="flex items-center gap-2 px-7 py-3.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-xl hover:border-gray-400 hover:bg-gray-50 active:bg-gray-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 w-full sm:w-auto justify-center"
-                  style={geist}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
-                >
-                  <Github className="w-4 h-4" aria-hidden />
-                  For developers
-                </motion.a>
               </motion.div>
 
-              <motion.p variants={itemFade} className="text-sm text-gray-700 pt-5 mb-16" style={geist}>
+              {/* <motion.p variants={itemFade} className="text-sm text-gray-700 pt-5 mb-16" style={geist}>
                 Free to use · AI-powered · No credit card required
-              </motion.p>
+              </motion.p> */}
 
             </motion.div>
           </div>
@@ -474,7 +489,7 @@ const LandingPage: React.FC = () => {
               whileInView="visible"
               viewport={{ once: true }}
             >
-              <p className="text-[10px] font-medium text-green-500 uppercase tracking-[0.22em] mb-0" style={geist}>
+              <p className="text-[10px] font-medium text-green-500 uppercase tracking-[0.22em] mb-0" style={{ fontFamily: "'Orbitron', sans-serif" }}>
                 Who It's For
               </p>
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
@@ -482,7 +497,7 @@ const LandingPage: React.FC = () => {
                   Built for{' '}
                   <span className="text-green-500 italic">curious minds.</span>
                 </h2>
-                <p className="text-sm lg:text-base text-gray-400 font-normal sm:max-w-[200px] lg:max-w-[220px] shrink-0" style={geist}>
+                <p className="text-sm lg:text-base text-gray-700 font-normal sm:max-w-[200px] lg:max-w-[220px] shrink-0" style={geist}>
                   Whoever you are, BrainCache fits your workflow.
                 </p>
               </div>
@@ -502,7 +517,7 @@ const LandingPage: React.FC = () => {
                   >
                     {/* Text */}
                     <div className={`${!isEven ? 'lg:order-2' : ''} flex flex-col gap-4`}>
-                      <span className="text-[10px] lg:text-xs font-medium text-gray-400 tracking-[0.2em] uppercase" style={geist}>
+                      <span className="text-[10px] lg:text-xs font-medium text-gray-400 tracking-[0.2em] uppercase" style={{ fontFamily: "'Orbitron', sans-serif" }}>
                         {u.tag}
                       </span>
                       <h3 className="text-2xl sm:text-3xl lg:text-[2.25rem] font-normal leading-[1.2] tracking-[-0.02em] text-gray-900" style={geist}>
@@ -591,7 +606,7 @@ const LandingPage: React.FC = () => {
               >
                 <p
                   className="text-[10px] font-medium text-green-500 uppercase tracking-[0.22em] mb-4"
-                  style={geist}
+                  style={{ fontFamily: "'Orbitron', sans-serif" }}
                 >
                   Features
                 </p>
@@ -600,7 +615,7 @@ const LandingPage: React.FC = () => {
                   <br />
                   <span className="text-green-500 italic">Now intelligent.</span>
                 </h2>
-                <p className="text-sm lg:text-base text-gray-400 leading-relaxed font-normal" style={geist} >
+                <p className="text-sm lg:text-base text-gray-600 leading-relaxed font-normal" style={geist} >
                   Six capabilities that turn your saved content into a knowledge engine that works for you.
                 </p>
               </motion.div>
@@ -621,7 +636,7 @@ const LandingPage: React.FC = () => {
                   >
                     {/* Index number */}
                     <span
-                      className="text-xs font-normal text-gray-300 tabular-nums pt-0.5 group-hover:text-green-400 transition-colors duration-200"
+                      className="text-xs font-normal text-black-700 tabular-nums pt-0.5 transition-colors"
                       style={geist}
                       aria-hidden
                     >
@@ -633,7 +648,7 @@ const LandingPage: React.FC = () => {
                       <h3 className="text-sm lg:text-base font-normal text-gray-900 mb-1.5 leading-snug group-hover:text-gray-700 transition-colors duration-200" style={geist} >
                         {f.title}
                       </h3>
-                      <p className="text-sm lg:text-[15px] text-gray-400 leading-relaxed font-normal" style={geist} >
+                      <p className="text-sm lg:text-[15px] text-gray-600 leading-relaxed font-normal" style={geist} >
                         {f.desc}
                       </p>
                     </div>
@@ -660,7 +675,7 @@ const LandingPage: React.FC = () => {
             >
               <p
                 className="text-[10px] font-medium text-green-500 uppercase tracking-[0.22em] mb-4"
-                style={geist}
+                style={{ fontFamily: "'Orbitron', sans-serif" }}
               >
                 How It Works
               </p>
@@ -669,7 +684,7 @@ const LandingPage: React.FC = () => {
                   From saved to searchable.{' '}
                   <span className="text-green-500 italic">In seconds.</span>
                 </h2>
-                <p className="text-sm lg:text-base text-gray-400 leading-relaxed font-normal sm:max-w-[180px] lg:max-w-[200px] shrink-0" style={geist}>
+                <p className="text-sm lg:text-base text-gray-800 leading-relaxed font-normal sm:max-w-[180px] lg:max-w-[200px] shrink-0" style={geist}>
                   Five steps. Zero friction.
                 </p>
               </div>
@@ -697,9 +712,9 @@ const LandingPage: React.FC = () => {
                 >
                   {/* Step dot */}
                   <div className="flex sm:flex-col items-center gap-4 sm:gap-3 w-full sm:w-auto">
-                    <div className="w-11 h-11 rounded-full border border-gray-200 bg-white flex items-center justify-center flex-shrink-0 group-hover:border-green-300 group-hover:bg-green-50/60 transition-all duration-200">
+                    <div className="w-11 h-11 rounded-full border border-gray-200 bg-white flex items-center justify-center flex-shrink-0">
                       <span
-                        className="text-sm font-normal text-gray-400 group-hover:text-green-500 transition-colors tabular-nums"
+                        className="text-sm font-normal text-gray-900 tabular-nums"
                         style={geist}
                       >
                         {item.step}
@@ -709,13 +724,13 @@ const LandingPage: React.FC = () => {
                     {/* Mobile: title inline with dot */}
                     <div className="sm:hidden flex flex-col gap-1">
                       <h3
-                        className="text-base font-normal text-gray-900 leading-snug"
+                        className="text-base font-normal text-black leading-snug"
                         style={geist}
                       >
                         {item.title}
                       </h3>
                       <p
-                        className="text-sm text-gray-400 leading-relaxed font-normal"
+                        className="text-sm text-gray-700 leading-relaxed font-normal"
                         style={geist}
                       >
                         {item.desc}
@@ -725,11 +740,11 @@ const LandingPage: React.FC = () => {
 
                   {/* Desktop: title + desc below dot */}
                   <div className="hidden sm:flex flex-col gap-2 mt-5">
-                    <h3 className="text-sm lg:text-base font-normal text-gray-900 leading-snug"
+                    <h3 className="text-sm lg:text-base font-normal text-black leading-snug"
                       style={geist} >
                       {item.title}
                     </h3>
-                    <p className="text-xs lg:text-sm text-gray-400 leading-relaxed font-normal"
+                    <p className="text-xs lg:text-sm text-gray-700 leading-relaxed font-normal"
                       style={geist}
                     >
                       {item.desc}
@@ -752,7 +767,7 @@ const LandingPage: React.FC = () => {
               whileInView="visible"
               viewport={{ once: true }}
             >
-              <p className="text-[10px] font-medium text-green-500 uppercase tracking-[0.22em] mb-3" style={geist}>
+              <p className="text-[10px] font-medium text-green-500 uppercase tracking-[0.22em] mb-3" style={{ fontFamily: "'Orbitron', sans-serif" }}>
                 Product
               </p>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-normal tracking-[-0.02em] text-gray-900" style={geist}>
@@ -791,7 +806,7 @@ const LandingPage: React.FC = () => {
           {/* CTA */}
           <div className="relative max-w-2xl mx-auto text-center py-24 sm:py-32">
             <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              <motion.p variants={itemFade} className="text-[10px] font-medium text-green-400 uppercase tracking-[0.22em] mb-5" style={geist}>
+              <motion.p variants={itemFade} className="text-[10px] font-medium text-green-400 uppercase tracking-[0.22em] mb-5" style={{ fontFamily: "'Orbitron', sans-serif" }}>
                 Get Started
               </motion.p>
 
@@ -851,14 +866,14 @@ const LandingPage: React.FC = () => {
             className="relative max-w-6xl mx-auto py-7 sm:py-8 flex flex-col sm:flex-row items-center justify-between gap-4" >
             <div className="flex items-center gap-2">
               <img src="BrainCachelogo.png" alt="" className="w-6 h-6 object-contain opacity-80" aria-hidden />
-              <span className="text-sm text-white/75" style={{ ...geist, fontWeight: 500 }}>
-                Brain<span className="text-green-500/90">Cache</span>
+              <span className="text-sm text-white" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                Brain<span className="text-green-600">Cache<span className='text-white'>.ai</span></span>
               </span>
             </div>
 
             <p className="text-xs text-white text-center font-normal" style={geist}>
               © {new Date().getFullYear()} BrainCache · Built by{' '}
-              <span className="text-white italic">Shashank Mishra</span>
+              <span className="text-white italic" style={{ fontFamily: "'Orbitron', sans-serif" }}>Shashank Mishra</span>
             </p>
 
             <div className="flex items-center gap-1.5 text-xs text-white/25 font-normal" style={geist}>

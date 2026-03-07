@@ -6,34 +6,22 @@ export default {
     "./src/**/*.{html,js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {
-      screens: {
-        xs: '475px',
-      },
-      colors: {
-        // orange: {
-        //   100: "#FF7D29",  //primary
-        //   200: "#FFEEA9", //secondary
-        //   300: "#FFBF78", //hover secondary
-        //   700: "#e66f21", // hover primay
-        //   // 400: "#111827", //bg
-        //   500: "#FFFFFF", //card
-        //   600: "#FFEEA9", //sidebar
-        // },
-        // gray: {
-        //   100: "#1E293B", //text primary
-        //   200: "#64748B",// text secondry
-        //   300: "#FAFAFA"
-        // }
+  extend: {
+    colors: {
+      navy: {
+        950: '#0A0F1E',
+        900: '#0F1629',
+        800: '#162036',
+        700: '#1E2D4A',
+        600: '#2A3F63',
+        400: '#6B7FA3',
+        200: '#A8B8D4',
+        50:  '#F0F4FF',
       }
-    },
-    fontFamily: {
-      'roboto': ['Roboto', 'sans-serif'],
-      'dmsans': ['DM Sans', 'sans-serif'],
-      display: ['Bricolage Grotesque', ...defaultTheme.fontFamily.sans],
-      body: ['DM Sans', ...defaultTheme.fontFamily.sans],
     }
-  },
+  }
+}
+,
   plugins: [],
 }
 
