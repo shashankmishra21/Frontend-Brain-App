@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  ArrowRight, Share2, Upload, Github, Brain, Tag, Code2,
-  GraduationCap, PenLine, Rocket, Zap, Shield, Search
-} from 'lucide-react';
+import { ArrowRight, Share2, Upload, Github, Brain, Tag, Code2, GraduationCap, PenLine, Rocket, Zap, Shield, Search } from 'lucide-react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 
 //  Module-level constant
@@ -206,7 +203,7 @@ const Ticker = React.memo(() => (
           {TICKER_ITEMS.map((item, i) => (
             <span
               key={i}
-              className="flex items-center gap-2 text-xs text-gray-400 whitespace-nowrap font-normal tracking-wide"
+              className="flex items-center gap-2 text-xs text-gray-6  00 whitespace-nowrap font-normal tracking-wide"
               style={geist}
             >
               <span className="w-1 h-1 rounded-full bg-green-400 flex-shrink-0" />
@@ -427,7 +424,7 @@ const LandingPage: React.FC = () => {
                 </motion.a>
               </motion.div>
 
-              <motion.p variants={itemFade} className="text-xs text-gray-400 pt-5 mb-16" style={geist}>
+              <motion.p variants={itemFade} className="text-sm text-gray-700 pt-5 mb-16" style={geist}>
                 Free to use · AI-powered · No credit card required
               </motion.p>
 
@@ -438,7 +435,7 @@ const LandingPage: React.FC = () => {
         </section>
 
         {/* Stats */}
-        <section aria-label="Stats" className="py-10 sm:py-16 px-4 sm:px-6 bg-white">
+        <section aria-label="Stats" className="py-10 sm:py-8 px-4 sm:px-6 bg-white">
           <div className="max-w-5xl mx-auto">
             <motion.div
               className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-gray-100 border border-gray-100 rounded-2xl overflow-hidden"
@@ -451,12 +448,13 @@ const LandingPage: React.FC = () => {
                 <motion.div
                   key={s.label}
                   variants={itemFade}
-                  className="text-center px-4 sm:px-6 py-7 sm:py-9 hover:bg-gray-50/80 transition-colors cursor-default"
-                >
-                  <p className="text-3xl sm:text-4xl font-semibold text-gray-900 mb-1.5 tracking-[-0.02em]" style={geist}>
+                  className="text-center px-4 sm:px-6 py-7 sm:py-9 hover:bg-gray-50/80 transition-colors cursor-default" >
+                  <p className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-1.5 tracking-[-0.02em]"
+                    style={geist}>
                     {s.value}
                   </p>
-                  <p className="text-xs text-gray-400 font-normal leading-snug" style={geist}>
+
+                  <p className="text-xs lg:text-sm text-gray-400 font-normal leading-snug" style={geist}>
                     {s.label}
                   </p>
                 </motion.div>
@@ -466,7 +464,7 @@ const LandingPage: React.FC = () => {
         </section>
 
         {/* Use Cases */}
-        <section aria-label="Use cases" className="py-16 sm:py-24 px-4 sm:px-6 bg-white border-t border-gray-100">
+        <section aria-label="Use cases" className="py-12 sm:py-8 px-4 sm:px-6 bg-white border-t border-gray-100">
           <div className="max-w-5xl mx-auto">
 
             <motion.div
@@ -480,11 +478,11 @@ const LandingPage: React.FC = () => {
                 Who It's For
               </p>
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-                <h2 className="text-2xl sm:text-3xl font-normal leading-[1.2] tracking-[-0.02em] text-gray-900" style={geist}>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-normal leading-[1.2] tracking-[-0.02em] text-gray-900" style={geist}>
                   Built for{' '}
                   <span className="text-green-500 italic">curious minds.</span>
                 </h2>
-                <p className="text-sm text-gray-400 font-normal sm:max-w-[180px] shrink-0" style={geist}>
+                <p className="text-sm lg:text-base text-gray-400 font-normal sm:max-w-[200px] lg:max-w-[220px] shrink-0" style={geist}>
                   Whoever you are, BrainCache fits your workflow.
                 </p>
               </div>
@@ -504,13 +502,13 @@ const LandingPage: React.FC = () => {
                   >
                     {/* Text */}
                     <div className={`${!isEven ? 'lg:order-2' : ''} flex flex-col gap-4`}>
-                      <span className="text-[10px] font-medium text-gray-400 tracking-[0.2em] uppercase" style={geist}>
+                      <span className="text-[10px] lg:text-xs font-medium text-gray-400 tracking-[0.2em] uppercase" style={geist}>
                         {u.tag}
                       </span>
-                      <h3 className="text-2xl sm:text-3xl font-normal leading-[1.2] tracking-[-0.02em] text-gray-900" style={geist}>
+                      <h3 className="text-2xl sm:text-3xl lg:text-[2.25rem] font-normal leading-[1.2] tracking-[-0.02em] text-gray-900" style={geist}>
                         {u.title}
                       </h3>
-                      <p className="text-sm text-gray-500 leading-relaxed font-normal max-w-sm" style={geist}>
+                      <p className="text-sm lg:text-base text-gray-500 leading-relaxed font-normal max-w-sm lg:max-w-md" style={geist}>
                         {u.desc}
                       </p>
                       <button
@@ -597,18 +595,12 @@ const LandingPage: React.FC = () => {
                 >
                   Features
                 </p>
-                <h2
-                  className="text-2xl sm:text-3xl font-normal leading-[1.2] tracking-[-0.02em] text-gray-900 mb-4"
-                  style={geist}
-                >
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-normal leading-[1.2] tracking-[-0.02em] text-gray-900 mb-4" style={geist} >
                   Your notes.
                   <br />
                   <span className="text-green-500 italic">Now intelligent.</span>
                 </h2>
-                <p
-                  className="text-sm text-gray-400 leading-relaxed font-normal"
-                  style={geist}
-                >
+                <p className="text-sm lg:text-base text-gray-400 leading-relaxed font-normal" style={geist} >
                   Six capabilities that turn your saved content into a knowledge engine that works for you.
                 </p>
               </motion.div>
@@ -638,16 +630,10 @@ const LandingPage: React.FC = () => {
 
                     {/* Content */}
                     <div>
-                      <h3
-                        className="text-sm font-normal text-gray-900 mb-1.5 leading-snug group-hover:text-gray-700 transition-colors duration-200"
-                        style={geist}
-                      >
+                      <h3 className="text-sm lg:text-base font-normal text-gray-900 mb-1.5 leading-snug group-hover:text-gray-700 transition-colors duration-200" style={geist} >
                         {f.title}
                       </h3>
-                      <p
-                        className="text-sm text-gray-400 leading-relaxed font-normal"
-                        style={geist}
-                      >
+                      <p className="text-sm lg:text-[15px] text-gray-400 leading-relaxed font-normal" style={geist} >
                         {f.desc}
                       </p>
                     </div>
@@ -661,7 +647,7 @@ const LandingPage: React.FC = () => {
 
 
         {/* How It Works */}
-        <section aria-label="How it works" className="py-20 sm:py-28 px-4 sm:px-6 bg-white border-t border-gray-100">
+        <section aria-label="How it works" className="py-20 sm:py-16 px-4 sm:px-6 bg-white border-t border-gray-100">
           <div className="max-w-5xl mx-auto">
 
             {/* Header */}
@@ -679,14 +665,11 @@ const LandingPage: React.FC = () => {
                 How It Works
               </p>
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-                <h2
-                  className="text-2xl sm:text-3xl font-normal leading-[1.2] tracking-[-0.02em] text-gray-900"
-                  style={geist}
-                >
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-normal leading-[1.2] tracking-[-0.02em] text-gray-900" style={geist} >
                   From saved to searchable.{' '}
                   <span className="text-green-500 italic">In seconds.</span>
                 </h2>
-                <p className="text-sm text-gray-400 leading-relaxed font-normal sm:max-w-[180px] shrink-0" style={geist}>
+                <p className="text-sm lg:text-base text-gray-400 leading-relaxed font-normal sm:max-w-[180px] lg:max-w-[200px] shrink-0" style={geist}>
                   Five steps. Zero friction.
                 </p>
               </div>
@@ -742,14 +725,11 @@ const LandingPage: React.FC = () => {
 
                   {/* Desktop: title + desc below dot */}
                   <div className="hidden sm:flex flex-col gap-2 mt-5">
-                    <h3
-                      className="text-sm font-normal text-gray-900 leading-snug"
-                      style={geist}
-                    >
+                    <h3 className="text-sm lg:text-base font-normal text-gray-900 leading-snug"
+                      style={geist} >
                       {item.title}
                     </h3>
-                    <p
-                      className="text-xs text-gray-400 leading-relaxed font-normal"
+                    <p className="text-xs lg:text-sm text-gray-400 leading-relaxed font-normal"
                       style={geist}
                     >
                       {item.desc}
@@ -775,7 +755,7 @@ const LandingPage: React.FC = () => {
               <p className="text-[10px] font-medium text-green-500 uppercase tracking-[0.22em] mb-3" style={geist}>
                 Product
               </p>
-              <h2 className="text-2xl sm:text-3xl font-normal tracking-[-0.02em] text-gray-900" style={geist}>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-normal tracking-[-0.02em] text-gray-900" style={geist}>
                 See it in action.
               </h2>
             </motion.div>
@@ -868,18 +848,17 @@ const LandingPage: React.FC = () => {
           {/* Footer  */}
           <footer
             role="contentinfo"
-            className="relative max-w-6xl mx-auto py-7 sm:py-8 flex flex-col sm:flex-row items-center justify-between gap-4"
-          >
+            className="relative max-w-6xl mx-auto py-7 sm:py-8 flex flex-col sm:flex-row items-center justify-between gap-4" >
             <div className="flex items-center gap-2">
               <img src="BrainCachelogo.png" alt="" className="w-6 h-6 object-contain opacity-80" aria-hidden />
-              <span className="text-sm text-white/50" style={{ ...geist, fontWeight: 500 }}>
-                Brain<span className="text-green-500/70">Cache</span>
+              <span className="text-sm text-white/75" style={{ ...geist, fontWeight: 500 }}>
+                Brain<span className="text-green-500/90">Cache</span>
               </span>
             </div>
 
-            <p className="text-xs text-white/25 text-center font-normal" style={geist}>
+            <p className="text-xs text-white text-center font-normal" style={geist}>
               © {new Date().getFullYear()} BrainCache · Built by{' '}
-              <span className="text-white/40 italic">Shashank Mishra</span>
+              <span className="text-white italic">Shashank Mishra</span>
             </p>
 
             <div className="flex items-center gap-1.5 text-xs text-white/25 font-normal" style={geist}>
