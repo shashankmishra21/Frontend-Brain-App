@@ -45,11 +45,11 @@ export function Sidebar({ onSelectType }: SidebarProps) {
 
   return (
     <>
-      {/* ── Mobile Hamburger ── */}
+      {/* Mobile Hamburger */}
       <div className="lg:hidden fixed top-4 left-4 z-50">
         <motion.button
           onClick={() => setIsOpen(true)}
-          className="flex items-center justify-center w-9 h-9 bg-zinc-800 border border-zinc-700/60 rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-zinc-700 transition-colors"
+          className="flex items-center justify-center w-9 h-9 bg-gray-900 border border-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -57,7 +57,7 @@ export function Sidebar({ onSelectType }: SidebarProps) {
         </motion.button>
       </div>
 
-      {/* ── Overlay ── */}
+      {/* Overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -71,45 +71,44 @@ export function Sidebar({ onSelectType }: SidebarProps) {
         )}
       </AnimatePresence>
 
-      {/* ── Sidebar ── */}
+      {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 z-50 bg-zinc-900 border-r border-zinc-800/60 transform transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
-          ${isOpen ? "translate-x-0" : "-translate-x-full"}
-          lg:translate-x-0 lg:static lg:block font-body overflow-hidden`}
+        className={`fixed top-0 left-0 h-full w-64 z-50 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        lg:translate-x-0 lg:static lg:block overflow-hidden`}
       >
         <div className="h-screen flex flex-col overflow-hidden">
 
-          {/* ── Logo ── */}
-          <div className="flex items-center justify-between px-5 py-5 border-b border-zinc-800/60">
-            <div className="flex items-center gap-2.5">
+          {/* Logo */}
+          <div className="flex items-center justify-between px-5 py-5 border-b border-gray-800">
+            <div className="flex items-center gap-1.5">
               <img
                 src="BrainCachelogo.png"
                 alt="BrainCache"
                 className="w-10 h-10 object-contain"
               />
-              <span className="text-base font-bold tracking-tight font-display text-white text-[20px]">
-                Brain<span className="text-blue-400">Cache</span>
+              <span className="text-[20px] font-bold tracking-tight text-gray-900 " style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                Brain<span className="text-green-600">Cache.ai</span>
               </span>
             </div>
 
-            {/* Mobile close */}
             <button
-              className="lg:hidden text-zinc-600 hover:text-zinc-300 transition-colors"
+              className="lg:hidden text-gray-400 hover:text-white"
               onClick={() => setIsOpen(false)}
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
-          {/* ── Nav Label ── */}
+          {/* Nav Label */}
           <div className="px-5 pt-5 pb-2">
-            <p className="text-[10px] text-zinc-600 font-medium uppercase tracking-[0.2em]">
+            <p className="text-[10px] text-gray-900 font-medium uppercase tracking-[0.2em]">
               Filter by type
             </p>
           </div>
 
-          {/* ── Nav Items ── */}
-          <nav className="flex flex-col gap-0.5 px-3 flex-1">
+          {/* Nav Items */}
+          <nav className="flex flex-col gap-1 px-3 flex-1 " style={{ fontFamily: "'Orbitron', sans-serif" }}>
             {NAV_ITEMS.map(({ text, icon, type }) => (
               <SidebarItem
                 key={type}
@@ -121,12 +120,13 @@ export function Sidebar({ onSelectType }: SidebarProps) {
             ))}
           </nav>
 
-          {/* ── Bottom ── */}
-          <div className="border-t border-zinc-800/60 p-4 space-y-3">
+          {/* Bottom */}
+          <div className="border-t border-gray-800 p-4 space-y-3">
+
             {isLoggedIn && (
               <motion.button
                 onClick={logout}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 text-sm font-medium rounded-lg hover:bg-zinc-800 hover:text-zinc-100 hover:border-zinc-600 transition-all duration-200"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-900 border border-gray-800 text-gray-200 text-sm font-medium rounded-lg hover:bg-gray-800 hover:text-white transition-all" style={{ fontFamily: "'Orbitron', sans-serif" }}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -136,16 +136,17 @@ export function Sidebar({ onSelectType }: SidebarProps) {
             )}
 
             <div className="text-center space-y-0.5">
-              <p className="text-[10px] text-zinc-700">
-                © {new Date().getFullYear()} BrainCache
+              <p className="text-[10px] text-gray-900" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                © {new Date().getFullYear()} BrainCache.ai
               </p>
-              <p className="text-[10px] text-zinc-700">
+              <p className="text-[10px] text-gray-900">
                 Built by{" "}
-                <span className="text-zinc-500 italic font-display">
-                  Shashank Mishra
+                <span className="text-gray-900">
+                  Shashank
                 </span>
               </p>
             </div>
+
           </div>
         </div>
       </div>

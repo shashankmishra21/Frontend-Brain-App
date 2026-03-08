@@ -179,9 +179,8 @@ const ManifestoSection: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 0.4 } : {}}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="text-white/40 text-lg sm:text-xl font-light leading-relaxed max-w-3xl"
-          style={geist}
-        >
+          className="text-white text-lg sm:text-xl font-light leading-relaxed max-w-3xl"
+          style={geist} >
           We're building the tool that makes your saved knowledge finally work for you.
         </motion.p>
       </div>
@@ -203,7 +202,7 @@ const Ticker = React.memo(() => (
           {TICKER_ITEMS.map((item, i) => (
             <span
               key={i}
-              className="flex items-center gap-2 text-xs text-gray-6  00 whitespace-nowrap font-normal tracking-wide"
+              className="flex items-center gap-2 text-xs text-green-600 whitespace-nowrap font-normal tracking-wide"
               style={geist}
             >
               <span className="w-1 h-1 rounded-full bg-green-400 flex-shrink-0" />
@@ -392,7 +391,7 @@ const LandingPage: React.FC = () => {
 
       <main>
         {/*  Hero */}
-        <section aria-label="Hero" className="relative pt-28 sm:pt-32 md:pt-40 pb-0 px-4 sm:px-6 overflow-hidden bg-white">
+        <section aria-label="Hero" className="relative pt-28 sm:pt-32 md:pt-30 pb-0 px-4 sm:px-6 overflow-hidden bg-white">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div variants={stagger} initial="hidden" animate="visible">
 
@@ -414,7 +413,7 @@ const LandingPage: React.FC = () => {
 
               <motion.p
                 variants={itemFade}
-                className="text-base sm:text-lg text-gray-500 max-w-xl mx-auto mb-10 leading-relaxed font-normal"
+                className="text-base sm:text-lg text-gray-700 max-w-xl mx-auto mb-8 leading-relaxed font-normal"
                 style={geist}
               >
                 BrainCache helps you save content from anywhere and get instant AI answers
@@ -423,7 +422,7 @@ const LandingPage: React.FC = () => {
 
               <motion.div
                 variants={itemFade}
-                className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-6"
+                className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-5"
               >
                 <motion.button
                   onClick={handleGetStarted}
@@ -439,21 +438,20 @@ const LandingPage: React.FC = () => {
                 </motion.button>
               </motion.div>
 
-              {/* <motion.p variants={itemFade} className="text-sm text-gray-700 pt-5 mb-16" style={geist}>
-                Free to use · AI-powered · No credit card required
-              </motion.p> */}
+              <motion.p variants={itemFade} className="text-sm text-green-900 pt-3 mb-16" style={geist}>
+                Your personal knowledge base - searchable with AI.
+              </motion.p>
 
             </motion.div>
           </div>
 
-          <Ticker />
         </section>
-
+        <Ticker />
         {/* Stats */}
         <section aria-label="Stats" className="py-10 sm:py-8 px-4 sm:px-6 bg-white">
           <div className="max-w-5xl mx-auto">
             <motion.div
-              className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-gray-100 border border-gray-100 rounded-2xl overflow-hidden"
+              className="grid grid-cols-4 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-gray-100 border border-gray-100 rounded-2xl overflow-hidden"
               variants={stagger}
               initial="hidden"
               whileInView="visible"
@@ -758,7 +756,7 @@ const LandingPage: React.FC = () => {
         </section>
 
         {/*  Product Preview */}
-        <section aria-label="Product preview" className="py-20 sm:py-24 px-4 sm:px-6 bg-white border-t border-gray-100">
+        <section aria-label="Product preview" className="py-20 sm:py-24 px-4 sm:px-6 bg-white border border-gray-900">
           <div className="max-w-5xl mx-auto">
             <motion.div
               className="text-center mb-10"
@@ -865,15 +863,15 @@ const LandingPage: React.FC = () => {
             role="contentinfo"
             className="relative max-w-6xl mx-auto py-7 sm:py-8 flex flex-col sm:flex-row items-center justify-between gap-4" >
             <div className="flex items-center gap-2">
-              <img src="BrainCachelogo.png" alt="" className="w-6 h-6 object-contain opacity-80" aria-hidden />
+              <img src="BrainCachelogowhite.png" alt="" className="w-6 h-6 object-contain opacity-80" aria-hidden />
               <span className="text-sm text-white" style={{ fontFamily: "'Orbitron', sans-serif" }}>
                 Brain<span className="text-green-600">Cache<span className='text-white'>.ai</span></span>
               </span>
             </div>
 
-            <p className="text-xs text-white text-center font-normal" style={geist}>
-              © {new Date().getFullYear()} BrainCache · Built by{' '}
-              <span className="text-white italic" style={{ fontFamily: "'Orbitron', sans-serif" }}>Shashank Mishra</span>
+            <p className="text-xs text-white text-center font-normal" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+              © {new Date().getFullYear()} BrainCache.ai
+              <span className="text-white" style={geist}> · Built by{' '}Shashank</span>
             </p>
 
             <div className="flex items-center gap-1.5 text-xs text-white/25 font-normal" style={geist}>

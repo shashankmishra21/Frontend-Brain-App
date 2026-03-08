@@ -389,8 +389,8 @@ export function Card({
     return (
         <>
             <div
-                className={`bg-white shadow-lg rounded-xl border border-gray-200 w-80 h-[435px] flex flex-col overflow-hidden hover:shadow-xl transition-all duration-300 relative`}>
-                <div className="flex justify-between items-start px-4 py-3 flex-shrink-0 bg-grey-100 border-b">
+                className={`bg-gray-100 shadow-md rounded-xl border border-gray-200 w-full min-h-[320px] flex flex-col overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200`}>
+                <div className="flex justify-between items-start px-4 py-3 flex-shrink-0 bg-gray-50 border-b border-gray-200">
                     <div className="flex items-center gap-1 flex-1 min-w-0">
                         <span className="text-lg flex-shrink-0">{getTypeIcon(type)}</span>
                         <h3 className="font-semibold text-gray-800 truncate text-sm" title={title}>
@@ -404,7 +404,7 @@ export function Card({
                                 e.stopPropagation();
                                 openBiggerCard();
                             }}
-                            className="text-blue-600 hover:text-blue-800 px-3 py-1 rounded bg-blue-100 hover:bg-blue-200 text-sm font-semibold"
+                            className="text-green-600 hover:text-green-800 px-3 py-1 rounded bg-green-100 hover:bg-green-200 text-sm font-semibold"
                             aria-label="View bigger content"
                         >
                             View
