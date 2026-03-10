@@ -40,7 +40,7 @@ export function Signin() {
   };
 
   return (
-    <div className="h-screen h-dvh min-h-dvh flex flex-col relative overflow-hidden" style={geist}>
+    <div className="h-screen flex flex-col relative overflow-hidden" style={geist}>
 
       {/* Background layers */}
       <div
@@ -52,7 +52,7 @@ export function Signin() {
       <div className="absolute bottom-0 left-0 right-0 h-[55%] bg-gradient-to-t from-green-950/80 via-black/60 to-transparent" />
 
       {/* Top — logo floats on bg, always visible */}
-     <div className="relative z-10 flex-[0.40] md:flex-1 flex flex-col items-center justify-center gap-2 px-4">
+     <div className="relative z-10 flex-[0.5] md:flex-1 flex flex-col items-center justify-center gap-2 px-4">
         <img
           src="BrainCachelogowhite.png"
           alt="BrainCache"
