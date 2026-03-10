@@ -40,7 +40,7 @@ export function Signin() {
   };
 
   return (
-    <div className="min-h-screen min-h-dvh flex flex-col relative overflow-hidden" style={geist}>
+    <div className="h-screen h-dvh min-h-dvh flex flex-col relative overflow-hidden" style={geist}>
 
       {/* Background layers */}
       <div
