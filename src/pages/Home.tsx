@@ -72,165 +72,168 @@ function Home() {
   };
 
   const isLoggedIn = !!localStorage.getItem("token");
-//<div className="flex min-h-screen bg-zinc-950"></div>
+  //<div className="flex min-h-screen bg-zinc-950"></div>
   return (
-  <div className="flex min-h-screen bg-gray-950 text-white">
-    <Sidebar onSelectType={setSelectedType} />
+    <div className="flex min-h-screen bg-gray-950 text-white">
+      <Sidebar onSelectType={setSelectedType} />
 
-    <div className="flex-1 overflow-y-auto max-h-screen">
-      <CreateComponentModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        onSuccess={handleContentCreated}
-      />
+      <div className="flex-1 overflow-y-auto max-h-screen">
+        <CreateComponentModal
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          onSuccess={handleContentCreated}
+        />
 
-      {/* Header */}
-      <div className="sticky top-0 z-30 bg-gray-950/90 backdrop-blur border-b border-gray-800">
-        <div className="flex items-center justify-between px-8 py-5">
+        {/* Header */}
+        <div className="sticky top-0 z-30 bg-gray-950/90 backdrop-blur border-b border-gray-800">
+          <div className="flex items-center justify-between px-4 py-4 md:px-8 md:py-5">
 
-          <div>
-            <p className="text-xs text-white-500 uppercase tracking-widest">
-              Welcome back
-            </p>
-            <h1 className="text-xl font-semibold text-white italic" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-              {username}
-              <span className="text-green-400">.</span>
-            </h1>
+            <div className="ml-12 md:ml-0">
+              <p className="hidden md:block text-xs text-white-500 uppercase tracking-widest">
+                Welcome back
+              </p>
+              <h1 className="text-base md:text-xl font-semibold text-white italic" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                {username}
+                <span className="text-green-400">.</span>
+              </h1>
+            </div>
+
+            <div className="flex items-center gap-3">
+
+              {isLoggedIn && (
+                <>
+                  <button
+                    onClick={handleShare}
+                    className="flex items-center justify-center w-8 h-8 md:w-auto md:h-auto md:px-4 md:py-2 text-sm text-gray-300 bg-gray-900 hover:bg-gray-800 border border-gray-800 rounded-lg transition"
+                    style={{ fontFamily: "'Orbitron', sans-serif" }} >
+
+                    <Share2 className="w-4 h-4" />
+                    <span className="hidden md:inline ml-2">Share</span>
+                  </button>
+
+                  <button
+                    onClick={() => setModalOpen(true)}
+                    className="flex items-center justify-center w-8 h-8 md:w-auto md:h-auto md:px-4 md:py-2 text-sm font-medium text-black bg-green-500 hover:bg-green-600 rounded-lg transition"
+                  >
+                    <Plus className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                    <span className="hidden md:inline ml-2">Add</span>
+                  </button>
+                </>
+              )}
+
+              {!isLoggedIn && (
+                <button
+                  onClick={() => window.location.href = "/signin"}
+                  className="px-4 py-2 text-sm font-medium text-black bg-green-500 hover:bg-green-600 rounded-lg"
+                >
+                  Sign In
+                </button>
+              )}
+            </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          {/* Search */}
+          {isLoggedIn && !loading && !error && (
+            <div className="px-3 md:px-8 pb-4 md:pb-6">
+              <div className="relative max-w-xxl">
 
-            {isLoggedIn && (
-              <>
-                <button
-                  onClick={handleShare}
-                  className="flex items-center gap-2 px-4 py-2 text-sm text-gray-300 bg-gray-900 hover:bg-gray-800 border border-gray-800 rounded-lg transition" style={{ fontFamily: "'Orbitron', sans-serif" }} >
-                  <Share2 className="w-4 h-4" />
-                  Share
-                </button>
+                {searching ? (
+                  <Loader2 className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 md:w-4 md:h-4 animate-spin text-gray-400" />
+                ) : (
+                  <Search className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 md:w-4 md:h-4 text-gray-500" />
+                )}
 
-                <button
-                  onClick={() => setModalOpen(true)}
-                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-black bg-green-500 hover:bg-green-600 rounded-lg transition" style={{ fontFamily: "'Orbitron', sans-serif" }} >
-                  <Plus className="w-4 h-4" />
-                  Add
-                </button>
-              </>
-            )}
+                <input
+                  type="text"
+                  placeholder="Ask your knowledge base..."
+                  value={searchQuery}
+                  onChange={(e) => handleSearch(e.target.value)}
+                  className="w-full pl-9 pr-8 py-2.5 md:pl-11 md:pr-10 md:py-3 bg-gray-900 border border-gray-800 rounded-xl text-xs md:text-sm"
+                />
 
-            {!isLoggedIn && (
+                {searchQuery && (
+                  <button
+                    onClick={clearSearch}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300"
+                  >
+                    <X className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                  </button>
+                )}
+              </div>
+
+              {searchQuery && !searching && (
+                <p className="text-xs text-gray-500 mt-2">
+                  {filteredContents.length} result
+                  {filteredContents.length !== 1 ? "s" : ""}
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* AI Answer */}
+        {aiAnswer && !searching && (
+          <div className="px-8 pt-6">
+            <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <p className="text-xs font-semibold text-green-400 uppercase tracking-wider">
+                  BrainCache AI
+                </p>
+              </div>
+              <p className="text-sm text-gray-300">{aiAnswer}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Content Area */}
+        <div className="px-8 py-8">
+
+          {loading && (
+            <div className="flex flex-col items-center justify-center py-24 gap-3">
+              <Loader2 className="w-6 h-6 animate-spin text-gray-500" />
+              <p className="text-sm text-gray-500">Loading your library...</p>
+            </div>
+          )}
+
+          {error && (
+            <div className="flex flex-col items-center py-24">
+              <p className="text-gray-400 mb-4">
+                Please sign in to view your library
+              </p>
               <button
                 onClick={() => window.location.href = "/signin"}
-                className="px-4 py-2 text-sm font-medium text-black bg-green-500 hover:bg-green-600 rounded-lg"
+                className="text-green-400 hover:text-green-300"
               >
-                Sign In
+                Sign in →
               </button>
-            )}
-          </div>
-        </div>
-
-        {/* Search */}
-        {isLoggedIn && !loading && !error && (
-          <div className="px-8 pb-6">
-            <div className="relative max-w-xxl">
-
-              {searching ? (
-                <Loader2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 animate-spin text-gray-400" />
-              ) : (
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-              )}
-
-              <input
-                type="text"
-                placeholder="Ask your knowledge base..."
-                value={searchQuery}
-                onChange={(e) => handleSearch(e.target.value)}
-                className="w-full pl-11 pr-10 py-3 bg-gray-900 border border-gray-800 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500/40 focus:border-green-500/40 transition"
-              />
-
-              {searchQuery && (
-                <button
-                  onClick={clearSearch}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              )}
             </div>
+          )}
 
-            {searchQuery && !searching && (
-              <p className="text-xs text-gray-500 mt-2">
-                {filteredContents.length} result
-                {filteredContents.length !== 1 ? "s" : ""}
-              </p>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* AI Answer */}
-      {aiAnswer && !searching && (
-        <div className="px-8 pt-6">
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-            <div className="flex items-center gap-2 mb-3">
-              <p className="text-xs font-semibold text-green-400 uppercase tracking-wider">
-                BrainCache AI
-              </p>
+          {!loading && !error && filteredContents.length > 0 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {filteredContents.map((content) => (
+                <Card
+                  key={content._id ?? "default-id"}
+                  title={content.title ?? ""}
+                  link={content.link ?? ""}
+                  description={content.description}
+                  type={content.type as any}
+                  contentId={content._id ?? ""}
+                  fileName={content.fileName}
+                  fileSize={content.fileSize}
+                  hasFile={!!content.fileName}
+                  downloadUrl={content.downloadUrl}
+                  onDeleteSuccess={() => setRefetch(prev => !prev)}
+                  aiSummary={content.aiSummary}
+                  aiTags={content.aiTags}
+                />
+              ))}
             </div>
-            <p className="text-sm text-gray-300">{aiAnswer}</p>
-          </div>
+          )}
         </div>
-      )}
-
-      {/* Content Area */}
-      <div className="px-8 py-8">
-
-        {loading && (
-          <div className="flex flex-col items-center justify-center py-24 gap-3">
-            <Loader2 className="w-6 h-6 animate-spin text-gray-500" />
-            <p className="text-sm text-gray-500">Loading your library...</p>
-          </div>
-        )}
-
-        {error && (
-          <div className="flex flex-col items-center py-24">
-            <p className="text-gray-400 mb-4">
-              Please sign in to view your library
-            </p>
-            <button
-              onClick={() => window.location.href = "/signin"}
-              className="text-green-400 hover:text-green-300"
-            >
-              Sign in →
-            </button>
-          </div>
-        )}
-
-        {!loading && !error && filteredContents.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {filteredContents.map((content) => (
-              <Card
-                key={content._id ?? "default-id"}
-                title={content.title ?? ""}
-                link={content.link ?? ""}
-                description={content.description}
-                type={content.type as any}
-                contentId={content._id ?? ""}
-                fileName={content.fileName}
-                fileSize={content.fileSize}
-                hasFile={!!content.fileName}
-                downloadUrl={content.downloadUrl}
-                onDeleteSuccess={() => setRefetch(prev => !prev)}
-                aiSummary={content.aiSummary}
-                aiTags={content.aiTags}
-              />
-            ))}
-          </div>
-        )}
       </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default Home;
