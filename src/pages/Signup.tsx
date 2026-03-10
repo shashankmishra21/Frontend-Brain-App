@@ -39,7 +39,7 @@ export function Signup() {
   };
 
   return (
-    <div className="min-h-screen min-h-dvh flex flex-col relative overflow-hidden" style={geist}>
+    <div className="h-dvh flex flex-col relative overflow-hidden" style={geist}>
 
       {/* Background layers */}
       <div
@@ -51,7 +51,7 @@ export function Signup() {
       <div className="absolute bottom-0 left-0 right-0 h-[55%] bg-gradient-to-t from-green-950/80 via-black/60 to-transparent" />
 
       {/* Top — logo on bg */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-3 px-4">
+     <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-2 px-4">
         <img
           src="BrainCachelogowhite.png"
           alt="BrainCache"
@@ -73,8 +73,8 @@ export function Signup() {
         initial={{ y: 60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="relative z-10 w-full bg-[#0c0c0c]/95 backdrop-blur-md border-t border-green-500/20 rounded-t-3xl px-5 pt-8 pb-10 sm:px-8 md:px-0"
-      >
+       className="relative z-10 w-full mt-auto bg-[#0c0c0c]/95 backdrop-blur-md border-t border-green-500/20 rounded-t-3xl px-5 pt-8 pb-6">
+
         <div className="w-full md:max-w-lg md:mx-auto md:px-12 lg:max-w-xl lg:px-16">
 
           <h1 className="text-xl md:text-2xl font-bold text-white mb-1">
