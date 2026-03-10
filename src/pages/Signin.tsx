@@ -52,11 +52,11 @@ export function Signin() {
       <div className="absolute bottom-0 left-0 right-0 h-[55%] bg-gradient-to-t from-green-950/80 via-black/60 to-transparent" />
 
       {/* Top — logo floats on bg, always visible */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-2 px-4">
+      <div className="relative z-10 flex-[0.35] flex flex-col items-center justify-center gap-2 px-4">
         <img
           src="BrainCachelogowhite.png"
           alt="BrainCache"
-          className="w-14 h-14 md:w-20 md:h-20 drop-shadow-lg"
+          className="w-12 h-12 md:w-20 md:h-20 drop-shadow-lg"
         />
         <span
           className="text-white font-bold text-2xl md:text-3xl tracking-tight drop-shadow-md"
