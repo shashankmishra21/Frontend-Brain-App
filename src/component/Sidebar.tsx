@@ -73,25 +73,24 @@ export function Sidebar({ onSelectType }: SidebarProps) {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 z-50 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
-        ${isOpen ? "translate-x-0" : "-translate-x-full"}
-        lg:translate-x-0 lg:static lg:block overflow-hidden`}
+        className={`fixed top-0 left-0 h-dvh w-64 z-50 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
+  ${isOpen ? "translate-x-0" : "-translate-x-full"}
+  lg:translate-x-0 lg:static lg:block`}
       >
-        <div className="h-screen flex flex-col overflow-hidden">
+        <div className="h-full flex flex-col overflow-hidden">
 
           {/* Logo */}
-          <div className="flex items-center justify-between px-5 py-5 border-b border-gray-800">
+          <div className="flex items-center justify-between px-5 py-5 border-b border-gray-800 shrink-0">
             <div className="flex items-center gap-1.5">
               <img
-                src="BrainCachelogo.png"
+                src="/BrainCachelogo.png"
                 alt="BrainCache"
                 className="w-10 h-10 object-contain"
               />
-              <span className="text-[20px] font-bold tracking-tight text-gray-900 " style={{ fontFamily: "'Orbitron', sans-serif" }}>
+              <span className="text-[20px] font-bold tracking-tight text-gray-900" style={{ fontFamily: "'Orbitron', sans-serif" }}>
                 Brain<span className="text-green-600">Cache.ai</span>
               </span>
             </div>
-
             <button
               className="lg:hidden text-gray-400 hover:text-white"
               onClick={() => setIsOpen(false)}
@@ -101,14 +100,14 @@ export function Sidebar({ onSelectType }: SidebarProps) {
           </div>
 
           {/* Nav Label */}
-          <div className="px-5 pt-5 pb-2">
+          <div className="px-5 pt-5 pb-2 shrink-0">
             <p className="text-[10px] text-gray-900 font-medium uppercase tracking-[0.2em]">
               Filter by type
             </p>
           </div>
 
-          {/* Nav Items */}
-          <nav className="flex flex-col gap-1 px-3 flex-1 " style={{ fontFamily: "'Orbitron', sans-serif" }}>
+          {/* Nav Items — scrollable if needed */}
+          <nav className="flex flex-col gap-1 px-3 flex-1 overflow-y-auto" style={{ fontFamily: "'Orbitron', sans-serif" }}>
             {NAV_ITEMS.map(({ text, icon, type }) => (
               <SidebarItem
                 key={type}
@@ -121,12 +120,12 @@ export function Sidebar({ onSelectType }: SidebarProps) {
           </nav>
 
           {/* Bottom */}
-          <div className="border-t border-gray-800 p-4 space-y-3">
-
+          <div className="border-t border-gray-800 p-4 space-y-3 shrink-0">
             {isLoggedIn && (
               <motion.button
                 onClick={logout}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-900 border border-gray-800 text-gray-200 text-sm font-medium rounded-lg hover:bg-gray-800 hover:text-white transition-all" style={{ fontFamily: "'Orbitron', sans-serif" }}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-900 border border-gray-800 text-gray-200 text-sm font-medium rounded-lg hover:bg-gray-800 hover:text-white transition-all"
+                style={{ fontFamily: "'Orbitron', sans-serif" }}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -140,14 +139,11 @@ export function Sidebar({ onSelectType }: SidebarProps) {
                 © {new Date().getFullYear()} BrainCache.ai
               </p>
               <p className="text-[10px] text-gray-900">
-                Built by{" "}
-                <span className="text-gray-900">
-                  Shashank
-                </span>
+                Built by <span className="text-gray-900">Shashank</span>
               </p>
             </div>
-
           </div>
+
         </div>
       </div>
     </>

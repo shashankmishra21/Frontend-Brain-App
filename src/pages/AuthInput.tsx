@@ -1,4 +1,4 @@
-// shared component — AuthInput.tsx (create this file)
+// shared component
 import { forwardRef } from "react";
 
 interface AuthInputProps {
