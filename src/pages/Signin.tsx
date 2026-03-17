@@ -31,6 +31,7 @@ export function Signin() {
         password,
       });
       localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify({ name: username }));
       toast.success("Welcome back!");
       navigate("/main", { replace: true });
     } catch (err) {
@@ -52,7 +53,7 @@ export function Signin() {
       <div className="absolute bottom-0 left-0 right-0 h-[55%] bg-gradient-to-t from-green-950/80 via-black/60 to-transparent" />
 
       {/* Top — logo floats on bg, always visible */}
-     <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-2 px-4">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-2 px-4">
         <img
           src="BrainCachelogowhite.png"
           alt="BrainCache"

@@ -332,7 +332,7 @@ const LandingPage: React.FC = () => {
               className="text-[14px] sm:text-[26px] font-semibold tracking-[-0.01em] text-gray-900"
               style={{ fontFamily: "'Orbitron', sans-serif" }}
             >
-              Brain<span className="text-green-600">Cache<span className='text-black'>.ai</span></span>
+              Brain<span className="text-green-600">Cache</span>
             </span>
 
           </motion.button>
@@ -345,7 +345,7 @@ const LandingPage: React.FC = () => {
                 {/* Online indicator — hidden on mobile */}
                 {user?.name && (
                   <span
-                    className="hidden md:flex items-center gap-1.5 text-[13px] text-gray-400 mr-2 select-none"
+                    className="hidden md:flex items-center gap-1.5 text-[13px] text-gray-600 mr-2 select-none"
                     style={geist}
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse flex-shrink-0" />
@@ -355,7 +355,7 @@ const LandingPage: React.FC = () => {
 
                 {/* Dashboard — icon-only on sm, text+icon on md+ */}
                 <NavButton onClick={handleGetStarted} variant="ghost">
-                  <span className="hidden sm:inline">Dashboard</span>
+                  <span className="hidden sm:inline text-gray-700">Dashboard</span>
                   <ArrowRight className="w-3.5 h-3.5" aria-hidden />
                 </NavButton>
 
@@ -397,7 +397,7 @@ const LandingPage: React.FC = () => {
 
               <motion.h1
                 variants={itemFade}
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-normal leading-[1.06] tracking-[-0.035em] text-gray-900 mb-6"
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-normal leading-[1.06] tracking-[-0.035em] text-gray-900 mb-8 mt-2"
                 style={geist}
               >
                 <span className="text-green-600" style={{ fontFamily: "'Orbitron', sans-serif" }}>
@@ -413,7 +413,7 @@ const LandingPage: React.FC = () => {
 
               <motion.p
                 variants={itemFade}
-                className="text-base sm:text-lg text-gray-700 max-w-xl mx-auto mb-8 leading-relaxed font-normal"
+                className="text-base sm:text-xl text-gray-700 max-w-xl mx-auto mb-8 leading-relaxed font-normal"
                 style={geist}
               >
                 BrainCache helps you save content from anywhere and get instant AI answers
@@ -422,11 +422,11 @@ const LandingPage: React.FC = () => {
 
               <motion.div
                 variants={itemFade}
-                className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-5"
+                className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-6"
               >
                 <motion.button
                   onClick={handleGetStarted}
-                  className="group flex items-center gap-2 px-4 py-2 sm:px-7 sm:py-3.5 bg-gray-950 text-white text-xs sm:text-sm font-medium rounded-lg sm:rounded-xl hover:bg-gray-800 active:bg-gray-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 w-auto justify-center"
+                  className="group flex items-center gap-2 px-4 py-4 sm:px-7 sm:py-3.5 bg-gray-950 text-white text-xs sm:text-sm font-medium rounded-lg sm:rounded-xl hover:bg-gray-800 active:bg-gray-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 w-auto justify-center"
 
                   style={geist}
                   whileHover={{ scale: 1.02 }}
@@ -438,7 +438,7 @@ const LandingPage: React.FC = () => {
                 </motion.button>
               </motion.div>
 
-              <motion.p variants={itemFade} className="text-sm text-green-900 pt-3 mb-16" style={geist}>
+              <motion.p variants={itemFade} className="text-sm md:text-lg text-green-900 pt-4 mb-16" style={geist}>
                 Your personal knowledge base - searchable with AI.
               </motion.p>
 
@@ -865,12 +865,12 @@ const LandingPage: React.FC = () => {
             <div className="flex items-center gap-2">
               <img src="BrainCachelogowhite.png" alt="" className="w-6 h-6 object-contain opacity-80" aria-hidden />
               <span className="text-sm text-white" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                Brain<span className="text-green-600">Cache<span className='text-white'>.ai</span></span>
+                Brain<span className="text-green-600">Cache</span>
               </span>
             </div>
 
             <p className="text-xs text-white text-center font-normal" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-              © {new Date().getFullYear()} BrainCache.ai
+              © {new Date().getFullYear()} BrainCache
               <span className="text-white" style={geist}> · Built by{' '}Shashank</span>
             </p>
 

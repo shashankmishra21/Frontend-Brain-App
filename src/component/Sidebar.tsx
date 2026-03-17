@@ -88,7 +88,7 @@ export function Sidebar({ onSelectType }: SidebarProps) {
                 className="w-10 h-10 object-contain"
               />
               <span className="text-[20px] font-bold tracking-tight text-gray-900" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                Brain<span className="text-green-600">Cache.ai</span>
+                Brain<span className="text-green-600">Cache</span>
               </span>
             </div>
             <button
@@ -136,7 +136,7 @@ export function Sidebar({ onSelectType }: SidebarProps) {
 
             <div className="text-center space-y-0.5">
               <p className="text-[10px] text-gray-900" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                © {new Date().getFullYear()} BrainCache.ai
+                © {new Date().getFullYear()} BrainCache
               </p>
               <p className="text-[10px] text-gray-900">
                 Built by <span className="text-gray-900">Shashank</span>

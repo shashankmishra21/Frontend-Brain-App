@@ -9,6 +9,7 @@ import { XIcon } from "../icons/XIcon";
 import { DocumentIcon } from "../icons/DocumentIcon";
 import { OtherIcon } from "../icons/OtherIcon";
 import { BiggerCard } from "./BiggerCard";
+import { motion } from "framer-motion";
 
 interface CardProps {
     title: string;
@@ -386,48 +387,68 @@ export function Card({
     const openBiggerCard = () => setBiggerCardOpen(true);
     const closeBiggerCard = () => setBiggerCardOpen(false);
 
+
+
     return (
         <>
-            <div
-                className={`bg-gray-100 shadow-md rounded-xl border border-gray-200 w-full min-h-[320px] flex flex-col overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200`}>
+            <motion.div
+                initial={{ opacity: 0, y: 25, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                whileHover={{ y: -6, scale: 1.02 }}
+                className="bg-white shadow-md rounded-xl border border-gray-200 w-full min-h-[320px] flex flex-col overflow-hidden transition-all"
+            >
+                {/* HEADER */}
                 <div className="flex justify-between items-start px-4 py-3 flex-shrink-0 bg-gray-50 border-b border-gray-200">
-                    <div className="flex items-center gap-1 flex-1 min-w-0">
-                        <span className="text-lg flex-shrink-0">{getTypeIcon(type)}</span>
-                        <h3 className="font-semibold text-gray-800 truncate text-sm" title={title}>
+                    <div className="flex items-center gap-2 flex-1 min-w-0">
+                        <span className="text-lg flex-shrink-0">
+                            {getTypeIcon(type)}
+                        </span>
+
+                        <h3
+                            className="font-semibold text-gray-800 truncate text-sm"
+                            title={title}
+                        >
                             {title}
                         </h3>
                     </div>
 
-                    <div className="flex gap-1">
-                        <button
+                    <div className="flex gap-2">
+                        <motion.button
+                            whileTap={{ scale: 0.9 }}
+                            whileHover={{ scale: 1.05 }}
                             onClick={(e) => {
                                 e.stopPropagation();
                                 openBiggerCard();
                             }}
-                            className="text-green-600 hover:text-green-800 px-3 py-1 rounded bg-green-100 hover:bg-green-200 text-sm font-semibold"
+                            className="text-green-700 px-3 py-1 rounded-md bg-green-100 hover:bg-green-200 text-xs font-semibold transition"
                             aria-label="View bigger content"
                         >
                             View
-                        </button>
+                        </motion.button>
+
                         {!readonly && (
-                            <button
+                            <motion.button
+                                whileTap={{ scale: 0.9 }}
+                                whileHover={{ rotate: 8, scale: 1.05 }}
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     handleDelete();
                                 }}
-                                className="text-gray-500 text-red-600 p-1.5 rounded-full bg-red-50 transition-all duration-200"
+                                className="text-red-600 p-2 rounded-full bg-red-50 hover:bg-red-100 transition"
                                 aria-label="Delete content"
                             >
                                 <TrashIcon />
-                            </button>
+                            </motion.button>
                         )}
                     </div>
                 </div>
 
-                <div className="p-3 flex-shrink-0 relative">
+                {/* CONTENT */}
+                <div className="p-4 flex-1 relative">
                     {renderContent()}
                 </div>
-            </div>
+            </motion.div>
 
             <BiggerCard
                 open={biggerCardOpen}
@@ -442,8 +463,8 @@ export function Card({
                 downloadUrl={downloadUrl}
                 contentId={contentId}
                 aiSummary={aiSummary}
-                aiTags={aiTags} />
-
+                aiTags={aiTags}
+            />
         </>
     );
 }
