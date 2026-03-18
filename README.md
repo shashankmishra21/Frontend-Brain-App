@@ -2,7 +2,7 @@
 
 > Capture. Organize. Retrieve.  
 > Your personal AI-powered knowledge engine - now searchable in seconds.
-
+> This repository contains the frontend application for BrainCache.
 ---
 
 ## 🚀 Overview
