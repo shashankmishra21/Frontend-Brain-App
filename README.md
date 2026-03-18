@@ -78,15 +78,16 @@ The frontend enables users to:
 
 ## 📂 Project Structure
 
+```
 src/
-│
-├── components/        Reusable UI components  
-├── pages/             Route-level pages  
-├── services/          API integration layer  
-├── hooks/             Custom React hooks  
-├── utils/             Utility/helper functions  
-├── assets/            Static assets (icons, images)  
-└── App.tsx            Root application component  
+├── components/        # UI components (cards, modals, navbar)
+├── pages/             # Application pages (dashboard, auth)
+├── services/          # API calls (backend integration)
+├── hooks/             # Custom React hooks
+├── utils/             # Helper functions
+├── assets/            # Images and icons
+└── App.tsx            # Main app entry
+```  
 
 ---
 
