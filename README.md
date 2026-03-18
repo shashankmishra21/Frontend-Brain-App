@@ -1,54 +1,187 @@
-# React + TypeScript + Vite
+# 🧠 BrainCache – AI Knowledge Engine
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Capture. Organize. Retrieve.  
+> Your personal AI-powered knowledge engine — now searchable in seconds.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Overview
 
-## Expanding the ESLint configuration
+BrainCache is a modern AI-powered personal knowledge management platform designed to function as a **personal knowledge engine**.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This repository contains the **frontend application**, built with a focus on performance, scalability, and exceptional user experience.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+The frontend enables users to:
+- Capture content from multiple sources (documents, social media, links)
+- Organize knowledge using intelligent UI patterns
+- Interact with their data using natural language
+- Retrieve context-aware insights powered by AI
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ✨ Features
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### 🔍 AI-Powered Search
+- Natural language query interface
+- Instant answers from personal knowledge
+- Seamless UX for querying saved content
+
+### 📥 Universal Content Capture
+- Save content from:
+  - YouTube
+  - LinkedIn
+  - Twitter (X)
+  - Instagram
+  - Documents (PDF, DOC, PPT)
+- Unified content ingestion experience
+
+### 🧠 Smart Knowledge UI
+- Clean card-based layout for content visualization
+- Categorized filtering (All, Docs, Social, etc.)
+- Responsive and intuitive dashboard
+
+### 🏷️ Auto Organization
+- AI-powered tagging and summaries (via backend)
+- Structured display for quick scanning
+
+### 🔗 Brain Sharing
+- Share curated knowledge via public links
+- Built for collaboration and showcasing insights
+
+### ⚡ High Performance UX
+- Optimized rendering and state handling
+- Fast interactions with backend APIs
+- Smooth animations using Framer Motion
+
+---
+
+## 🖥️ Tech Stack
+
+| Category        | Technology |
+|----------------|------------|
+| Framework      | React.js |
+| Language       | TypeScript |
+| Styling        | Tailwind CSS |
+| Animations     | Framer Motion |
+| State Mgmt     | React Hooks |
+| API Layer      | REST APIs |
+| Build Tool     | Vite |
+| Deployment     | Vercel |
+
+---
+
+## 📂 Project Structure
+
+src/
+│
+├── components/        Reusable UI components  
+├── pages/             Route-level pages  
+├── services/          API integration layer  
+├── hooks/             Custom React hooks  
+├── utils/             Utility/helper functions  
+├── assets/            Static assets (icons, images)  
+└── App.tsx            Root application component  
+
+---
+
+## ⚙️ Setup & Installation
+
+1. Clone the repository
+git clone https://github.com/shashankmishra21/braincache-frontend.git  
+cd braincache-frontend  
+
+2. Install dependencies
+npm install  
+
+3. Configure environment variables  
+Create a `.env` file in the root directory and add:  
+
+VITE_BACKEND_URL=your_backend_api_url  
+
+4. Run the development server  
+npm run dev  
+
+---
+
+## 🌐 Deployment
+
+The application is deployed on Vercel:
+
+https://braincache.vercel.app
+
+---
+
+## 🧩 Key UI Sections
+
+### Landing Page
+- Hero section with product messaging  
+- Feature highlights and value proposition  
+- Sections targeting developers, students, creators, and founders  
+
+### Dashboard
+- Sidebar with content filters (All, YouTube, LinkedIn, etc.)  
+- Search bar for querying knowledge  
+- Content cards with preview and actions  
+- Actions: View, Delete, Share  
+
+### Interactive Components
+- Embedded previews (YouTube, social posts)  
+- Dynamic content cards  
+- Responsive grid layouts  
+
+---
+
+## 🔐 Security Considerations
+
+- JWT-based authentication handled via backend  
+- Secure API communication  
+- Client-side input validation  
+- Protection against common vulnerabilities through backend integration  
+
+---
+
+## 🎯 Design Philosophy
+
+- Minimal and distraction-free interface  
+- Fast and responsive interactions  
+- Focus on usability and clarity  
+- Transform passive saved content into active knowledge  
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome.
+
+Fork the repository  
+Create a feature branch  
+Commit your changes  
+Push to your branch and open a PR  
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 👨‍💻 Author
+
+Shashank Mishra  
+
+GitHub: https://github.com/shashankmishra21  
+Portfolio: https://shashankmishra.tech  
+
+---
+
+## 💡 Inspiration
+
+Stop Googling the same thing twice.  
+BrainCache is built to make your saved knowledge actually useful.
+
+---
+
+## ⭐ Show Your Support
+
+If you like this project, give it a star on GitHub.
