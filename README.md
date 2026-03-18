@@ -1,7 +1,7 @@
 # 🧠 BrainCache – AI Knowledge Engine
 
 > Capture. Organize. Retrieve.  
-> Your personal AI-powered knowledge engine — now searchable in seconds.
+> Your personal AI-powered knowledge engine - now searchable in seconds.
 
 ---
 
@@ -12,7 +12,7 @@ BrainCache is a modern AI-powered personal knowledge management platform designe
 This repository contains the **frontend application**, built with a focus on performance, scalability, and exceptional user experience.
 
 The frontend enables users to:
-- Capture content from multiple sources (documents, social media, links)
+- Capture content from multiple sources (custom contents, links, documents, social media)
 - Organize knowledge using intelligent UI patterns
 - Interact with their data using natural language
 - Retrieve context-aware insights powered by AI
@@ -27,13 +27,19 @@ The frontend enables users to:
 - Seamless UX for querying saved content
 
 ### 📥 Universal Content Capture
-- Save content from:
-  - YouTube
-  - LinkedIn
-  - Twitter (X)
-  - Instagram
-  - Documents (PDF, DOC, PPT)
-- Unified content ingestion experience
+- Capture and store **any type of content**:
+  - Notes
+  - Links
+  - Documents
+  - Social media content
+- Unified ingestion system designed for flexibility and extensibility
+
+### 🌐 Supported Content Sources (UI Integrations)
+- YouTube  
+- LinkedIn  
+- Twitter (X)  
+- Instagram  
+- Documents (PDF, DOC, PPT)  
 
 ### 🧠 Smart Knowledge UI
 - Clean card-based layout for content visualization
@@ -122,7 +128,7 @@ https://braincache.vercel.app
 - Sidebar with content filters (All, YouTube, LinkedIn, etc.)  
 - Search bar for querying knowledge  
 - Content cards with preview and actions  
-- Actions: View, Delete, Share  
+- Actions: View, Edit, Delete, Share  
 
 ### Interactive Components
 - Embedded previews (YouTube, social posts)  
