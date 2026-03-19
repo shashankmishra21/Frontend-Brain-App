@@ -397,7 +397,7 @@ const LandingPage: React.FC = () => {
 
               <motion.h1
                 variants={itemFade}
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-normal leading-[1.06] tracking-[-0.035em] text-gray-900 mb-8 mt-2"
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-normal leading-[1.06] tracking-[-0.035em] text-gray-900 mb-4 md:mb-8 mt-2"
                 style={geist}
               >
                 <span className="text-green-600" style={{ fontFamily: "'Orbitron', sans-serif" }}>
@@ -413,7 +413,7 @@ const LandingPage: React.FC = () => {
 
               <motion.p
                 variants={itemFade}
-                className="text-base sm:text-xl text-gray-700 max-w-xl mx-auto mb-8 leading-relaxed font-normal"
+                className="text-base sm:text-xl text-gray-700 max-w-xl mx-auto mb-5 md:mb-8 leading-relaxed font-normal"
                 style={geist}
               >
                 BrainCache helps you save content from anywhere and get instant AI answers
@@ -438,7 +438,7 @@ const LandingPage: React.FC = () => {
                 </motion.button>
               </motion.div>
 
-              <motion.p variants={itemFade} className="text-sm md:text-lg text-green-900 pt-4 mb-16" style={geist}>
+              <motion.p variants={itemFade} className="text-sm md:text-lg text-green-900 pt-3 md:pt-4 mb-8 md:mb-16" style={geist}>
                 Your personal knowledge base - searchable with AI.
               </motion.p>
 
