@@ -390,61 +390,218 @@ const LandingPage: React.FC = () => {
       </motion.header>
 
       <main>
-        {/*  Hero */}
-        <section aria-label="Hero" className="relative pt-28 sm:pt-32 md:pt-30 pb-0 px-4 sm:px-6 overflow-hidden bg-white">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.div variants={stagger} initial="hidden" animate="visible">
+        {/* Hero */}
+        <section
+          aria-label="Hero"
+          className="relative pt-28 sm:pt-32 md:pt-36 pb-16 md:pb-24 px-4 sm:px-6 overflow-hidden"
+        >
+          {/* Gradient background */}
+          <div
+            className="absolute inset-0 bg-gradient-to-br from-green-50/70 via-white to-emerald-50/50"
+            aria-hidden
+          />
+          {/* Animated background orbs */}
+          <motion.div
+            className="absolute top-16 right-[5%] w-[480px] h-[480px] rounded-full pointer-events-none"
+            style={{ background: 'radial-gradient(circle, rgba(134,239,172,0.18) 0%, transparent 70%)' }}
+            animate={{ scale: [1, 1.08, 1], opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+            aria-hidden
+          />
+          <motion.div
+            className="absolute -bottom-10 left-[10%] w-[320px] h-[320px] rounded-full pointer-events-none"
+            style={{ background: 'radial-gradient(circle, rgba(52,211,153,0.12) 0%, transparent 70%)' }}
+            animate={{ scale: [1, 1.12, 1], opacity: [0.5, 0.8, 0.5] }}
+            transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+            aria-hidden
+          />
+          <motion.div
+            className="absolute top-1/2 left-1/3 w-[200px] h-[200px] rounded-full pointer-events-none"
+            style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%)' }}
+            animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.7, 0.4] }}
+            transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
+            aria-hidden
+          />
 
-              <motion.h1
-                variants={itemFade}
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-normal leading-[1.06] tracking-[-0.035em] text-gray-900 mb-4 md:mb-8 mt-2"
-                style={geist}
-              >
-                <span className="text-green-600" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                  Capture
-                </span>{' '}the knowledge
-                <br />
-                you keep{' '}
-                <span className="text-green-600 italic" style={geist}>
-                  forgetting.
-                </span>
-              </motion.h1>
+          <div className="max-w-6xl mx-auto relative">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
+              {/* Text content */}
+              <motion.div variants={stagger} initial="hidden" animate="visible">
 
-              <motion.p
-                variants={itemFade}
-                className="text-base sm:text-xl text-gray-700 max-w-xl mx-auto mb-5 md:mb-8 leading-relaxed font-normal"
-                style={geist}
-              >
-                BrainCache helps you save content from anywhere and get instant AI answers
-                from your own knowledge — not the internet.
-              </motion.p>
-
-              <motion.div
-                variants={itemFade}
-                className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-6"
-              >
-                <motion.button
-                  onClick={handleGetStarted}
-                  className="group flex items-center gap-2 px-4 py-4 sm:px-7 sm:py-3.5 bg-gray-950 text-white text-xs sm:text-sm font-medium rounded-lg sm:rounded-xl hover:bg-gray-800 active:bg-gray-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 w-auto justify-center"
-
-                  style={geist}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
-                  aria-label={isAuthenticated ? 'Go to Dashboard' : 'Start a free trial'}
+                {/* Badge */}
+                <motion.div
+                  variants={itemFade}
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white border border-green-100 rounded-full shadow-sm mb-6"
                 >
-                  {isAuthenticated ? 'Go to Dashboard' : 'Start a free trial'}
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" aria-hidden />
-                </motion.button>
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse flex-shrink-0" aria-hidden />
+                  <span className="text-xs text-green-700 font-medium" style={geist}>
+                    AI-Powered Knowledge Base
+                  </span>
+                </motion.div>
+
+                <motion.h1
+                  variants={itemFade}
+                  className="text-5xl sm:text-6xl md:text-7xl font-normal leading-[1.06] tracking-[-0.035em] text-gray-900 mb-5 mt-2"
+                  style={geist}
+                >
+                  <span className="text-green-600" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                    Capture
+                  </span>{' '}the knowledge
+                  <br />
+                  you keep{' '}
+                  <span className="text-green-600 italic" style={geist}>
+                    forgetting.
+                  </span>
+                </motion.h1>
+
+                <motion.p
+                  variants={itemFade}
+                  className="text-base sm:text-xl text-gray-600 max-w-lg mb-8 leading-relaxed font-normal"
+                  style={geist}
+                >
+                  BrainCache helps you save content from anywhere and get instant AI answers
+                  from your own knowledge — not the internet.
+                </motion.p>
+
+                <motion.div
+                  variants={itemFade}
+                  className="flex flex-col sm:flex-row gap-3 items-start sm:items-center mb-6"
+                >
+                  <motion.button
+                    onClick={handleGetStarted}
+                    className="group flex items-center gap-2 px-6 py-3.5 bg-gray-950 text-white text-sm font-medium rounded-xl hover:bg-gray-800 active:bg-gray-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 shadow-lg shadow-gray-900/20"
+                    style={geist}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    aria-label={isAuthenticated ? 'Go to Dashboard' : 'Start a free trial'}
+                  >
+                    {isAuthenticated ? 'Go to Dashboard' : 'Start a free trial'}
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" aria-hidden />
+                  </motion.button>
+
+                  <motion.button
+                    onClick={handleSignIn}
+                    className="flex items-center gap-1.5 text-sm font-normal text-gray-600 hover:text-green-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 rounded-lg px-2 py-1"
+                    style={geist}
+                    whileHover={{ x: 2 }}
+                    whileTap={{ scale: 0.97 }}
+                    aria-label="Log in to your account"
+                  >
+                    Already have an account?{' '}
+                    <span className="font-medium text-gray-900">Log in</span>
+                    <ArrowRight className="w-3.5 h-3.5" aria-hidden />
+                  </motion.button>
+                </motion.div>
+
+                <motion.p variants={itemFade} className="text-xs text-gray-400 font-normal" style={geist}>
+                  Free to use · No credit card required · AI-powered search
+                </motion.p>
+
               </motion.div>
 
-              <motion.p variants={itemFade} className="text-sm md:text-lg text-green-900 pt-3 md:pt-4 mb-8 md:mb-16" style={geist}>
-                Your personal knowledge base - searchable with AI.
-              </motion.p>
+              {/* Hero Visual */}
+              <motion.div
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className="relative hidden lg:block"
+                aria-label="Product preview illustration"
+              >
+                {/* Floating card 1 — top-left */}
+                <motion.div
+                  className="absolute -top-4 -left-8 z-10 bg-white border border-gray-100 rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3 max-w-[200px]"
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  <div className="w-8 h-8 rounded-xl bg-violet-50 flex items-center justify-center flex-shrink-0">
+                    <Brain className="w-4 h-4 text-violet-600" aria-hidden />
+                  </div>
+                  <div>
+                    <p className="text-[11px] font-medium text-gray-900 leading-none mb-0.5" style={geist}>AI Answer</p>
+                    <p className="text-[10px] text-gray-400 leading-none" style={geist}>Ready in 80ms</p>
+                  </div>
+                </motion.div>
 
-            </motion.div>
+                {/* Floating card 2 — bottom-right */}
+                <motion.div
+                  className="absolute -bottom-4 -right-4 z-10 bg-white border border-gray-100 rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3 max-w-[200px]"
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+                >
+                  <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
+                    <Zap className="w-4 h-4 text-emerald-600" aria-hidden />
+                  </div>
+                  <div>
+                    <p className="text-[11px] font-medium text-gray-900 leading-none mb-0.5" style={geist}>Auto-tagged</p>
+                    <p className="text-[10px] text-gray-400 leading-none" style={geist}>12 items today</p>
+                  </div>
+                </motion.div>
+
+                {/* Main product mockup */}
+                <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-2xl shadow-gray-200/60 bg-gray-950">
+                  <BrowserChrome url="braincache.app/search" />
+                  {/* Dark app UI mockup */}
+                  <div className="p-6 min-h-[340px] flex flex-col gap-4">
+                    {/* Search bar */}
+                    <div className="flex items-center gap-2.5 px-4 py-3 bg-white/[0.06] border border-white/[0.1] rounded-xl">
+                      <Search className="w-4 h-4 text-white/30 flex-shrink-0" aria-hidden />
+                      <span className="text-sm text-white/35 font-normal" style={geist}>
+                        Ask anything from your notes…
+                      </span>
+                      <div className="ml-auto flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" aria-hidden />
+                        <span className="text-[10px] text-green-400/70" style={geist}>AI ready</span>
+                      </div>
+                    </div>
+
+                    {/* Content cards */}
+                    <div className="flex flex-col gap-2.5">
+                      {[
+                        { tag: 'YouTube', title: 'How transformers work — Andrej Karpathy', time: '2 days ago', color: 'bg-red-500' },
+                        { tag: 'Article', title: 'The Feynman Technique for deep learning', time: 'Last week', color: 'bg-blue-500' },
+                        { tag: 'Twitter', title: '"Build things people want, not things you want to build"', time: '3 weeks ago', color: 'bg-sky-500' },
+                      ].map((item, i) => (
+                        <motion.div
+                          key={i}
+                          className="flex items-start gap-3 px-4 py-3 bg-white/[0.04] border border-white/[0.07] rounded-xl hover:bg-white/[0.07] transition-colors cursor-pointer"
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.6 + i * 0.12, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                          <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1.5 ${item.color}`} aria-hidden />
+                          <div className="flex flex-col gap-1 min-w-0 flex-1">
+                            <div className="flex items-center justify-between gap-2">
+                              <span className="text-[10px] text-white/30 uppercase tracking-wide font-medium" style={geist}>{item.tag}</span>
+                              <span className="text-[10px] text-white/20" style={geist}>{item.time}</span>
+                            </div>
+                            <p className="text-xs text-white/65 font-normal leading-snug truncate" style={geist}>
+                              {item.title}
+                            </p>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    {/* AI answer strip */}
+                    <motion.div
+                      className="mt-auto flex items-center gap-2.5 px-4 py-3 bg-green-500/[0.1] border border-green-500/[0.2] rounded-xl"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 1.1, duration: 0.6 }}
+                    >
+                      <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse flex-shrink-0" aria-hidden />
+                      <p className="text-xs text-green-400/80 font-normal leading-snug" style={geist}>
+                        AI: Based on your notes, transformers use self-attention to process…
+                      </p>
+                    </motion.div>
+                  </div>
+                </div>
+
+              </motion.div>
+
+            </div>
           </div>
-
         </section>
         <Ticker />
         {/* Stats */}
